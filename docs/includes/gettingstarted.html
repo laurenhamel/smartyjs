@@ -1,0 +1,3320 @@
+<h1 id="getting-started-with-smartyjs">Getting Started with SmartyJS</h1>
+<p>No need to be intimidated. Smarty was designed with educators in mind: In order to make Smarty easy to use for even the non-developer, Smarty only requires the minimum amount of HTML markup necessary in order to grasp whatever it is you&#39;re after.</p>
+<p>The present version of SmartyJS (v1.0.0) offers three (3) types of interactive learning tools:</p>
+<ul>
+<li><a href="#Quizzes">Quizzes</a></li>
+<li><a href="#Crosswords">Crosswords</a></li>
+<li><a href="#Flashcards">Flashcards</a></li>
+</ul>
+<p>To learn more about how to create each of the tools above, read through the following sections in depth for more details.</p>
+<h2 id="creating-quizzes-a-id-quizzes-a-">Creating Quizzes <a id="Quizzes"></a></h2>
+<p>Quizzes are interactive exercises that online learners can use to assess their knowledge of a given topic. In order to create a Smarty quiz, follow the steps below:</p>
+<h3 id="1-initialize-the-element">1. Initialize the Element</h3>
+<p>Start by creating a <code>&lt;smarty-quiz&gt;</code> element in your HTML document:</p>
+<pre><code class="lang-html">&lt;smarty-quiz&gt;&lt;/smarty-quiz&gt;</code></pre>
+<h3 id="2-set-your-preferences">2. Set Your Preferences</h3>
+<p>Set your quiz&#39;s attributes to correspond with your preferences:</p>
+<table cellpadding="2" cellspacing="2">
+    <tr align="left">
+        <th width="20%">Attribute</th>
+        <th width="20%">Options</th>
+        <th width="20%">Default</th>
+        <th width="40%">Description</th>
+    </tr>
+    <tr valign="top">
+        <td>data-mode</td>
+        <td>sliding<br>
+            streamline</td>
+        <td>sliding</td>
+        <td>If set to <em>sliding</em>, the quiz will assume a sliding format with previous and next arrows for moving between questions. If set to <em>streamline</em>, the quiz will use a linear format with each question stacked on the page.</td>
+    </tr>
+    <tr valign="top">
+        <td>data-shuffle-questions</td>
+        <td>true<br>
+            false</td>
+        <td>false</td>
+        <td>If set to <em>true</em>, the quiz&#39;s questions will be shuffled each time the quiz is loaded. If set to <em>false</em>, the quiz&#39;s questions will not be shuffled when the quiz loads, and questions will always remain in the same order.</td>
+    </tr>
+    <tr valign="top">
+        <td>data-shuffle-answers</td>
+        <td>true<br>
+            false</td>
+        <td>false</td>
+        <td>If set to <em>true</em>, the answers for each quiz question will be shuffled. If set to <em>false</em>, the answers for each question will not be shuffled when the quiz loads, and answers will always remain in the same order.</td>
+    </tr>
+    <tr valign="top">
+        <td>data-title</td>
+        <td><em>string</em><br>
+            <em>html</em></td>
+        <td><em>null</em></td>
+        <td>By default, your quiz will not have a title until this attribute is declared with a <em>string</em> value. <em>HTML</em> values are also accepted.</td>
+    </tr>
+    <tr valign="top">
+        <td>data-back</td>
+        <td>true<br>
+            false</td>
+        <td>true</td>
+        <td>Only applicable when <code>data-mode=&quot;sliding&quot;</code>. If set to <em>true</em>, the user will be allowed to move from question to question both forward and backward. If set to <em>false</em>, the user will only be allowed to move forward through the quiz&#39;s questions.</td>
+    </tr>
+    <tr valign="top">
+        <td>data-timed</td>
+        <td>true<br>
+            false<br>
+            <em>(h)h:mm:ss</em><br>
+            <em>(m)m:ss</em><br>
+            <em>(s)s</em></td>
+        <td>false</td>
+        <td>If set to <em>true</em>, a running timer is added to the quiz, which will time how long it takes the user to reach completion. If set to <em>false</em>, the user will not be timed. When set to a numerical value adhering to one of the valid time formats, including <em>(h)h:mm:ss</em>, <em>(m)m:ss</em>, and <em>(s)s</em> (where parenthetical values are optional), a maximum time limit is set, and a countdown timer is added to the quiz; when the countdown timer runs out, the user will no longer be able to submit answers.</td>
+    </tr>
+    <tr valign="top">
+        <td>data-file</td>
+        <td><em>file</em>.json<br>
+            <em>file</em>.xml</td>
+        <td><em>null</em></td>
+        <td>The <code>data-file</code> attribute can optionally be used to supply question and answer data. The attribute accepts only two types of file formats, including <em>JSON</em> and <em>XML</em>. In order to use a <em>JSON</em> file, the <code>acceptJSON</code> configuration for quizzes in Smarty&#39;s JS file must be set to <em>true</em>. In order to use an <em>XML</em> file, the <code>acceptXML</code> configuration for quizzes in Smarty&#39;s JS file must be set to <em>true</em>. For more information on using <em>JSON</em> and <em>XML</em> data files, see the various methods for adding questions and answers below.</td>
+    </tr>
+</table>
+
+<h3 id="3-create-an-introduction">3. Create an Introduction</h3>
+<p>Create a <code>&lt;smarty-intro&gt;</code> element, and nest it inside your <code>&lt;smarty-quiz&gt;</code>:</p>
+<pre><code class="lang-html">&lt;smarty-quiz&gt;
+    &lt;smarty-intro&gt;&lt;/smarty-intro&gt;
+&lt;/smarty-quiz&gt;</code></pre>
+<p>Add any introductory content inside your newly created <code>&lt;smarty-intro&gt;</code> element:</p>
+<pre><code class="lang-html">&lt;smarty-intro&gt;
+    &lt;p&gt;This is a sample introduction...&lt;/p&gt;
+&lt;/smarty-intro&gt;</code></pre>
+<p>An introduction is only <strong>required</strong> when the <code>data-timed</code> attribute has a value other than <em>false</em>. If <code>data-timed</code> is set to <em>false</em>, an introduction is <strong>recommended</strong> but not required.</p>
+<h3 id="4-add-questions-and-answers">4. Add Questions and Answers</h3>
+<p>A total of four (4) types of questions exist within a Smarty quiz:</p>
+<ul>
+<li><a href="#MultiChoice">Multiple Choice</a></li>
+<li><a href="#MultiAnswer">Multiple Answer</a></li>
+<li><a href="#ShortAnswer">Short Answer</a></li>
+<li><a href="#TrueFalse">True/False</a></li>
+</ul>
+<p>Questions and answers can be added to a quiz through various methods:</p>
+<ol>
+<li>Using HTML</li>
+<li>Using JSON</li>
+<li>Using XML</li>
+</ol>
+<p>The JSON and XML approaches utilize external data files for storing question and answer data, which is then asynchronously loaded into the quiz when initialized. To specify a JSON or XML file, the <code>data-file</code> attribute described earlier is used on the quiz element. Both JSON and XML can be used in conjunction with the HTML approach. For more information on how to add questions and answers to quizzes using the various approaches described above, continue reading.</p>
+<h6 id="using-html">Using HTML</h6>
+<p>Any combination of the above question types can be added to a Smarty quiz in any given order. One thing all questions will have in common is their shared use of the <code>&lt;smarty-question&gt;</code> element:</p>
+<pre><code class="lang-html">&lt;smarty-quiz&gt;
+    &lt;smarty-question&gt;&lt;/smarty-question&gt;
+&lt;/smarty-quiz&gt;</code></pre>
+<p>To add text to a question, simply add question text directly to the element itself:</p>
+<pre><code class="lang-html">&lt;smarty-question&gt;
+    How&#39;s the weather?
+&lt;/smarty-question&gt;</code></pre>
+<h6 id="using-json">Using JSON</h6>
+<p>For JSON data files, the general format is to use a JSON array made up of various  objects, where each object within the outermost JSON array is made up of question data. For most questions, the question object will look relatively similar with a few exceptions contingent upon the type of question being used. A general overview of how a JSON data file is formatted is shown below:</p>
+<pre><code class="lang-json">[
+    {
+        &quot;question&quot;: &quot;How&#39;s the weather?&quot;
+    }
+]</code></pre>
+<h6 id="using-xml">Using XML</h6>
+<p>Like JSON data files, XML data files also have their own formatting guidelines. The XML data structure closely resembles the HTML data structure mentioned above but with a slightly different style. A preview of what an XML data file would look like is given below:</p>
+<pre><code class="lang-xml">    &lt;quiz&gt;
+        &lt;question&gt;
+            &lt;question&gt;How&#39;s the weather?&lt;/question&gt;
+        &lt;/question&gt;
+    &lt;/quiz&gt;</code></pre>
+<p>Whether you&#39;re using HTML, JSON, or XML, it&#39;s important to note that each question type uses a slightly different configuration. For specific instructions regarding how to setup each of the four question types listed above, see the following for more details:</p>
+<h4 id="multiple-choice-questions-a-id-multichoice-a-">Multiple Choice Questions <a id="MultiChoice"></a></h4>
+<p>Traditionally, multiple choice is among the most commonly used types of questions. A multiple choice question is one in which only one (1) correct answer exists within a given list of answer options. Thus, to create a multiple choice question, several answer options must be created for which only one (1) answer option is the correct answer.</p>
+<h5 id="1-start-by-creating-a-question-and-add-in-question-text-">1. Start by creating a question and add in question text:</h5>
+<h6 id="using-html">Using HTML</h6>
+<p>When using HTML, a question is created using the <code>&lt;smarty-question&gt;</code> element:</p>
+<pre><code class="lang-html">&lt;smarty-question&gt;
+    How many licks does it take to get to the center of a Tootsie Pop?
+&lt;/smarty-question&gt;</code></pre>
+<h6 id="using-json">Using JSON</h6>
+<p>When using JSON, a question is created using object notation:</p>
+<pre><code class="lang-json">{
+    &quot;question&quot;: &quot;How many licks does it take to get to the center of a Tootsie Pop?&quot;
+}</code></pre>
+<h6 id="using-xml">Using XML</h6>
+<p>When using XML, a question is identified using a <code>&lt;question&gt;</code> element with a subsequent <code>&lt;question&gt;</code> element nested inside for holding the question&#39;s text:</p>
+<pre><code class="lang-xml">&lt;question&gt;
+    &lt;question&gt;How many licks does it take to get to the center of a Tootsie Pop?&lt;/question&gt;
+&lt;question&gt;</code></pre>
+<h5 id="2-next-set-the-question-s-properties-based-on-your-preferences-">2. Next, set the question&#39;s properties based on your preferences:</h5>
+<h6 id="using-html">Using HTML</h6>
+<p>The HTML attributes are applied to the <code>&lt;smarty-question&gt;</code> element directly:</p>
+<pre><code class="lang-html">&lt;smarty-question data-points=&quot;1&quot; data-attempts=&quot;infinite&quot; data-id=&quot;HTML&quot;&gt;
+    How many licks does it take to get to the center of a Tootsie Pop?
+&lt;/smarty-question&gt;</code></pre>
+<table cellpadding="2" cellspacing="2">
+    <tr align="left">
+        <th width="20%">Attribute</th>
+        <th width="20%">Options</th>
+        <th width="20%">Default</th>
+        <th width="40%">Description</th>
+    </tr>
+    <tr valign="top">
+        <td>data-points</td>
+        <td><em>numeric</em></td>
+        <td>1</td>
+        <td>Setting this attribute with a <em>numeric</em> value, such as an integer or decimal, will give the question some point value, which is factored into the quiz&#39;s running and final score. Do note, if all questions are worth 0 points, the quiz&#39;s resulting maximum possible score will always be 0%.</td>
+    </tr>
+    <tr valign="top">
+        <td>data-attempts</td>
+        <td><em>integer</em><br>
+            infinite</td>
+        <td>infinite</td>
+        <td>Setting this attribute with an <em>integer</em>, or whole number, value will permit the user to only answer the given question up to the allotted number of times permitted or until the question is answered correctly, whichever comes first. Not setting this attribute is equivalent to setting its value to <em>infinite</em>, which allows the user to continuously attempt to answer the question until the correct answer is given.</td>
+    </tr>
+    <tr valign="top">
+        <td>data-id</td>
+        <td><em>string</em></td>
+        <td><em>null</em></td>
+        <td>Setting this attribute with a <em>string</em> will assign the element the given ID. The ID assigned to the element is not used for any special purpose and is mostly intended for use by developers. This property is optional.</td>
+    </tr>
+</table>
+
+<h6 id="using-json">Using JSON</h6>
+<p>In JSON, the following properties are declared on a new line within the question object:</p>
+<pre><code class="lang-json">{
+    &quot;question&quot;: &quot;How many licks does it take to get to the center of a Tootsie Pop?&quot;,
+    &quot;points&quot;: 1,
+    &quot;attempts&quot;: &quot;infinite&quot;,
+    &quot;id&quot;: &quot;JSON&quot;
+}</code></pre>
+<table cellpadding="2" cellspacing="2">
+    <tr align="left">
+        <th width="20%">Attribute</th>
+        <th width="20%">Options</th>
+        <th width="20%">Default</th>
+        <th width="40%">Description</th>
+    </tr>
+    <tr valign="top">
+        <td>points</td>
+        <td><em>numeric</em></td>
+        <td>1</td>
+        <td>Setting this property with a <em>numeric</em> value, such as an integer or decimal, will give the question some point value, which is factored into the quiz&#39;s running and final score. Do note, if all questions are worth 0 points, the quiz&#39;s resulting maximum possible score will always be 0%.</td>
+    </tr>
+    <tr valign="top">
+        <td>attempts</td>
+        <td><em>integer</em><br>
+            infinite</td>
+        <td>infinite</td>
+        <td>Setting this property with an <em>integer</em>, or whole number, value will permit the user to only answer the given question up to the allotted number of times permitted or until the question is answered correctly, whichever comes first. Not setting this attribute is equivalent to setting its value to <em>infinite</em>, which allows the user to continuously attempt to answer the question until the correct answer is given.</td>
+    </tr>
+    <tr valign="top">
+        <td>id</td>
+        <td><em>string</em></td>
+        <td><em>null</em></td>
+        <td>Setting this property with a <em>string</em> will assign the element the given ID. The ID assigned to the element is not used for any special purpose and is mostly intended for use by developers. This property is optional.</td>
+    </tr>
+    <tr valign="top">
+        <td>type</td>
+        <td>multichoice<br>
+            multianswer<br>
+            shortanswer<br>
+            truefalse</td>
+        <td><em>null</em></td>
+        <td>Setting this property with the relevant question type from the list of types provided will help improve the performance of your Smarty application. For multiple choice questions, use the <em>multichoice</em> question type. This property, however, is optional. If not set, the application will determine the question type automatically.</td>
+    </tr>
+</table>
+
+<h6 id="using-xml">Using XML</h6>
+<p>In XML, the following attributes can be added directly to the parent question element:</p>
+<pre><code class="lang-xml">&lt;question points=&quot;1&quot; attempts=&quot;infinite&quot; id=&quot;XML&quot;&gt;
+    &lt;question&gt;How many licks does it take to get to the center of a Tootsie Pop?&lt;/question&gt;
+&lt;question&gt;</code></pre>
+<table cellpadding="2" cellspacing="2">
+    <tr align="left">
+        <th width="20%">Attribute</th>
+        <th width="20%">Options</th>
+        <th width="20%">Default</th>
+        <th width="40%">Description</th>
+    </tr>
+    <tr valign="top">
+        <td>points</td>
+        <td><em>numeric</em></td>
+        <td>1</td>
+        <td>Setting this attribute with a <em>numeric</em> value, such as an integer or decimal, will give the question some point value, which is factored into the quiz&#39;s running and final score. Do note, if all questions are worth 0 points, the quiz&#39;s resulting maximum possible score will always be 0%.</td>
+    </tr>
+    <tr valign="top">
+        <td>attempts</td>
+        <td><em>integer</em><br>
+            infinite</td>
+        <td>infinite</td>
+        <td>Setting this attribute with an <em>integer</em>, or whole number, value will permit the user to only answer the given question up to the allotted number of times permitted or until the question is answered correctly, whichever comes first. Not setting this attribute is equivalent to setting its value to <em>infinite</em>, which allows the user to continuously attempt to answer the question until the correct answer is given.</td>
+    </tr>
+    <tr valign="top">
+        <td>id</td>
+        <td><em>string</em></td>
+        <td><em>null</em></td>
+        <td>Setting this attribute with a <em>string</em> will assign the element the given ID. The ID assigned to the element is not used for any special purpose and is mostly intended for use by developers. This property is optional.</td>
+    </tr>
+    <tr valign="top">
+        <td>type</td>
+        <td>multichoice<br>
+            multianswer<br>
+            shortanswer<br>
+            truefalse</td>
+        <td><em>null</em></td>
+        <td>Setting this attribute with the relevant question type from the list of types provided will help improve the performance of your Smarty application. For multiple choice questions, use the <em>multichoice</em> question type. This property, however, is optional. If not set, the application will determine the question type automatically.</td>
+    </tr>
+</table>
+
+
+
+
+
+
+<h5 id="3-after-create-a-list-of-answer-options-for-the-question-">3. After, create a list of answer options for the question:</h5>
+<h6 id="using-html">Using HTML</h6>
+<p>Answer options can be added to a question using the <code>&lt;smarty-answer&gt;</code> element:</p>
+<pre><code class="lang-html">&lt;smarty-question&gt;
+    How many licks does it take to get to the center of a Tootsie Pop?
+    &lt;smarty-answer&gt;364&lt;/smarty-answer&gt;
+    &lt;smarty-answer&gt;252&lt;/smarty-answer&gt;
+    &lt;smarty-answer&gt;411&lt;/smarty-answer&gt;
+    &lt;smarty-answer&gt;144&lt;/smarty-answer&gt;
+    &lt;smarty-answer&gt;TBD&lt;/smarty-answer&gt;
+&lt;/smarty-question&gt;</code></pre>
+<h6 id="using-json">Using JSON</h6>
+<p>Answer options can be added by setting the <code>options</code> property on a new line of the preferred question object, but do note, multiple answer options should be added using an array rather than string notion:</p>
+<pre><code class="lang-json">{
+    &quot;question&quot;: &quot;How many licks does it take to get to the center of a Tootsie Pop?&quot;,
+    &quot;points&quot;: 1,
+    &quot;attempts&quot;: &quot;infinite&quot;,
+    &quot;id&quot;: &quot;JSON&quot;,
+    &quot;options&quot;: [
+        364,
+        252,
+        411,
+        144,
+        &quot;TBD&quot;
+    ]
+}</code></pre>
+<h6 id="using-xml">Using XML</h6>
+<p>In XML data files, answer options can be added to a question using the <code>&lt;option&gt;</code> object:</p>
+<pre><code class="lang-xml">&lt;question points=&quot;1&quot; attempts=&quot;infinite&quot; id=&quot;XML&quot;&gt;
+    &lt;question&gt;How many licks does it take to get to the center of a Tootsie Pop?&lt;/question&gt;
+    &lt;option&gt;364&lt;/option&gt;
+    &lt;option&gt;252&lt;/option&gt;
+    &lt;option&gt;411&lt;/option&gt;
+    &lt;option&gt;144&lt;/option&gt;
+    &lt;option&gt;TBD&lt;/option&gt;
+&lt;question&gt;</code></pre>
+<h5 id="4-then-designate-the-correct-answer-option-">4. Then, designate the correct answer option:</h5>
+<h6 id="using-html">Using HTML</h6>
+<p>In HTML, the correct answer option is designated by setting the <code>data-answer</code> attribute on the correct <code>&lt;smarty-answer&gt;</code> element:</p>
+<pre><code class="lang-html">&lt;smarty-question&gt;
+    How many licks does it take to get to the center of a Tootsie Pop?
+    &lt;smarty-answer&gt;364&lt;/smarty-answer&gt;
+    &lt;smarty-answer&gt;252&lt;/smarty-answer&gt;
+    &lt;smarty-answer&gt;411&lt;/smarty-answer&gt;
+    &lt;smarty-answer&gt;144&lt;/smarty-answer&gt;
+    &lt;smarty-answer data-answer=&quot;true&quot;&gt;TBD&lt;/smarty-answer&gt;
+&lt;/smarty-question&gt;</code></pre>
+<table cellpadding="2" cellspacing="2">
+    <tr align="left">
+        <th width="20%">Attribute</th>
+        <th width="20%">Options</th>
+        <th width="20%">Default</th>
+        <th width="40%">Description</th>
+    </tr>
+    <tr valign="top">
+        <td>data-answer</td>
+        <td>true<br>
+            false</td>
+        <td>false</td>
+        <td>In order to count an answer option as a correct answer, setting the given answer&#39;s attribute value to <em>true</em> is <strong>required</strong>. Since the default value is assumed to be <em>false</em>, setting the attribute to <em>false</em> is not mandatory although it may be preferred for clarity.</td>
+    </tr>
+</table>
+
+<blockquote>
+<p>Bear in mind that a multiple choice question should only have one (1) answer option with its <code>data-answer</code> attribute set to <em>true</em>. Otherwise, the question is treated as a multiple answer question, not multiple choice.</p>
+</blockquote>
+<h6 id="using-json">Using JSON</h6>
+<p>In JSON, the correct answer option is designated by setting the <code>answer</code> property on a new line of the question object. An integer corresponding to the item number of the correct answer from the <code>options</code> list should be used:</p>
+<pre><code class="lang-json">{
+    &quot;question&quot;: &quot;How many licks does it take to get to the center of a Tootsie Pop?&quot;,
+    &quot;points&quot;: 1,
+    &quot;attempts&quot;: &quot;infinite&quot;,
+    &quot;id&quot;: &quot;JSON&quot;,
+    &quot;options&quot;: [
+        364,
+        252,
+        411,
+        144,
+        &quot;TBD&quot;
+    ],
+    &quot;answer&quot;: 5
+}</code></pre>
+<table cellpadding="2" cellspacing="2">
+    <tr align="left">
+        <th width="20%">Attribute</th>
+        <th width="20%">Options</th>
+        <th width="20%">Default</th>
+        <th width="40%">Description</th>
+    </tr>
+    <tr valign="top">
+        <td>answer</td>
+        <td><em>integer</em><br>
+            <em>array</em></td>
+        <td><em>null</em></td>
+        <td>In order to specify the correct answer, the answer property must be set to an <em>integer</em> value. This value should correlate to the item number of the correct answer in the option list. Alternatively, <em>array</em> notation can be used to specify one or more correct answers, where multiple values within the array are treated as a multiple answer question instead of multiple choice.</td>
+    </tr>
+</table>
+
+<blockquote>
+<p>Bear in mind that the <code>answer</code> property accepts both <em>string</em> and <em>array</em> notion. While string notation defaults to multiple choice questions, arrays are configurable for both multiple choice and multiple answer questions. Thus, if array notion is used, only one (1) answer option should be given for multiple choice questions. Otherwise, arrays with more than one (&gt;1) value will be treated as a multiple answer question, not multiple choice.</p>
+</blockquote>
+<h6 id="using-xml">Using XML</h6>
+<p>In XML, the correct answer option is designated by setting the <code>answer</code> attribute on the correct <code>&lt;option&gt;</code> object:</p>
+<pre><code class="lang-xml">&lt;question points=&quot;1&quot; attempts=&quot;infinite&quot; id=&quot;XML&quot;&gt;
+    &lt;question&gt;How many licks does it take to get to the center of a Tootsie Pop?&lt;/question&gt;
+    &lt;option&gt;364&lt;/option&gt;
+    &lt;option&gt;252&lt;/option&gt;
+    &lt;option&gt;411&lt;/option&gt;
+    &lt;option&gt;144&lt;/option&gt;
+    &lt;option answer=&quot;true&quot;&gt;TBD&lt;/option&gt;
+&lt;question&gt;</code></pre>
+<table cellpadding="2" cellspacing="2">
+    <tr align="left">
+        <th width="20%">Attribute</th>
+        <th width="20%">Options</th>
+        <th width="20%">Default</th>
+        <th width="40%">Description</th>
+    </tr>
+    <tr valign="top">
+        <td>answer</td>
+        <td>true<br>
+            false</td>
+        <td>false</td>
+        <td>In order to count an answer option as a correct answer, setting the given answer&#39;s attribute value to <em>true</em> is <strong>required</strong>. Since the default value is assumed to be <em>false</em>, setting the attribute to <em>false</em> is not mandatory although it may be preferred for clarity.</td>
+    </tr>
+</table>
+
+<blockquote>
+<p>Bear in mind that a multiple choice question should only have one (1) answer option with its <code>answer</code> property set to <em>true</em>. Otherwise, the question is treated as a multiple answer question, not multiple choice.</p>
+</blockquote>
+<h5 id="5-optionally-provide-users-with-feedback-to-the-question-">5. Optionally, provide users with feedback to the question:</h5>
+<h6 id="using-html">Using HTML</h6>
+<p>Feedback is added by using the <code>&lt;smarty-feedback&gt;</code> element:</p>
+<pre><code class="lang-html">&lt;smarty-question&gt;
+    How many licks does it take to get to the center of a Tootsie Pop?
+    &lt;smarty-answer&gt;364&lt;/smarty-answer&gt;
+    &lt;smarty-answer&gt;252&lt;/smarty-answer&gt;
+    &lt;smarty-answer&gt;411&lt;/smarty-answer&gt;
+    &lt;smarty-answer&gt;144&lt;/smarty-answer&gt;
+    &lt;smarty-answer data-answer=&quot;true&quot;&gt;TBD&lt;/smarty-answer&gt;
+    &lt;smarty-feedback&gt;
+        The Tootsie company once reported that a consensus could never been drawn. 
+    &lt;/smarty-feedback&gt;
+&lt;/smarty-question&gt;</code></pre>
+<blockquote>
+<p>Do note, since feedback is intended to provide the user with additional insight into the question and its correct answer, feedback is not shown to the user until at least one (1) of the following conditions have been met:  </p>
+<ul>
+<li>If a question permits multiple attempts, feedback is given...<ol>
+<li>When the user answers the question correctly</li>
+<li>When the user exhausts all permitted attempts</li>
+</ol>
+</li>
+<li>If a question permits only one (1) attempt, feedback is given...<ol>
+<li>After the user answers the question, regardless of right or wrong</li>
+</ol>
+</li>
+<li>If a question permits an infinite number of attempts, feedback is given...<ol>
+<li>Only after the user answers the question correctly</li>
+</ol>
+</li>
+</ul>
+</blockquote>
+<h6 id="using-json">Using JSON</h6>
+<p>In JSON, feedback is added by setting the <code>feedback</code> property on a new line of the question object:</p>
+<pre><code class="lang-json">{
+    &quot;question&quot;: &quot;How many licks does it take to get to the center of a Tootsie Pop?&quot;,
+    &quot;points&quot;: 1,
+    &quot;attempts&quot;: &quot;infinite&quot;,
+    &quot;id&quot;: &quot;JSON&quot;,
+    &quot;options&quot;: [
+        364,
+        252,
+        411,
+        144,
+        &quot;TBD&quot;
+    ],
+    &quot;answer&quot;: 5,
+    &quot;feedback&quot;: &quot;The Tootsie company once reported that a consensus could never been drawn.&quot;
+}</code></pre>
+<blockquote>
+<p>Do note, since feedback is intended to provide the user with additional insight into the question and its correct answer, feedback is not shown to the user until at least one (1) of the following conditions have been met:  </p>
+<ul>
+<li>If a question permits multiple attempts, feedback is given...<ol>
+<li>When the user answers the question correctly</li>
+<li>When the user exhausts all permitted attempts</li>
+</ol>
+</li>
+<li>If a question permits only one (1) attempt, feedback is given...<ol>
+<li>After the user answers the question, regardless of right or wrong</li>
+</ol>
+</li>
+<li>If a question permits an infinite number of attempts, feedback is given...<ol>
+<li>Only after the user answers the question correctly</li>
+</ol>
+</li>
+</ul>
+</blockquote>
+<h6 id="using-xml">Using XML</h6>
+<p>In XML, feedback is added using a <code>feedback</code> element nested at the end of the question object:</p>
+<pre><code class="lang-xml">&lt;question points=&quot;1&quot; attempts=&quot;infinite&quot; id=&quot;XML&quot;&gt;
+    &lt;question&gt;How many licks does it take to get to the center of a Tootsie Pop?&lt;/question&gt;
+    &lt;option&gt;364&lt;/option&gt;
+    &lt;option&gt;252&lt;/option&gt;
+    &lt;option&gt;411&lt;/option&gt;
+    &lt;option&gt;144&lt;/option&gt;
+    &lt;option answer=&quot;true&quot;&gt;TBD&lt;/option&gt;
+    &lt;feedback&gt;The Tootsie company once reported that a consensus could never been drawn.&lt;/feedback&gt;
+&lt;question&gt;</code></pre>
+<blockquote>
+<p>Do note, since feedback is intended to provide the user with additional insight into the question and its correct answer, feedback is not shown to the user until at least one (1) of the following conditions have been met:  </p>
+<ul>
+<li>If a question permits multiple attempts, feedback is given...<ol>
+<li>When the user answers the question correctly</li>
+<li>When the user exhausts all permitted attempts</li>
+</ol>
+</li>
+<li>If a question permits only one (1) attempt, feedback is given...<ol>
+<li>After the user answers the question, regardless of right or wrong</li>
+</ol>
+</li>
+<li>If a question permits an infinite number of attempts, feedback is given...<ol>
+<li>Only after the user answers the question correctly</li>
+</ol>
+</li>
+</ul>
+</blockquote>
+<h5 id="6-optionally-provide-users-with-a-hint-">6. Optionally, provide users with a hint:</h5>
+<h6 id="using-html">Using HTML</h6>
+<p>In HTML, a hint can be added by creating a <code>&lt;smarty-hint&gt;</code> element. Additionally, the <code>data-attempts</code> property should be set on the <code>&lt;smarty-hint&gt;</code> element to specify how many attempts the user must try before the hint is made available. If you prefer to have the hint showing by default, use the <code>data-show</code> property with a value of <em>true</em> instead of <code>data-attempts</code>. It&#39;s recommended that hints be added after all answer options and either before or after any question feedback:</p>
+<pre><code class="lang-html">&lt;smarty-question&gt;
+    How many licks does it take to get to the center of a Tootsie Pop?
+    &lt;smarty-answer&gt;364&lt;/smarty-answer&gt;
+    &lt;smarty-answer&gt;252&lt;/smarty-answer&gt;
+    &lt;smarty-answer&gt;411&lt;/smarty-answer&gt;
+    &lt;smarty-answer&gt;144&lt;/smarty-answer&gt;
+    &lt;smarty-answer data-answer=&quot;true&quot;&gt;TBD&lt;/smarty-answer&gt;
+    &lt;smarty-feedback&gt;
+        The Tootsie company once reported that a consensus could never been drawn.
+    &lt;/smarty-feedback&gt;
+    &lt;smarty-hint data-attempts=&quot;1&quot; data-show=&quot;false&quot;&gt;
+        The world may never know.
+    &lt;/smarty-hint&gt;
+&lt;/smarty-question&gt;</code></pre>
+<table cellpadding="2" cellspacing="2">
+    <tr align="left">
+        <th width="20%">Attribute</th>
+        <th width="20%">Options</th>
+        <th width="20%">Default</th>
+        <th width="40%">Description</th>
+    </tr>
+    <tr>
+        <td>data-attempts</td>
+        <td><em>integer</em></td>
+        <td>1</td>
+        <td>Setting this attribute with an <em>integer</em> value will set the minimum required number of attempts before the hint is given to the user.</td>
+    </tr>
+    <tr>
+        <td>data-show</td>
+        <td>true<br>
+            false</td>
+        <td>false</td>
+        <td>Setting this attribute to <em>true</em> will show the hint by default. Setting this attribute to <em>false</em> will allow the hint to be toggled according to the value given in the <code>data-attempts</code> attribute.</td>
+    </tr>
+</table>
+
+<blockquote>
+<p>Do note, since hints are intended to provide the user with guidance that may lead the user to the correct answer, hints are not shown to the user until a minimum number of attempts have been reached. To specify the number of attempts required before the user is able to receive hints, the <code>data-attempts</code> attribute is used on the <code>&lt;smarty-hint&gt;</code> element.</p>
+</blockquote>
+<h6 id="using-json">Using JSON</h6>
+<p>In JSON, a hint can be added by setting the <code>hint</code> property on a new line of the question object. Additionally, the <code>hintattempts</code> property should also be added on an a separate line of the question object to specify how many attempts the user must try before the hint is made available. If you prefer that the hint show by default,  the <code>hintshow</code> property should be set to <em>true</em> on a separate line of the question object:</p>
+<pre><code class="lang-json">{
+    &quot;question&quot;: &quot;How many licks does it take to get to the center of a Tootsie Pop?&quot;,
+    &quot;points&quot;: 1,
+    &quot;attempts&quot;: &quot;infinite&quot;,
+    &quot;id&quot;: &quot;JSON&quot;,
+    &quot;options&quot;: [
+        364,
+        252,
+        411,
+        144,
+        &quot;TBD&quot;
+    ],
+    &quot;answer&quot;: 5,
+    &quot;feedback&quot;: &quot;The Tootsie company once reported that a consensus could never been drawn.&quot;,
+    &quot;hint&quot;: &quot;The world may never know.&quot;,
+    &quot;hintattempts&quot;: 1,
+    &quot;hintshow&quot;: false
+}</code></pre>
+<table cellpadding="2" cellspacing="2">
+    <tr align="left">
+        <th width="20%">Attribute</th>
+        <th width="20%">Options</th>
+        <th width="20%">Default</th>
+        <th width="40%">Description</th>
+    </tr>
+    <tr>
+        <td>hintattempts</td>
+        <td><em>integer</em></td>
+        <td>1</td>
+        <td>Setting this attribute with an <em>integer</em> value will set the minimum required number of attempts before the hint is given to the user.</td>
+    </tr>
+    <tr>
+        <td>hintshow</td>
+        <td>true<br>
+            false</td>
+        <td>false</td>
+        <td>Setting this attribute to <em>true</em> will show the hint by default. Setting this attribute to <em>false</em> will allow the hint to be toggled according to the value given in the <code>data-attempts</code> attribute.</td>
+    </tr>
+</table>
+
+<blockquote>
+<p>Do note, since hints are intended to provide the user with guidance that may lead the user to the correct answer, hints are not shown to the user until a minimum number of attempts have been reached. To specify the number of attempts required before the user is able to receive hints, the <code>hintattempts</code> property is used.</p>
+</blockquote>
+<h6 id="using-xml">Using XML</h6>
+<p>In XML, a hint can be added by creating a <code>&lt;hint&gt;</code> object. Additionally, the <code>attempts</code> property should be set on the <code>&lt;hint&gt;</code> object to specify how many attempts the user must try before the hint is made available. If you prefer that the hint show by default,  the <code>show</code> property should be set to <em>true</em> on the <code>&lt;hint&gt;</code> object:</p>
+<pre><code class="lang-xml">&lt;question points=&quot;1&quot; attempts=&quot;infinite&quot; id=&quot;XML&quot;&gt;
+    &lt;question&gt;How many licks does it take to get to the center of a Tootsie Pop?&lt;/question&gt;
+    &lt;option&gt;364&lt;/option&gt;
+    &lt;option&gt;252&lt;/option&gt;
+    &lt;option&gt;411&lt;/option&gt;
+    &lt;option&gt;144&lt;/option&gt;
+    &lt;option answer=&quot;true&quot;&gt;TBD&lt;/option&gt;
+    &lt;feedback&gt;The Tootsie company once reported that a consensus could never been drawn.&lt;/feedback&gt;
+    &lt;hint attempts=&quot;1&quot; show=&quot;false&quot;&gt;The world may never know.&lt;/hint&gt;
+&lt;question&gt;</code></pre>
+<table cellpadding="2" cellspacing="2">
+    <tr align="left">
+        <th width="20%">Attribute</th>
+        <th width="20%">Options</th>
+        <th width="20%">Default</th>
+        <th width="40%">Description</th>
+    </tr>
+    <tr>
+        <td>attempts</td>
+        <td><em>integer</em></td>
+        <td>1</td>
+        <td>Setting this attribute with an <em>integer</em> value will set the minimum required number of attempts before the hint is given to the user.</td>
+    </tr>
+    <tr>
+        <td>show</td>
+        <td>true<br>
+            false</td>
+        <td>false</td>
+        <td>Setting this attribute to <em>true</em> will show the hint by default. Setting this attribute to <em>false</em> will allow the hint to be toggled according to the value given in the <code>data-attempts</code> attribute.</td>
+    </tr>
+</table>
+
+<blockquote>
+<p>Do note, since hints are intended to provide the user with guidance that may lead the user to the correct answer, hints are not shown to the user until a minimum number of attempts have been reached. To specify the number of attempts required before the user is able to receive hints, the <code>attempts</code> attribute is used on the <code>&lt;hint&gt;</code> object.</p>
+</blockquote>
+<h4 id="multiple-answer-questions-a-id-multianswer-a-">Multiple Answer Questions <a id="MultiAnswer"></a></h4>
+<p>Similar to multiple choice questions, multiple answer questions are ones in which more than one (&gt;1) correct answer exists within a given list of answer options. To create a multiple answer question, several answer options must be created for which more than one (&gt;1) answer option are the correct answers.</p>
+<h5 id="1-start-by-creating-a-question-and-add-in-question-text-">1. Start by creating a question and add in question text:</h5>
+<h6 id="using-html">Using HTML</h6>
+<p>When using HTML, a question is created using the <code>&lt;smarty-question&gt;</code> element:</p>
+<pre><code class="lang-html">&lt;smarty-question&gt;
+    How many licks does it take to get to the center of a Tootsie Pop?
+&lt;/smarty-question&gt;</code></pre>
+<h6 id="using-json">Using JSON</h6>
+<p>When using JSON, a question is created using object notation:</p>
+<pre><code class="lang-json">{
+    &quot;question&quot;: &quot;How many licks does it take to get to the center of a Tootsie Pop?&quot;
+}</code></pre>
+<h6 id="using-xml">Using XML</h6>
+<p>When using XML, a question is identified using a <code>&lt;question&gt;</code> element with a subsequent <code>&lt;question&gt;</code> element nested inside for holding the question&#39;s text:</p>
+<pre><code class="lang-xml">&lt;question&gt;
+    &lt;question&gt;How many licks does it take to get to the center of a Tootsie Pop?&lt;/question&gt;
+&lt;question&gt;</code></pre>
+<h5 id="2-next-set-the-question-s-properties-based-on-your-preferences-">2. Next, set the question&#39;s properties based on your preferences:</h5>
+<h6 id="using-html">Using HTML</h6>
+<p>The HTML attributes are applied to the <code>&lt;smarty-question&gt;</code> element directly:</p>
+<pre><code class="lang-html">&lt;smarty-question data-points=&quot;1&quot; data-attempts=&quot;infinite&quot; data-id=&quot;HTML&quot;&gt;
+    How many licks does it take to get to the center of a Tootsie Pop?
+&lt;/smarty-question&gt;</code></pre>
+<table cellpadding="2" cellspacing="2">
+    <tr align="left">
+        <th width="20%">Attribute</th>
+        <th width="20%">Options</th>
+        <th width="20%">Default</th>
+        <th width="40%">Description</th>
+    </tr>
+    <tr valign="top">
+        <td>data-points</td>
+        <td><em>numeric</em></td>
+        <td>1</td>
+        <td>Setting this attribute with a <em>numeric</em> value, such as an integer or decimal, will give the question some point value, which is factored into the quiz&#39;s running and final score. Do note, if all questions are worth 0 points, the quiz&#39;s resulting maximum possible score will always be 0%.</td>
+    </tr>
+    <tr valign="top">
+        <td>data-attempts</td>
+        <td><em>integer</em><br>
+            infinite</td>
+        <td>infinite</td>
+        <td>Setting this attribute with an <em>integer</em>, or whole number, value will permit the user to only answer the given question up to the allotted number of times permitted or until the question is answered correctly, whichever comes first. Not setting this attribute is equivalent to setting its value to <em>infinite</em>, which allows the user to continuously attempt to answer the question until the correct answer is given.</td>
+    </tr>
+    <tr valign="top">
+        <td>data-id</td>
+        <td><em>string</em></td>
+        <td><em>null</em></td>
+        <td>Setting this attribute with a <em>string</em> will assign the element the given ID. The ID assigned to the element is not used for any special purpose and is mostly intended for use by developers. This property is optional.</td>
+    </tr>
+</table>
+
+<h6 id="using-json">Using JSON</h6>
+<p>In JSON, the following properties are declared on a new line within the question object:</p>
+<pre><code class="lang-json">{
+    &quot;question&quot;: &quot;How many licks does it take to get to the center of a Tootsie Pop?&quot;,
+    &quot;points&quot;: 1,
+    &quot;attempts&quot;: &quot;infinite&quot;,
+    &quot;id&quot;: &quot;JSON&quot;
+}</code></pre>
+<table cellpadding="2" cellspacing="2">
+    <tr align="left">
+        <th width="20%">Attribute</th>
+        <th width="20%">Options</th>
+        <th width="20%">Default</th>
+        <th width="40%">Description</th>
+    </tr>
+    <tr valign="top">
+        <td>points</td>
+        <td><em>numeric</em></td>
+        <td>1</td>
+        <td>Setting this property with a <em>numeric</em> value, such as an integer or decimal, will give the question some point value, which is factored into the quiz&#39;s running and final score. Do note, if all questions are worth 0 points, the quiz&#39;s resulting maximum possible score will always be 0%.</td>
+    </tr>
+    <tr valign="top">
+        <td>attempts</td>
+        <td><em>integer</em><br>
+            infinite</td>
+        <td>infinite</td>
+        <td>Setting this property with an <em>integer</em>, or whole number, value will permit the user to only answer the given question up to the allotted number of times permitted or until the question is answered correctly, whichever comes first. Not setting this attribute is equivalent to setting its value to <em>infinite</em>, which allows the user to continuously attempt to answer the question until the correct answer is given.</td>
+    </tr>
+    <tr valign="top">
+        <td>id</td>
+        <td><em>string</em></td>
+        <td><em>null</em></td>
+        <td>Setting this property with a <em>string</em> will assign the element the given ID. The ID assigned to the element is not used for any special purpose and is mostly intended for use by developers. This property is optional.</td>
+    </tr>
+    <tr valign="top">
+        <td>type</td>
+        <td>multichoice<br>
+            multianswer<br>
+            shortanswer<br>
+            truefalse</td>
+        <td><em>null</em></td>
+        <td>Setting this property with the relevant question type from the list of types provided will help improve the performance of your Smarty application. For multiple choice questions, use the <em>multichoice</em> question type. This property, however, is optional. If not set, the application will determine the question type automatically.</td>
+    </tr>
+</table>
+
+<h6 id="using-xml">Using XML</h6>
+<p>In XML, the following attributes can be added directly to the parent question element:</p>
+<pre><code class="lang-xml">&lt;question points=&quot;1&quot; attempts=&quot;infinite&quot; id=&quot;XML&quot;&gt;
+    &lt;question&gt;How many licks does it take to get to the center of a Tootsie Pop?&lt;/question&gt;
+&lt;question&gt;</code></pre>
+<table cellpadding="2" cellspacing="2">
+    <tr align="left">
+        <th width="20%">Attribute</th>
+        <th width="20%">Options</th>
+        <th width="20%">Default</th>
+        <th width="40%">Description</th>
+    </tr>
+    <tr valign="top">
+        <td>points</td>
+        <td><em>numeric</em></td>
+        <td>1</td>
+        <td>Setting this attribute with a <em>numeric</em> value, such as an integer or decimal, will give the question some point value, which is factored into the quiz&#39;s running and final score. Do note, if all questions are worth 0 points, the quiz&#39;s resulting maximum possible score will always be 0%.</td>
+    </tr>
+    <tr valign="top">
+        <td>attempts</td>
+        <td><em>integer</em><br>
+            infinite</td>
+        <td>infinite</td>
+        <td>Setting this attribute with an <em>integer</em>, or whole number, value will permit the user to only answer the given question up to the allotted number of times permitted or until the question is answered correctly, whichever comes first. Not setting this attribute is equivalent to setting its value to <em>infinite</em>, which allows the user to continuously attempt to answer the question until the correct answer is given.</td>
+    </tr>
+    <tr valign="top">
+        <td>id</td>
+        <td><em>string</em></td>
+        <td><em>null</em></td>
+        <td>Setting this attribute with a <em>string</em> will assign the element the given ID. The ID assigned to the element is not used for any special purpose and is mostly intended for use by developers. This property is optional.</td>
+    </tr>
+    <tr valign="top">
+        <td>type</td>
+        <td>multichoice<br>
+            multianswer<br>
+            shortanswer<br>
+            truefalse</td>
+        <td><em>null</em></td>
+        <td>Setting this attribute with the relevant question type from the list of types provided will help improve the performance of your Smarty application. For multiple choice questions, use the <em>multichoice</em> question type. This property, however, is optional. If not set, the application will determine the question type automatically.</td>
+    </tr>
+</table>
+
+
+
+
+
+
+<h5 id="3-after-create-a-list-of-answer-options-for-the-question-">3. After, create a list of answer options for the question:</h5>
+<h6 id="using-html">Using HTML</h6>
+<p>Answer options can be added to a question using the <code>&lt;smarty-answer&gt;</code> element:</p>
+<pre><code class="lang-html">&lt;smarty-question&gt;
+    How many licks does it take to get to the center of a Tootsie Pop?
+    &lt;smarty-answer&gt;364&lt;/smarty-answer&gt;
+    &lt;smarty-answer&gt;252&lt;/smarty-answer&gt;
+    &lt;smarty-answer&gt;411&lt;/smarty-answer&gt;
+    &lt;smarty-answer&gt;144&lt;/smarty-answer&gt;
+    &lt;smarty-answer&gt;TBD&lt;/smarty-answer&gt;
+&lt;/smarty-question&gt;</code></pre>
+<h6 id="using-json">Using JSON</h6>
+<p>Answer options can be added by setting the <code>options</code> property on a new line of the preferred question object, but do note, multiple answer options should be added using an array rather than string notion:</p>
+<pre><code class="lang-json">{
+    &quot;question&quot;: &quot;How many licks does it take to get to the center of a Tootsie Pop?&quot;,
+    &quot;points&quot;: 1,
+    &quot;attempts&quot;: &quot;infinite&quot;,
+    &quot;id&quot;: &quot;JSON&quot;,
+    &quot;options&quot;: [
+        364,
+        252,
+        411,
+        144,
+        &quot;TBD&quot;
+    ]
+}</code></pre>
+<h6 id="using-xml">Using XML</h6>
+<p>In XML data files, answer options can be added to a question using the <code>&lt;option&gt;</code> object:</p>
+<pre><code class="lang-xml">&lt;question points=&quot;1&quot; attempts=&quot;infinite&quot; id=&quot;XML&quot;&gt;
+    &lt;question&gt;How many licks does it take to get to the center of a Tootsie Pop?&lt;/question&gt;
+    &lt;option&gt;364&lt;/option&gt;
+    &lt;option&gt;252&lt;/option&gt;
+    &lt;option&gt;411&lt;/option&gt;
+    &lt;option&gt;144&lt;/option&gt;
+    &lt;option&gt;TBD&lt;/option&gt;
+&lt;question&gt;</code></pre>
+<h5 id="4-then-designate-the-correct-answer-option-">4. Then, designate the correct answer option:</h5>
+<h6 id="using-html">Using HTML</h6>
+<p>In HTML, the correct answer options are designated by setting the <code>data-answer</code> attribute on the correct <code>&lt;smarty-answer&gt;</code> elements:</p>
+<pre><code class="lang-html">&lt;smarty-question&gt;
+    How many licks does it take to get to the center of a Tootsie Pop?
+    &lt;smarty-answer data-answer=&quot;true&quot;&gt;364&lt;/smarty-answer&gt;
+    &lt;smarty-answer data-answer=&quot;true&quot;&gt;252&lt;/smarty-answer&gt;
+    &lt;smarty-answer data-answer=&quot;true&quot;&gt;411&lt;/smarty-answer&gt;
+    &lt;smarty-answer data-answer=&quot;true&quot;&gt;144&lt;/smarty-answer&gt;
+    &lt;smarty-answer&gt;TBD&lt;/smarty-answer&gt;
+&lt;/smarty-question&gt;</code></pre>
+<table cellpadding="2" cellspacing="2">
+    <tr align="left">
+        <th width="20%">Attribute</th>
+        <th width="20%">Options</th>
+        <th width="20%">Default</th>
+        <th width="40%">Description</th>
+    </tr>
+    <tr valign="top">
+        <td>data-answer</td>
+        <td>true<br>
+            false</td>
+        <td>false</td>
+        <td>In order to count an answer option as a correct answer, setting the given answer&#39;s attribute value to <em>true</em> is <strong>required</strong>. Since the default value is assumed to be <em>false</em>, setting the attribute to <em>false</em> is not mandatory although it may be preferred for clarity.</td>
+    </tr>
+</table>
+
+<blockquote>
+<p>Unlike multiple choice questions, multiple answer questions should have more than one (&gt;1) answer option with its <code>data-answer</code> attribute set to <em>true</em>. Otherwise, the question is treated as a multiple choice question, not multiple answer.</p>
+</blockquote>
+<h6 id="using-json">Using JSON</h6>
+<p>In JSON, the correct answer option is designated by setting the <code>answer</code> property on a new line of the question object. An array of numbers corresponding to the item numbers of the correct answers from the <code>options</code> list should be used:</p>
+<pre><code class="lang-json">{
+    &quot;question&quot;: &quot;How many licks does it take to get to the center of a Tootsie Pop?&quot;,
+    &quot;points&quot;: 1,
+    &quot;attempts&quot;: &quot;infinite&quot;,
+    &quot;id&quot;: &quot;JSON&quot;,
+    &quot;options&quot;: [
+        364,
+        252,
+        411,
+        144,
+        &quot;TBD&quot;
+    ],
+    &quot;answer&quot;: [
+        1,
+        2,
+        3,
+        4
+    ]
+}</code></pre>
+<table cellpadding="2" cellspacing="2">
+    <tr align="left">
+        <th width="20%">Attribute</th>
+        <th width="20%">Options</th>
+        <th width="20%">Default</th>
+        <th width="40%">Description</th>
+    </tr>
+    <tr valign="top">
+        <td>answer</td>
+        <td><em>integer</em><br>
+            <em>array</em></td>
+        <td><em>null</em></td>
+        <td>In order to specify the correct answer, the answer property must be set to an <em>integer</em> value. This value should correlate to the item number of the correct answer in the option list. Alternatively, <em>array</em> notation can be used to specify one or more correct answers, where multiple values within the array are treated as a multiple answer question instead of multiple choice.</td>
+    </tr>
+</table>
+
+<blockquote>
+<p>Bear in mind that the <code>answer</code> property accepts both <em>string</em> and <em>array</em> notion. While string notion defaults to multiple choice questions, arrays are configurable for both multiple choice and multiple answer questions. Thus, if array notation is used, more than one (&gt;1) answer option should be given for multiple answer questions. Otherwise, arrays with only one (1) value will be treated as a multiple choice question, not multiple answer.</p>
+</blockquote>
+<h6 id="using-xml">Using XML</h6>
+<p>In XML, the correct answer options are designated by setting the <code>answer</code> attribute on the correct <code>&lt;option&gt;</code> object:</p>
+<pre><code class="lang-xml">&lt;question points=&quot;1&quot; attempts=&quot;infinite&quot; id=&quot;XML&quot;&gt;
+    &lt;question&gt;How many licks does it take to get to the center of a Tootsie Pop?&lt;/question&gt;
+    &lt;option answer=&quot;true&quot;&gt;364&lt;/option&gt;
+    &lt;option answer=&quot;true&quot;&gt;252&lt;/option&gt;
+    &lt;option answer=&quot;true&quot;&gt;411&lt;/option&gt;
+    &lt;option answer=&quot;true&quot;&gt;144&lt;/option&gt;
+    &lt;option&gt;TBD&lt;/option&gt;
+&lt;question&gt;</code></pre>
+<table cellpadding="2" cellspacing="2">
+    <tr align="left">
+        <th width="20%">Attribute</th>
+        <th width="20%">Options</th>
+        <th width="20%">Default</th>
+        <th width="40%">Description</th>
+    </tr>
+    <tr valign="top">
+        <td>answer</td>
+        <td>true<br>
+            false</td>
+        <td>false</td>
+        <td>In order to count an answer option as a correct answer, setting the given answer&#39;s attribute value to <em>true</em> is <strong>required</strong>. Since the default value is assumed to be <em>false</em>, setting the attribute to <em>false</em> is not mandatory although it may be preferred for clarity.</td>
+    </tr>
+</table>
+
+<blockquote>
+<p>Unlike multiple choice questions, multiple answer questions should have more than one (&gt;1) answer option with its <code>answer</code> attribute set to <em>true</em>. Otherwise, the question is treated as a multiple choice question, not multiple answer.</p>
+</blockquote>
+<h5 id="5-optionally-provide-users-with-feedback-to-the-question-">5. Optionally, provide users with feedback to the question:</h5>
+<h6 id="using-html">Using HTML</h6>
+<p>Feedback is added by using the <code>&lt;smarty-feedback&gt;</code> element:</p>
+<pre><code class="lang-html">&lt;smarty-question&gt;
+    How many licks does it take to get to the center of a Tootsie Pop?
+    &lt;smarty-answer data-answer=&quot;true&quot;&gt;364&lt;/smarty-answer&gt;
+    &lt;smarty-answer data-answer=&quot;true&quot;&gt;252&lt;/smarty-answer&gt;
+    &lt;smarty-answer data-answer=&quot;true&quot;&gt;411&lt;/smarty-answer&gt;
+    &lt;smarty-answer data-answer=&quot;true&quot;&gt;144&lt;/smarty-answer&gt;
+    &lt;smarty-answer&gt;TBD&lt;/smarty-answer&gt;
+    &lt;smarty-feedback&gt;
+        Different studies conducted by different groups of researchers all came to different conclusions. 
+    &lt;/smarty-feedback&gt;
+&lt;/smarty-question&gt;</code></pre>
+<blockquote>
+<p>Do note, since feedback is intended to provide the user with additional insight into the question and its correct answer, feedback is not shown to the user until at least one (1) of the following conditions have been met:  </p>
+<ul>
+<li>If a question permits multiple attempts, feedback is given...<ol>
+<li>When the user answers the question correctly</li>
+<li>When the user exhausts all permitted attempts</li>
+</ol>
+</li>
+<li>If a question permits only one (1) attempt, feedback is given...<ol>
+<li>After the user answers the question, regardless of right or wrong</li>
+</ol>
+</li>
+<li>If a question permits an infinite number of attempts, feedback is given...<ol>
+<li>Only after the user answers the question correctly</li>
+</ol>
+</li>
+</ul>
+</blockquote>
+<h6 id="using-json">Using JSON</h6>
+<p>In JSON, feedback is added by setting the <code>feedback</code> property on a new line of the question object:</p>
+<pre><code class="lang-json">{
+    &quot;question&quot;: &quot;How many licks does it take to get to the center of a Tootsie Pop?&quot;,
+    &quot;points&quot;: 1,
+    &quot;attempts&quot;: &quot;infinite&quot;,
+    &quot;id&quot;: &quot;JSON&quot;,
+    &quot;options&quot;: [
+        364,
+        252,
+        411,
+        144,
+        &quot;TBD&quot;
+    ],
+    &quot;answer&quot;: 5,
+    &quot;feedback&quot;: &quot;Different studies conducted by different groups of researchers all came to different conclusions.&quot;
+}</code></pre>
+<blockquote>
+<p>Do note, since feedback is intended to provide the user with additional insight into the question and its correct answer, feedback is not shown to the user until at least one (1) of the following conditions have been met:  </p>
+<ul>
+<li>If a question permits multiple attempts, feedback is given...<ol>
+<li>When the user answers the question correctly</li>
+<li>When the user exhausts all permitted attempts</li>
+</ol>
+</li>
+<li>If a question permits only one (1) attempt, feedback is given...<ol>
+<li>After the user answers the question, regardless of right or wrong</li>
+</ol>
+</li>
+<li>If a question permits an infinite number of attempts, feedback is given...<ol>
+<li>Only after the user answers the question correctly</li>
+</ol>
+</li>
+</ul>
+</blockquote>
+<h6 id="using-xml">Using XML</h6>
+<p>In XML, feedback is added using a <code>feedback</code> element nested at the end of the question object:</p>
+<pre><code class="lang-xml">&lt;question points=&quot;1&quot; attempts=&quot;infinite&quot; id=&quot;XML&quot;&gt;
+    &lt;question&gt;How many licks does it take to get to the center of a Tootsie Pop?&lt;/question&gt;
+    &lt;option&gt;364&lt;/option&gt;
+    &lt;option&gt;252&lt;/option&gt;
+    &lt;option&gt;411&lt;/option&gt;
+    &lt;option&gt;144&lt;/option&gt;
+    &lt;option answer=&quot;true&quot;&gt;TBD&lt;/option&gt;
+    &lt;feedback&gt;Different studies conducted by different groups of researchers all came to different conclusions.&lt;/feedback&gt;
+&lt;question&gt;</code></pre>
+<blockquote>
+<p>Do note, since feedback is intended to provide the user with additional insight into the question and its correct answer, feedback is not shown to the user until at least one (1) of the following conditions have been met:  </p>
+<ul>
+<li>If a question permits multiple attempts, feedback is given...<ol>
+<li>When the user answers the question correctly</li>
+<li>When the user exhausts all permitted attempts</li>
+</ol>
+</li>
+<li>If a question permits only one (1) attempt, feedback is given...<ol>
+<li>After the user answers the question, regardless of right or wrong</li>
+</ol>
+</li>
+<li>If a question permits an infinite number of attempts, feedback is given...<ol>
+<li>Only after the user answers the question correctly</li>
+</ol>
+</li>
+</ul>
+</blockquote>
+<h5 id="6-optionally-provide-users-with-a-hint-">6. Optionally, provide users with a hint:</h5>
+<h6 id="using-html">Using HTML</h6>
+<p>In HTML, a hint can be added by creating a <code>&lt;smarty-hint&gt;</code> element. Additionally, the <code>data-attempts</code> property should be set on the <code>&lt;smarty-hint&gt;</code> element to specify how many attempts the user must try before the hint is made available. It&#39;s recommended that hints be added after all answer options and either before or after any question feedback:</p>
+<pre><code class="lang-html">&lt;smarty-question&gt;
+    How many licks does it take to get to the center of a Tootsie Pop?
+    &lt;smarty-answer&gt;364&lt;/smarty-answer&gt;
+    &lt;smarty-answer&gt;252&lt;/smarty-answer&gt;
+    &lt;smarty-answer&gt;411&lt;/smarty-answer&gt;
+    &lt;smarty-answer&gt;144&lt;/smarty-answer&gt;
+    &lt;smarty-answer data-answer=&quot;true&quot;&gt;TBD&lt;/smarty-answer&gt;
+    &lt;smarty-feedback&gt;
+        Different studies conducted by different groups of researchers all came to different conclusions.
+    &lt;/smarty-feedback&gt;
+    &lt;smarty-hint data-attempts=&quot;1&quot;&gt;
+        No one has ever been wrong.
+    &lt;/smarty-hint&gt;
+&lt;/smarty-question&gt;</code></pre>
+<table cellpadding="2" cellspacing="2">
+    <tr align="left">
+        <th width="20%">Attribute</th>
+        <th width="20%">Options</th>
+        <th width="20%">Default</th>
+        <th width="40%">Description</th>
+    </tr>
+    <tr>
+        <td>data-attempts</td>
+        <td><em>integer</em></td>
+        <td>1</td>
+        <td>Setting this attribute with an <em>integer</em> value will set the minimum required number of attempts before the hint is given to the user.</td>
+    </tr>
+</table>
+
+<blockquote>
+<p>Do note, since hints are intended to provide the user with guidance that may lead the user to the correct answer, hints are not shown to the user until a minimum number of attempts have been reached. To specify the number of attempts required before the user is able to receive hints, the <code>data-attempts</code> attribute is used on the <code>&lt;smarty-hint&gt;</code> element.</p>
+</blockquote>
+<h6 id="using-json">Using JSON</h6>
+<p>In JSON, a hint can be added by setting the <code>hint</code> property on a new line of the question object. Additionally, the <code>hintattempts</code> property should also be added on an a separate line of the question object to specify how many attempts the user must try before the hint is made available:</p>
+<pre><code class="lang-json">{
+    &quot;question&quot;: &quot;How many licks does it take to get to the center of a Tootsie Pop?&quot;,
+    &quot;points&quot;: 1,
+    &quot;attempts&quot;: &quot;infinite&quot;,
+    &quot;id&quot;: &quot;JSON&quot;,
+    &quot;options&quot;: [
+        364,
+        252,
+        411,
+        144,
+        &quot;TBD&quot;
+    ],
+    &quot;answer&quot;: 5,
+    &quot;feedback&quot;: &quot;Different studies conducted by different groups of researchers all came to different conclusions.&quot;,
+    &quot;hint&quot;: &quot;No one has ever been wrong.&quot;,
+    &quot;hintattempts&quot;: 1
+}</code></pre>
+<table cellpadding="2" cellspacing="2">
+    <tr align="left">
+        <th width="20%">Attribute</th>
+        <th width="20%">Options</th>
+        <th width="20%">Default</th>
+        <th width="40%">Description</th>
+    </tr>
+    <tr>
+        <td>hintattempts</td>
+        <td><em>integer</em></td>
+        <td>1</td>
+        <td>Setting this attribute with an <em>integer</em> value will set the minimum required number of attempts before the hint is given to the user.</td>
+    </tr>
+</table>
+
+<blockquote>
+<p>Do note, since hints are intended to provide the user with guidance that may lead the user to the correct answer, hints are not shown to the user until a minimum number of attempts have been reached. To specify the number of attempts required before the user is able to receive hints, the <code>hintattempts</code> property is used.</p>
+</blockquote>
+<h6 id="using-xml">Using XML</h6>
+<p>In XML, a hint can be added by creating a <code>&lt;hint&gt;</code> object. Additionally, the <code>attempts</code> property should be set on the <code>&lt;hint&gt;</code> object to specify how many attempts the user must try before the hint is made available:</p>
+<pre><code class="lang-xml">&lt;question points=&quot;1&quot; attempts=&quot;infinite&quot; id=&quot;XML&quot;&gt;
+    &lt;question&gt;How many licks does it take to get to the center of a Tootsie Pop?&lt;/question&gt;
+    &lt;option&gt;364&lt;/option&gt;
+    &lt;option&gt;252&lt;/option&gt;
+    &lt;option&gt;411&lt;/option&gt;
+    &lt;option&gt;144&lt;/option&gt;
+    &lt;option answer=&quot;true&quot;&gt;TBD&lt;/option&gt;
+    &lt;feedback&gt;Different studies conducted by different groups of researchers all came to different conclusions.&lt;/feedback&gt;
+    &lt;hint attempts=&quot;1&quot;&gt;No one has ever been wrong.&lt;/hint&gt;
+&lt;question&gt;</code></pre>
+<table cellpadding="2" cellspacing="2">
+    <tr align="left">
+        <th width="20%">Attribute</th>
+        <th width="20%">Options</th>
+        <th width="20%">Default</th>
+        <th width="40%">Description</th>
+    </tr>
+    <tr>
+        <td>data-attempts</td>
+        <td><em>integer</em></td>
+        <td>1</td>
+        <td>Setting this attribute with an <em>integer</em> value will set the minimum required number of attempts before the hint is given to the user.</td>
+    </tr>
+</table>
+
+<blockquote>
+<p>Do note, since hints are intended to provide the user with guidance that may lead the user to the correct answer, hints are not shown to the user until a minimum number of attempts have been reached. To specify the number of attempts required before the user is able to receive hints, the <code>attempts</code> attribute is used on the <code>&lt;hint&gt;</code> object.</p>
+</blockquote>
+<h4 id="short-answer-questions-a-id-shortanswer-a-">Short Answer Questions <a id="ShortAnswer"></a></h4>
+<p>Another common type of question frequently found on quizzes is the short answer question. Short answer questions require the user to provide some text input, which upon validation, is either marked as correct or incorrect. Because questions allowing users to input an answer can easily introduce a wide range of error, Smarty tries to account for answer variations by providing a means for accepting alternative, or variant, answers.</p>
+<h5 id="1-start-by-creating-a-question-and-add-in-question-text-">1. Start by creating a question and add in question text:</h5>
+<h6 id="using-html">Using HTML</h6>
+<p>When using HTML, a question is created using the <code>&lt;smarty-question&gt;</code> element:</p>
+<pre><code class="lang-html">&lt;smarty-question&gt;
+    On what road does the Muffin Man live?
+&lt;/smarty-question&gt;</code></pre>
+<h6 id="using-json">Using JSON</h6>
+<p>When using JSON, a question is created using object notation:</p>
+<pre><code class="lang-json">{
+    &quot;question&quot;: &quot;On what road does the Muffin Man live?&quot;
+}</code></pre>
+<h6 id="using-xml">Using XML</h6>
+<p>When using XML, a question is identified using a <code>&lt;question&gt;</code> element with a subsequent <code>&lt;question&gt;</code> element nested inside for holding the question&#39;s text:</p>
+<pre><code class="lang-xml">&lt;question&gt;
+    &lt;question&gt;On what road does the Muffin Man live?&lt;/question&gt;
+&lt;question&gt;</code></pre>
+<h5 id="2-next-set-the-question-s-properties-based-on-your-preferences-">2. Next, set the question&#39;s properties based on your preferences:</h5>
+<h6 id="using-html">Using HTML</h6>
+<p>The HTML attributes are applied to the <code>&lt;smarty-question&gt;</code> element directly:</p>
+<pre><code class="lang-html">&lt;smarty-question data-points=&quot;1&quot; data-attempts=&quot;infinite&quot; data-id=&quot;HTML&quot;&gt;
+    On what road does the Muffin Man live?
+&lt;/smarty-question&gt;</code></pre>
+<table cellpadding="2" cellspacing="2">
+    <tr align="left">
+        <th width="20%">Attribute</th>
+        <th width="20%">Options</th>
+        <th width="20%">Default</th>
+        <th width="40%">Description</th>
+    </tr>
+    <tr valign="top">
+        <td>data-points</td>
+        <td><em>numeric</em></td>
+        <td>1</td>
+        <td>Setting this attribute with a <em>numeric</em> value, such as an integer or decimal, will give the question some point value, which is factored into the quiz&#39;s running and final score. Do note, if all questions are worth 0 points, the quiz&#39;s resulting maximum possible score will always be 0%.</td>
+    </tr>
+    <tr valign="top">
+        <td>data-attempts</td>
+        <td><em>integer</em><br>
+            infinite</td>
+        <td>infinite</td>
+        <td>Setting this attribute with an <em>integer</em>, or whole number, value will permit the user to only answer the given question up to the allotted number of times permitted or until the question is answered correctly, whichever comes first. Not setting this attribute is equivalent to setting its value to <em>infinite</em>, which allows the user to continuously attempt to answer the question until the correct answer is given.</td>
+    </tr>
+    <tr valign="top">
+        <td>data-id</td>
+        <td><em>string</em></td>
+        <td><em>null</em></td>
+        <td>Setting this attribute with a <em>string</em> will assign the element the given ID. The ID assigned to the element is not used for any special purpose and is mostly intended for use by developers. This property is optional.</td>
+    </tr>
+</table>
+
+<h6 id="using-json">Using JSON</h6>
+<p>In JSON, the following properties are declared on a new line within the question object:</p>
+<pre><code class="lang-json">{
+    &quot;question&quot;: &quot;On what road does the Muffin Man live?&quot;,
+    &quot;points&quot;: 1,
+    &quot;attempts&quot;: &quot;infinite&quot;,
+    &quot;id&quot;: &quot;JSON&quot;
+}</code></pre>
+<table cellpadding="2" cellspacing="2">
+    <tr align="left">
+        <th width="20%">Attribute</th>
+        <th width="20%">Options</th>
+        <th width="20%">Default</th>
+        <th width="40%">Description</th>
+    </tr>
+    <tr valign="top">
+        <td>points</td>
+        <td><em>numeric</em></td>
+        <td>1</td>
+        <td>Setting this property with a <em>numeric</em> value, such as an integer or decimal, will give the question some point value, which is factored into the quiz&#39;s running and final score. Do note, if all questions are worth 0 points, the quiz&#39;s resulting maximum possible score will always be 0%.</td>
+    </tr>
+    <tr valign="top">
+        <td>attempts</td>
+        <td><em>integer</em><br>
+            infinite</td>
+        <td>infinite</td>
+        <td>Setting this property with an <em>integer</em>, or whole number, value will permit the user to only answer the given question up to the allotted number of times permitted or until the question is answered correctly, whichever comes first. Not setting this attribute is equivalent to setting its value to <em>infinite</em>, which allows the user to continuously attempt to answer the question until the correct answer is given.</td>
+    </tr>
+    <tr valign="top">
+        <td>id</td>
+        <td><em>string</em></td>
+        <td><em>null</em></td>
+        <td>Setting this property with a <em>string</em> will assign the element the given ID. The ID assigned to the element is not used for any special purpose and is mostly intended for use by developers. This property is optional.</td>
+    </tr>
+    <tr valign="top">
+        <td>type</td>
+        <td>multichoice<br>
+            multianswer<br>
+            shortanswer<br>
+            truefalse</td>
+        <td><em>null</em></td>
+        <td>Setting this property with the relevant question type from the list of types provided will help improve the performance of your Smarty application. For multiple choice questions, use the <em>multichoice</em> question type. This property, however, is optional. If not set, the application will determine the question type automatically.</td>
+    </tr>
+</table>
+
+<h6 id="using-xml">Using XML</h6>
+<p>In XML, the following attributes can be added directly to the parent question element:</p>
+<pre><code class="lang-xml">&lt;question points=&quot;1&quot; attempts=&quot;infinite&quot; id=&quot;XML&quot;&gt;
+    &lt;question&gt;On what road does the Muffin Man live?&lt;/question&gt;
+&lt;question&gt;</code></pre>
+<table cellpadding="2" cellspacing="2">
+    <tr align="left">
+        <th width="20%">Attribute</th>
+        <th width="20%">Options</th>
+        <th width="20%">Default</th>
+        <th width="40%">Description</th>
+    </tr>
+    <tr valign="top">
+        <td>points</td>
+        <td><em>numeric</em></td>
+        <td>1</td>
+        <td>Setting this attribute with a <em>numeric</em> value, such as an integer or decimal, will give the question some point value, which is factored into the quiz&#39;s running and final score. Do note, if all questions are worth 0 points, the quiz&#39;s resulting maximum possible score will always be 0%.</td>
+    </tr>
+    <tr valign="top">
+        <td>attempts</td>
+        <td><em>integer</em><br>
+            infinite</td>
+        <td>infinite</td>
+        <td>Setting this attribute with an <em>integer</em>, or whole number, value will permit the user to only answer the given question up to the allotted number of times permitted or until the question is answered correctly, whichever comes first. Not setting this attribute is equivalent to setting its value to <em>infinite</em>, which allows the user to continuously attempt to answer the question until the correct answer is given.</td>
+    </tr>
+    <tr valign="top">
+        <td>id</td>
+        <td><em>string</em></td>
+        <td><em>null</em></td>
+        <td>Setting this attribute with a <em>string</em> will assign the element the given ID. The ID assigned to the element is not used for any special purpose and is mostly intended for use by developers. This property is optional.</td>
+    </tr>
+    <tr valign="top">
+        <td>type</td>
+        <td>multichoice<br>
+            multianswer<br>
+            shortanswer<br>
+            truefalse</td>
+        <td><em>null</em></td>
+        <td>Setting this attribute with the relevant question type from the list of types provided will help improve the performance of your Smarty application. For multiple choice questions, use the <em>multichoice</em> question type. This property, however, is optional. If not set, the application will determine the question type automatically.</td>
+    </tr>
+</table>
+
+
+
+<h5 id="3-after-setup-your-answer-input-box-">3. After, setup your answer input box:</h5>
+<h6 id="using-html">Using HTML</h6>
+<p>In HTML, a single (1) blank answer option should be created using a <code>&lt;smarty-answer&gt;</code> element. This blank element indicates that the question is in a short answer format:</p>
+<pre><code class="lang-html">&lt;smarty-question&gt;
+    On what road does the Muffin Man live?
+    &lt;smarty-answer&gt;&lt;/smarty-answer&gt;
+&lt;/smarty-question&gt;</code></pre>
+<h6 id="using-json">Using JSON</h6>
+<p>In JSON, the <code>option</code> property is used to specificy preset answer options. Since short answer questions do not have a predefined set of answer options, the <code>option</code> property should be remain unset. You can do so by simply leaving off the <code>option</code> property altogether. Thus, your JSON data will still look the same as it did in the previous step:</p>
+<pre><code class="lang-json">{
+    &quot;question&quot;: &quot;On what road does the Muffin Man live?&quot;,
+    &quot;points&quot;: 1,
+    &quot;attempts&quot;: &quot;infinite&quot;,
+    &quot;id&quot;: &quot;JSON&quot;
+}</code></pre>
+<h6 id="using-xml">Using XML</h6>
+<p>In XML, a single (1) <code>&lt;option&gt;</code> element is used to indicate that the question&#39;s format is short answer. At this time, the contents of the <code>&lt;option&gt;</code> element can remain empty. We will fill it in the next step:</p>
+<pre><code class="lang-xml">&lt;question points=&quot;1&quot; attempts=&quot;infinite&quot; id=&quot;XML&quot;&gt;
+    &lt;question&gt;On what road does the Muffin Man live?&lt;/question&gt;
+    &lt;option&gt;&lt;/option&gt;
+&lt;question&gt;</code></pre>
+<h5 id="4-then-give-the-correct-answer-and-any-acceptable-answer-alternatives-">4. Then, give the correct answer and any acceptable answer alternatives:</h5>
+<h6 id="using-html">Using HTML</h6>
+<p>With the blank <code>&lt;smarty-answer&gt;</code> element, use the <code>data-answer</code> attribute to set the short answer question&#39;s correct answer. Additionally, use the <code>data-answer-alts</code> attribute to provide a semi-colon-delimited list of any other acceptable answers as an alternative to the correct answer. If you prefer that user input be case sensitive, also set the <code>data-case-sensitive</code> attribute for the <code>&lt;smarty-answer&gt;</code> element:</p>
+<pre><code class="lang-html">&lt;smarty-question&gt;
+    On what road does the Muffin Man live?
+    &lt;smarty-answer data-answer=&quot;Drury Lane&quot;
+                   data-case-sensitive=&quot;true&quot;
+                   data-answer-alts=&quot;Drury Ln; Drurie Lane; Drurie Ln&quot;&gt;&lt;/smarty-answer&gt;
+&lt;/smarty-question&gt;</code></pre>
+<table cellpadding="2" cellspacing="2">
+    <tr align="left">
+        <th width="20%">Attribute</th>
+        <th width="20%">Options</th>
+        <th width="20%">Default</th>
+        <th width="40%">Description</th>
+    </tr>
+    <tr valign="top">
+        <td>data-answer</td>
+        <td><em>string</em></td>
+        <td><em>null</em></td>
+        <td>Unlike multiple choice and multiple answer, this attribute takes on a new form when it comes to short answer questions: A <em>string</em> value equivalent to your preferred correct answer is <strong>required</strong>.</td>
+    </tr>
+    <tr valign="top">
+        <td>data-answer-alts</td>
+        <td><em>string</em></td>
+        <td><em>null</em></td>
+        <td>Standing for alternatives, this attribute accepts one or more (&gt;=1) <em>string</em> values in a semi-colon-delimited list, where each value in the list can also be accepted as the question&#39;s correct answer.</td>
+    </tr>
+    <tr valign="top">
+        <td>data-case-sensitive</td>
+        <td>true<br>
+            false</td>
+        <td>false</td>
+        <td>If set to <em>true</em>, the user is required to input an answer which matches in case to either the correct answer given or one of the alternative answers provided. If set to <em>false</em>, the user&#39;s input, the correct answer, and any alternative answers are validated on an all lowercase basis.</td>
+    </tr>
+</table>
+
+<blockquote>
+<p>It&#39;s recommended that alternative answers be used to take into account possible user answer deviations. Suggested alternatives for text answers include misspellings, plausible typos, and abbreviations. Suggested alternatives for date answers include both text, short date, and long date formats.</p>
+</blockquote>
+<h6 id="using-json">Using JSON</h6>
+<p>Inside your question object, use a new line to set the <code>answer</code> property to the short answer question&#39;s correct answer. Additionally, use the <code>alts</code> property to provide a  list of any other alternative answers that should be accepted using array notation. If you prefer that user input be case sensitive, also set the <code>matchcase</code> property for your question object with a boolean <em>true</em> or <em>false</em>:</p>
+<pre><code class="lang-json">{
+    &quot;question&quot;: &quot;On what road does the Muffin Man live?&quot;,
+    &quot;points&quot;: 1,
+    &quot;attempts&quot;: &quot;infinite&quot;,
+    &quot;id&quot;: &quot;JSON&quot;,
+    &quot;answer&quot;: &quot;Drury Lane&quot;,
+    &quot;alts&quot;: [
+        &quot;Drury Ln&quot;,
+        &quot;Drurie Lane&quot;,
+        &quot;Drurie Ln&quot;
+    ],
+    &quot;matchcase&quot;: true
+}</code></pre>
+<table cellpadding="2" cellspacing="2">
+    <tr align="left">
+        <th width="20%">Attribute</th>
+        <th width="20%">Options</th>
+        <th width="20%">Default</th>
+        <th width="40%">Description</th>
+    </tr>
+    <tr valign="top">
+        <td>answer</td>
+        <td><em>string</em></td>
+        <td><em>null</em></td>
+        <td>A <em>string</em> value equivalent to your preferred correct answer is <strong>required</strong>.</td>
+    </tr>
+    <tr valign="top">
+        <td>alts</td>
+        <td><em>array</em></td>
+        <td><em>null</em></td>
+        <td>Standing for alternatives, this attribute accepts a single (1) array with one or more (&gt;=1) values, where each value in the array can also be accepted as the question&#39;s correct answer.</td>
+    </tr>
+    <tr valign="top">
+        <td>matchcase</td>
+        <td>true<br>
+            false</td>
+        <td>false</td>
+        <td>If set to <em>true</em>, the user is required to input an answer which matches in case to either the correct answer given or one of the alternative answers provided. If set to <em>false</em>, the user&#39;s input, the correct answer, and any alternative answers are validated on an all lowercase basis.</td>
+    </tr>
+</table>
+
+<blockquote>
+<p>It&#39;s recommended that alternative answers be used to take into account possible user answer deviations. Suggested alternatives for text answers include misspellings, plausible typos, and abbreviations. Suggested alternatives for date answers include both text, short date, and long date formats.</p>
+</blockquote>
+<h6 id="using-xml">Using XML</h6>
+<p>With the blank <code>&lt;option&gt;</code> object, fill in the correct answer between the object&#39;s opening and closing tags. Optionally, the <code>&lt;option&gt;</code> object&#39;s <code>answer</code> attribute can be set to <em>true</em> for consistency with other question types but is not required. Additionally, use the <code>alts</code> attribute to provide a semi-colon-delimited list of any other acceptable answers as an alternative to the correct answer. If you prefer that user input be case sensitive, also set the <code>matchcase</code> attribute for the <code>&lt;option&gt;</code> element:</p>
+<pre><code class="lang-xml">&lt;question points=&quot;1&quot; attempts=&quot;infinite&quot; id=&quot;XML&quot;&gt;
+    &lt;question&gt;On what road does the Muffin Man live?&lt;/question&gt;
+    &lt;option answer=&quot;true&quot; alts=&quot;Drury Ln; Drurie Lane; Drurie Ln&quot; matchase=&quot;true&quot;&gt;Drury Lane&lt;/option&gt;
+&lt;question&gt;</code></pre>
+<table cellpadding="2" cellspacing="2">
+    <tr align="left">
+        <th width="20%">Attribute</th>
+        <th width="20%">Options</th>
+        <th width="20%">Default</th>
+        <th width="40%">Description</th>
+    </tr>
+    <tr valign="top">
+        <td>answer</td>
+        <td><em>true</em><br>
+            <em>false</em></td>
+        <td><em>true</em></td>
+        <td>This attribute is optional and only used for consistency purposes. Setting this attribute to <em>true</em> or <em>false</em> will ultimately have no effect as the answer will always be treated as <em>true</em>.</td>
+    </tr>
+    <tr valign="top">
+        <td>alts</td>
+        <td><em>string</em></td>
+        <td><em>null</em></td>
+        <td>Standing for alternatives, this attribute accepts one or more (&gt;=1) <em>string</em> values in a semi-colon-delimited list, where each value in the list can also be accepted as the question&#39;s correct answer.</td>
+    </tr>
+    <tr valign="top">
+        <td>matchcase</td>
+        <td>true<br>
+            false</td>
+        <td>false</td>
+        <td>If set to <em>true</em>, the user is required to input an answer which matches in case to either the correct answer given or one of the alternative answers provided. If set to <em>false</em>, the user&#39;s input, the correct answer, and any alternative answers are validated on an all lowercase basis.</td>
+    </tr>
+</table>
+
+<blockquote>
+<p>It&#39;s recommended that alternative answers be used to take into account possible user answer deviations. Suggested alternatives for text answers include misspellings, plausible typos, and abbreviations. Suggested alternatives for date answers include both text, short date, and long date formats.</p>
+</blockquote>
+<h5 id="5-optionally-provide-users-with-feedback-to-the-question-">5. Optionally, provide users with feedback to the question:</h5>
+<h6 id="using-html">Using HTML</h6>
+<p>Feedback is added by using the <code>&lt;smarty-feedback&gt;</code> element:</p>
+<pre><code class="lang-html">&lt;smarty-question&gt;
+    On what road does the Muffin Man live?
+    &lt;smarty-answer data-answer=&quot;Drury Lane&quot;
+                   data-case-sensitive=&quot;true&quot;
+                   data-answer-alts=&quot;Drury Ln; Drurie Lane; Drurie Ln&quot;&gt;&lt;/smarty-answer&gt;
+    &lt;smarty-feedback&gt;
+        There&#39;s a Drury Lane is Chicago (Illinois) and London (UK). How will we ever find the Muffin Man?
+    &lt;/smarty-feedback&gt;
+&lt;/smarty-question&gt;</code></pre>
+<blockquote>
+<p>Do note, since feedback is intended to provide the user with additional insight into the question and its correct answer, feedback is not shown to the user until at least one (1) of the following conditions have been met:  </p>
+<ul>
+<li>If a question permits multiple attempts, feedback is given...<ol>
+<li>When the user answers the question correctly</li>
+<li>When the user exhausts all permitted attempts</li>
+</ol>
+</li>
+<li>If a question permits only one (1) attempt, feedback is given...<ol>
+<li>After the user answers the question, regardless of right or wrong</li>
+</ol>
+</li>
+<li>If a question permits an infinite number of attempts, feedback is given...<ol>
+<li>Only after the user answers the question correctly</li>
+</ol>
+</li>
+</ul>
+</blockquote>
+<h6 id="using-json">Using JSON</h6>
+<p>In JSON, feedback is added by setting the <code>feedback</code> property on a new line of the question object:</p>
+<pre><code class="lang-json">{
+    &quot;question&quot;: &quot;On what road does the Muffin Man live?&quot;,
+    &quot;points&quot;: 1,
+    &quot;attempts&quot;: &quot;infinite&quot;,
+    &quot;id&quot;: &quot;JSON&quot;,
+    &quot;answer&quot;: &quot;Drury Lane&quot;,
+    &quot;alts&quot;: [
+        &quot;Drury Ln&quot;,
+        &quot;Drurie Lane&quot;,
+        &quot;Drurie Ln&quot;
+    ],
+    &quot;matchcase&quot;: true,
+    &quot;feedback&quot;: &quot;There&#39;s a Drury Lane is Chicago (Illinois) and London (UK). How will we ever find the Muffin Man?&quot;
+}</code></pre>
+<blockquote>
+<p>Do note, since feedback is intended to provide the user with additional insight into the question and its correct answer, feedback is not shown to the user until at least one (1) of the following conditions have been met:  </p>
+<ul>
+<li>If a question permits multiple attempts, feedback is given...<ol>
+<li>When the user answers the question correctly</li>
+<li>When the user exhausts all permitted attempts</li>
+</ol>
+</li>
+<li>If a question permits only one (1) attempt, feedback is given...<ol>
+<li>After the user answers the question, regardless of right or wrong</li>
+</ol>
+</li>
+<li>If a question permits an infinite number of attempts, feedback is given...<ol>
+<li>Only after the user answers the question correctly</li>
+</ol>
+</li>
+</ul>
+</blockquote>
+<h6 id="using-xml">Using XML</h6>
+<p>In XML, feedback is added using a <code>feedback</code> element nested at the end of the question object:</p>
+<pre><code class="lang-xml">&lt;question points=&quot;1&quot; attempts=&quot;infinite&quot; id=&quot;XML&quot;&gt;
+    &lt;question&gt;On what road does the Muffin Man live?&lt;/question&gt;
+    &lt;option answer=&quot;true&quot; alts=&quot;Drury Ln; Drurie Lane; Drurie Ln&quot; matchase=&quot;true&quot;&gt;Drury Lane&lt;/option&gt;
+    &lt;feedback&gt;There&#39;s a Drury Lane is Chicago (Illinois) and London (UK). How will we ever find the Muffin Man?&lt;/feedback&gt;
+&lt;question&gt;</code></pre>
+<blockquote>
+<p>Do note, since feedback is intended to provide the user with additional insight into the question and its correct answer, feedback is not shown to the user until at least one (1) of the following conditions have been met:  </p>
+<ul>
+<li>If a question permits multiple attempts, feedback is given...<ol>
+<li>When the user answers the question correctly</li>
+<li>When the user exhausts all permitted attempts</li>
+</ol>
+</li>
+<li>If a question permits only one (1) attempt, feedback is given...<ol>
+<li>After the user answers the question, regardless of right or wrong</li>
+</ol>
+</li>
+<li>If a question permits an infinite number of attempts, feedback is given...<ol>
+<li>Only after the user answers the question correctly</li>
+</ol>
+</li>
+</ul>
+</blockquote>
+<h5 id="6-optionally-provide-users-with-a-hint-">6. Optionally, provide users with a hint:</h5>
+<h6 id="using-html">Using HTML</h6>
+<p>In HTML, a hint can be added by creating a <code>&lt;smarty-hint&gt;</code> element. Additionally, the <code>data-attempts</code> property should be set on the <code>&lt;smarty-hint&gt;</code> element to specify how many attempts the user must try before the hint is made available. It&#39;s recommended that hints be added after all answer options and either before or after any question feedback:</p>
+<pre><code class="lang-html">&lt;smarty-question&gt;
+    On what road does the Muffin Man live?
+    &lt;smarty-answer data-answer=&quot;Drury Lane&quot;
+                   data-case-sensitive=&quot;true&quot;
+                   data-answer-alts=&quot;Drury Ln; Drurie Lane; Drurie Ln&quot;&gt;&lt;/smarty-answer&gt;
+    &lt;smarty-feedback&gt;
+        There&#39;s a Drury Lane is Chicago (Illinois) and London (UK). How will we ever find the Muffin Man?
+    &lt;/smarty-feedback&gt;
+    &lt;smarty-hint data-attempts=&quot;1&quot;&gt;
+        Do you know the Muffin Man?
+    &lt;/smarty-hint&gt;
+&lt;/smarty-question&gt;</code></pre>
+<table cellpadding="2" cellspacing="2">
+    <tr align="left">
+        <th width="20%">Attribute</th>
+        <th width="20%">Options</th>
+        <th width="20%">Default</th>
+        <th width="40%">Description</th>
+    </tr>
+    <tr>
+        <td>data-attempts</td>
+        <td><em>integer</em></td>
+        <td>1</td>
+        <td>Setting this attribute with an <em>integer</em> value will set the minimum required number of attempts before the hint is given to the user.</td>
+    </tr>
+</table>
+
+<blockquote>
+<p>Do note, since hints are intended to provide the user with guidance that may lead the user to the correct answer, hints are not shown to the user until a minimum number of attempts have been reached. To specify the number of attempts required before the user is able to receive hints, the <code>data-attempts</code> attribute is used on the <code>&lt;smarty-hint&gt;</code> element.</p>
+</blockquote>
+<h6 id="using-json">Using JSON</h6>
+<p>In JSON, a hint can be added by setting the <code>hint</code> property on a new line of the question object. Additionally, the <code>hintattempts</code> property should also be added on an a separate line of the question object to specify how many attempts the user must try before the hint is made available:</p>
+<pre><code class="lang-json">{
+    &quot;question&quot;: &quot;On what road does the Muffin Man live?&quot;,
+    &quot;points&quot;: 1,
+    &quot;attempts&quot;: &quot;infinite&quot;,
+    &quot;id&quot;: &quot;JSON&quot;,
+    &quot;answer&quot;: &quot;Drury Lane&quot;,
+    &quot;alts&quot;: [
+        &quot;Drury Ln&quot;,
+        &quot;Drurie Lane&quot;,
+        &quot;Drurie Ln&quot;
+    ],
+    &quot;matchcase&quot;: true,
+    &quot;feedback&quot;: &quot;There&#39;s a Drury Lane is Chicago (Illinois) and London (UK). How will we ever find the Muffin Man?&quot;,
+    &quot;hint&quot;: &quot;Do you know the Muffin Man?&quot;,
+    &quot;hintattempts:&quot; 1
+}</code></pre>
+<table cellpadding="2" cellspacing="2">
+    <tr align="left">
+        <th width="20%">Attribute</th>
+        <th width="20%">Options</th>
+        <th width="20%">Default</th>
+        <th width="40%">Description</th>
+    </tr>
+    <tr>
+        <td>hintattempts</td>
+        <td><em>integer</em></td>
+        <td>1</td>
+        <td>Setting this attribute with an <em>integer</em> value will set the minimum required number of attempts before the hint is given to the user.</td>
+    </tr>
+</table>
+
+<blockquote>
+<p>Do note, since hints are intended to provide the user with guidance that may lead the user to the correct answer, hints are not shown to the user until a minimum number of attempts have been reached. To specify the number of attempts required before the user is able to receive hints, the <code>hintattempts</code> property is used.</p>
+</blockquote>
+<h6 id="using-xml">Using XML</h6>
+<p>In XML, a hint can be added by creating a <code>&lt;hint&gt;</code> object. Additionally, the <code>attempts</code> property should be set on the <code>&lt;hint&gt;</code> object to specify how many attempts the user must try before the hint is made available:</p>
+<pre><code class="lang-xml">&lt;question points=&quot;1&quot; attempts=&quot;infinite&quot; id=&quot;XML&quot;&gt;
+    &lt;question&gt;On what road does the Muffin Man live?&lt;/question&gt;
+    &lt;option answer=&quot;true&quot; alts=&quot;Drury Ln; Drurie Lane; Drurie Ln&quot; matchase=&quot;true&quot;&gt;Drury Lane&lt;/option&gt;
+    &lt;feedback&gt;There&#39;s a Drury Lane is Chicago (Illinois) and London (UK). How will we ever find the Muffin Man?&lt;/feedback&gt;
+    &lt;hint attempts=&quot;1&quot;&gt;Do you know the Muffin Man?&lt;/hint&gt;
+&lt;question&gt;</code></pre>
+<table cellpadding="2" cellspacing="2">
+    <tr align="left">
+        <th width="20%">Attribute</th>
+        <th width="20%">Options</th>
+        <th width="20%">Default</th>
+        <th width="40%">Description</th>
+    </tr>
+    <tr>
+        <td>data-attempts</td>
+        <td><em>integer</em></td>
+        <td>1</td>
+        <td>Setting this attribute with an <em>integer</em> value will set the minimum required number of attempts before the hint is given to the user.</td>
+    </tr>
+</table>
+
+<blockquote>
+<p>Do note, since hints are intended to provide the user with guidance that may lead the user to the correct answer, hints are not shown to the user until a minimum number of attempts have been reached. To specify the number of attempts required before the user is able to receive hints, the <code>attempts</code> attribute is used on the <code>&lt;hint&gt;</code> object.</p>
+</blockquote>
+<h4 id="true-false-questions-a-id-truefalse-a-">True/False Questions <a id="TrueFalse"></a></h4>
+<h5 id="1-start-by-creating-a-question-and-add-in-question-text-">1. Start by creating a question and add in question text:</h5>
+<h6 id="using-html">Using HTML</h6>
+<p>When using HTML, a question is created using the <code>&lt;smarty-question&gt;</code> element:</p>
+<pre><code class="lang-html">&lt;smarty-question&gt;
+    Disneyland calls itself &quot;The Most Magical Place on Earth.&quot;
+&lt;/smarty-question&gt;</code></pre>
+<h6 id="using-json">Using JSON</h6>
+<p>When using JSON, a question is created using object notation:</p>
+<pre><code class="lang-json">{
+    &quot;question&quot;: &quot;Disneyland calls itself \&quot;The Most Magical Place on Earth.\&quot;&quot;
+}</code></pre>
+<blockquote>
+<p>Note, when double quotes are necessary inside a JSON string, the quotation marks must be escaped by using a backlash () immediately before the quotation symbol. Escaping quotes prevents the nested quotation marks from terminating the JSON string too early, which would result in a JSON syntax error.</p>
+</blockquote>
+<h6 id="using-xml">Using XML</h6>
+<p>When using XML, a question is identified using a <code>&lt;question&gt;</code> element with a subsequent <code>&lt;question&gt;</code> element nested inside for holding the question&#39;s text:</p>
+<pre><code class="lang-xml">&lt;question&gt;
+    &lt;question&gt;Disneyland calls itself &quot;The Most Magical Place on Earth.&quot;&lt;/question&gt;
+&lt;question&gt;</code></pre>
+<h5 id="2-next-set-the-question-s-properties-based-on-your-preferences-">2. Next, set the question&#39;s properties based on your preferences:</h5>
+<h6 id="using-html">Using HTML</h6>
+<p>The HTML attributes are applied to the <code>&lt;smarty-question&gt;</code> element directly:</p>
+<pre><code class="lang-html">&lt;smarty-question data-points=&quot;1&quot; data-attempts=&quot;infinite&quot; data-id=&quot;HTML&quot;&gt;
+    Disneyland calls itself &quot;The Most Magical Place on Earth.&quot;
+&lt;/smarty-question&gt;</code></pre>
+<table cellpadding="2" cellspacing="2">
+    <tr align="left">
+        <th width="20%">Attribute</th>
+        <th width="20%">Options</th>
+        <th width="20%">Default</th>
+        <th width="40%">Description</th>
+    </tr>
+    <tr valign="top">
+        <td>data-points</td>
+        <td><em>numeric</em></td>
+        <td>1</td>
+        <td>Setting this attribute with a <em>numeric</em> value, such as an integer or decimal, will give the question some point value, which is factored into the quiz&#39;s running and final score. Do note, if all questions are worth 0 points, the quiz&#39;s resulting maximum possible score will always be 0%.</td>
+    </tr>
+    <tr valign="top">
+        <td>data-attempts</td>
+        <td><em>integer</em><br>
+            infinite</td>
+        <td>infinite</td>
+        <td>Setting this attribute with an <em>integer</em>, or whole number, value will permit the user to only answer the given question up to the allotted number of times permitted or until the question is answered correctly, whichever comes first. Not setting this attribute is equivalent to setting its value to <em>infinite</em>, which allows the user to continuously attempt to answer the question until the correct answer is given.</td>
+    </tr>
+    <tr valign="top">
+        <td>data-id</td>
+        <td><em>string</em></td>
+        <td><em>null</em></td>
+        <td>Setting this attribute with a <em>string</em> will assign the element the given ID. The ID assigned to the element is not used for any special purpose and is mostly intended for use by developers. This property is optional.</td>
+    </tr>
+</table>
+
+<h6 id="using-json">Using JSON</h6>
+<p>In JSON, the following properties are declared on a new line within the question object:</p>
+<pre><code class="lang-json">{
+    &quot;question&quot;: &quot;Disneyland calls itself \&quot;The Most Magical Place on Earth.\&quot;&quot;,
+    &quot;points&quot;: 1,
+    &quot;attempts&quot;: &quot;infinite&quot;,
+    &quot;id&quot;: &quot;JSON&quot;
+}</code></pre>
+<table cellpadding="2" cellspacing="2">
+    <tr align="left">
+        <th width="20%">Attribute</th>
+        <th width="20%">Options</th>
+        <th width="20%">Default</th>
+        <th width="40%">Description</th>
+    </tr>
+    <tr valign="top">
+        <td>points</td>
+        <td><em>numeric</em></td>
+        <td>1</td>
+        <td>Setting this property with a <em>numeric</em> value, such as an integer or decimal, will give the question some point value, which is factored into the quiz&#39;s running and final score. Do note, if all questions are worth 0 points, the quiz&#39;s resulting maximum possible score will always be 0%.</td>
+    </tr>
+    <tr valign="top">
+        <td>attempts</td>
+        <td><em>integer</em><br>
+            infinite</td>
+        <td>infinite</td>
+        <td>Setting this property with an <em>integer</em>, or whole number, value will permit the user to only answer the given question up to the allotted number of times permitted or until the question is answered correctly, whichever comes first. Not setting this attribute is equivalent to setting its value to <em>infinite</em>, which allows the user to continuously attempt to answer the question until the correct answer is given.</td>
+    </tr>
+    <tr valign="top">
+        <td>id</td>
+        <td><em>string</em></td>
+        <td><em>null</em></td>
+        <td>Setting this property with a <em>string</em> will assign the element the given ID. The ID assigned to the element is not used for any special purpose and is mostly intended for use by developers. This property is optional.</td>
+    </tr>
+    <tr valign="top">
+        <td>type</td>
+        <td>multichoice<br>
+            multianswer<br>
+            shortanswer<br>
+            truefalse</td>
+        <td><em>null</em></td>
+        <td>Setting this property with the relevant question type from the list of types provided will help improve the performance of your Smarty application. For multiple choice questions, use the <em>multichoice</em> question type. This property, however, is optional. If not set, the application will determine the question type automatically.</td>
+    </tr>
+</table>
+
+<h6 id="using-xml">Using XML</h6>
+<p>In XML, the following attributes can be added directly to the parent question element:</p>
+<pre><code class="lang-xml">&lt;question points=&quot;1&quot; attempts=&quot;infinite&quot; id=&quot;XML&quot;&gt;
+    &lt;question&gt;Disneyland calls itself &quot;The Most Magical Place on Earth.&quot;&lt;/question&gt;
+&lt;question&gt;</code></pre>
+<table cellpadding="2" cellspacing="2">
+    <tr align="left">
+        <th width="20%">Attribute</th>
+        <th width="20%">Options</th>
+        <th width="20%">Default</th>
+        <th width="40%">Description</th>
+    </tr>
+    <tr valign="top">
+        <td>points</td>
+        <td><em>numeric</em></td>
+        <td>1</td>
+        <td>Setting this attribute with a <em>numeric</em> value, such as an integer or decimal, will give the question some point value, which is factored into the quiz&#39;s running and final score. Do note, if all questions are worth 0 points, the quiz&#39;s resulting maximum possible score will always be 0%.</td>
+    </tr>
+    <tr valign="top">
+        <td>attempts</td>
+        <td><em>integer</em><br>
+            infinite</td>
+        <td>infinite</td>
+        <td>Setting this attribute with an <em>integer</em>, or whole number, value will permit the user to only answer the given question up to the allotted number of times permitted or until the question is answered correctly, whichever comes first. Not setting this attribute is equivalent to setting its value to <em>infinite</em>, which allows the user to continuously attempt to answer the question until the correct answer is given.</td>
+    </tr>
+    <tr valign="top">
+        <td>id</td>
+        <td><em>string</em></td>
+        <td><em>null</em></td>
+        <td>Setting this attribute with a <em>string</em> will assign the element the given ID. The ID assigned to the element is not used for any special purpose and is mostly intended for use by developers. This property is optional.</td>
+    </tr>
+    <tr valign="top">
+        <td>type</td>
+        <td>multichoice<br>
+            multianswer<br>
+            shortanswer<br>
+            truefalse</td>
+        <td><em>null</em></td>
+        <td>Setting this attribute with the relevant question type from the list of types provided will help improve the performance of your Smarty application. For multiple choice questions, use the <em>multichoice</em> question type. This property, however, is optional. If not set, the application will determine the question type automatically.</td>
+    </tr>
+</table>
+
+
+<h5 id="3-after-setup-your-question-s-answer-options-">3. After, setup your question&#39;s answer options:</h5>
+<h6 id="using-html">Using HTML</h6>
+<p>Smarty has been setup to automatically generate <strong>TRUE</strong> and <strong>FALSE</strong> buttons for you when true/false question is detected. If if using HTML, no additional configurations are required to enable this feature. Additionally, the true/false question does not utilize answer options, meaning that no answer options should be added to your <code>&lt;smarty-question&gt;</code> element. Thus, your HTML should still resemble the following example:</p>
+<pre><code class="lang-html">&lt;smarty-question data-points=&quot;1&quot; data-attempts=&quot;infinite&quot; data-id=&quot;HTML&quot;&gt;
+    Disneyland calls itself &quot;The Most Magical Place on Earth.&quot;
+&lt;/smarty-question&gt;</code></pre>
+<h6 id="using-json">Using JSON</h6>
+<p>In JSON, a true/false question is designated by setting the <code>options</code> property on a new line of your question object to an array equal to either <code>[true, false]</code> or <code>[false, true]</code>:</p>
+<pre><code class="lang-json">{
+    &quot;question&quot;: &quot;Disneyland calls itself \&quot;The Most Magical Place on Earth.\&quot;&quot;,
+    &quot;points&quot;: 1,
+    &quot;attempts&quot;: &quot;infinite&quot;,
+    &quot;id&quot;: &quot;JSON&quot;,
+    &quot;options&quot;: [true, false]
+}</code></pre>
+<h6 id="using-xml">Using XML</h6>
+<p>When using XML, no answer options are required to designate a true/false question, meaning that no <code>&lt;option&gt;</code> objects should be added to your <code>&lt;question&gt;</code> element. Thus, your XML should still resemble the following example:</p>
+<pre><code class="lang-xml">&lt;question points=&quot;1&quot; attempts=&quot;infinite&quot; id=&quot;XML&quot;&gt;
+    &lt;question&gt;Disneyland calls itself &quot;The Most Magical Place on Earth.&quot;&lt;/question&gt;
+&lt;question&gt;</code></pre>
+<h5 id="4-then-set-the-correct-answer-for-the-question-">4. Then, set the correct answer for the question:</h5>
+<h6 id="using-html">Using HTML</h6>
+<p>In HTML, since no answer options were created, the correct answer for the true/false question should be set on the question itself. That is, the <code>data-answer</code> attribute is added to the <code>&lt;smarty-question&gt;</code> element:</p>
+<pre><code class="lang-html">&lt;smarty-question data-points=&quot;1&quot; data-attempts=&quot;infinite&quot; data-id=&quot;HTML&quot; data-answer=&quot;false&quot;&gt;
+    Disneyland calls itself &quot;The Most Magical Place on Earth.&quot;
+&lt;/smarty-question&gt;</code></pre>
+<h6 id="using-json">Using JSON</h6>
+<p>The answer to the true/false question should be set in the question object&#39;s <code>answer</code> property on a new line. For true/false questions only, the <code>answer</code> property can be set to a string value of <em>true</em> or <em>false, an integer value or single-value array that corresponds to the item number of the correct answer within the <code>options</code> array, or a boolean value of </em>true<em> or </em>false*:</p>
+<pre><code class="lang-json">{
+    &quot;question&quot;: &quot;Disneyland calls itself \&quot;The Most Magical Place on Earth.\&quot;&quot;,
+    &quot;points&quot;: 1,
+    &quot;attempts&quot;: &quot;infinite&quot;,
+    &quot;id&quot;: &quot;JSON&quot;,
+    &quot;options&quot;: [true, false],
+    &quot;answer&quot;: false
+}</code></pre>
+<h6 id="using-xml">Using XML</h6>
+<p>In XML, a true/false question is designated by setting the <code>answer</code> attribute on the nested <code>&lt;question&gt;</code> element, which contains the question text. </p>
+<pre><code class="lang-xml">&lt;question points=&quot;1&quot; attempts=&quot;infinite&quot; id=&quot;XML&quot;&gt;
+    &lt;question answer=&quot;false&quot;&gt;Disneyland calls itself &quot;The Most Magical Place on Earth.&quot;&lt;/question&gt;
+&lt;question&gt;</code></pre>
+<blockquote>
+<p>Do note, setting the <code>answer</code> attribute on the outermost <code>&lt;question&gt;</code> object is incorrect and will result in an error when attempting to load the question data.</p>
+</blockquote>
+<h5 id="5-optionally-provide-users-with-feedback-to-the-question-">5. Optionally, provide users with feedback to the question:</h5>
+<h6 id="using-html">Using HTML</h6>
+<p>Feedback is added by using the <code>&lt;smarty-feedback&gt;</code> element:</p>
+<pre><code class="lang-html">&lt;smarty-question data-points=&quot;1&quot; data-attempts=&quot;infinite&quot; data-id=&quot;HTML&quot; data-answer=&quot;false&quot;&gt;
+    Disneyland calls itself &quot;The Most Magical Place on Earth.&quot;
+    &lt;smarty-feedback&gt;
+        California&#39;s Disneyland actually uses the motto, &quot;The Happiest Place on Earth.&quot; It&#39;s Walt Disney World&#39;s Magic Kindom in Orland, FL that calls itself &quot;The Most Magical Place on Earth.&quot;
+    &lt;/smarty-feedback&gt;
+&lt;/smarty-question&gt;</code></pre>
+<blockquote>
+<p>Do note, since feedback is intended to provide the user with additional insight into the question and its correct answer, feedback is not shown to the user until at least one (1) of the following conditions have been met:  </p>
+<ul>
+<li>If a question permits multiple attempts, feedback is given...<ol>
+<li>When the user answers the question correctly</li>
+<li>When the user exhausts all permitted attempts</li>
+</ol>
+</li>
+<li>If a question permits only one (1) attempt, feedback is given...<ol>
+<li>After the user answers the question, regardless of right or wrong</li>
+</ol>
+</li>
+<li>If a question permits an infinite number of attempts, feedback is given...<ol>
+<li>Only after the user answers the question correctly</li>
+</ol>
+</li>
+</ul>
+</blockquote>
+<h6 id="using-json">Using JSON</h6>
+<p>In JSON, feedback is added by setting the <code>feedback</code> property on a new line of the question object:</p>
+<pre><code class="lang-json">{
+    &quot;question&quot;: &quot;Disneyland calls itself \&quot;The Most Magical Place on Earth.\&quot;&quot;,
+    &quot;points&quot;: 1,
+    &quot;attempts&quot;: &quot;infinite&quot;,
+    &quot;id&quot;: &quot;JSON&quot;,
+    &quot;options&quot;: [true, false],
+    &quot;answer&quot;: false,
+    &quot;feedback&quot;: &quot;California&#39;s Disneyland actually uses the motto, \&quot;The Happiest Place on Earth.\&quot; It&#39;s Walt Disney World&#39;s Magic Kindom in Orland, FL that calls itself \&quot;The Most Magical Place on Earth.\&quot;&quot;
+}</code></pre>
+<blockquote>
+<p>Do note, since feedback is intended to provide the user with additional insight into the question and its correct answer, feedback is not shown to the user until at least one (1) of the following conditions have been met:  </p>
+<ul>
+<li>If a question permits multiple attempts, feedback is given...<ol>
+<li>When the user answers the question correctly</li>
+<li>When the user exhausts all permitted attempts</li>
+</ol>
+</li>
+<li>If a question permits only one (1) attempt, feedback is given...<ol>
+<li>After the user answers the question, regardless of right or wrong</li>
+</ol>
+</li>
+<li>If a question permits an infinite number of attempts, feedback is given...<ol>
+<li>Only after the user answers the question correctly</li>
+</ol>
+</li>
+</ul>
+</blockquote>
+<h6 id="using-xml">Using XML</h6>
+<p>In XML, feedback is added using a <code>feedback</code> element nested at the end of the question object:</p>
+<pre><code class="lang-xml">&lt;question points=&quot;1&quot; attempts=&quot;infinite&quot; id=&quot;XML&quot;&gt;
+    &lt;question answer=&quot;false&quot;&gt;Disneyland calls itself &quot;The Most Magical Place on Earth.&quot;&lt;/question&gt;
+    &lt;feedback&gt;California&#39;s Disneyland actually uses the motto, &quot;The Happiest Place on Earth.&quot; It&#39;s Walt Disney World&#39;s Magic Kindom in Orland, FL that calls itself &quot;The Most Magical Place on Earth.&quot;&lt;feedback&gt;
+&lt;question&gt;</code></pre>
+<blockquote>
+<p>Do note, since feedback is intended to provide the user with additional insight into the question and its correct answer, feedback is not shown to the user until at least one (1) of the following conditions have been met:  </p>
+<ul>
+<li>If a question permits multiple attempts, feedback is given...<ol>
+<li>When the user answers the question correctly</li>
+<li>When the user exhausts all permitted attempts</li>
+</ol>
+</li>
+<li>If a question permits only one (1) attempt, feedback is given...<ol>
+<li>After the user answers the question, regardless of right or wrong</li>
+</ol>
+</li>
+<li>If a question permits an infinite number of attempts, feedback is given...<ol>
+<li>Only after the user answers the question correctly</li>
+</ol>
+</li>
+</ul>
+</blockquote>
+<h5 id="6-optionally-provide-users-with-a-hint-">6. Optionally, provide users with a hint:</h5>
+<h6 id="using-html">Using HTML</h6>
+<p>In HTML, a hint can be added by creating a <code>&lt;smarty-hint&gt;</code> element. Additionally, the <code>data-attempts</code> property should be set on the <code>&lt;smarty-hint&gt;</code> element to specify how many attempts the user must try before the hint is made available. It&#39;s recommended that hints be added after all answer options and either before or after any question feedback:</p>
+<pre><code class="lang-html">&lt;smarty-question data-points=&quot;1&quot; data-attempts=&quot;infinite&quot; data-id=&quot;HTML&quot; data-answer=&quot;false&quot;&gt;
+    Disneyland calls itself &quot;The Most Magical Place on Earth.&quot;
+    &lt;smarty-feedback&gt;
+        California&#39;s Disneyland actually uses the motto, &quot;The Happiest Place on Earth.&quot; It&#39;s Walt Disney World&#39;s Magic Kindom in Orland, FL that calls itself &quot;The Most Magical Place on Earth.&quot;
+    &lt;/smarty-feedback&gt;
+    &lt;smarty-hint data-attempts=&quot;1&quot;&gt;
+        Disneyland is on the west coast, located in California. That&#39;s not to be confused with Disney World, which is located on the east coast in sunny Orlando, Florida. 
+    &lt;/smarty-hint&gt;
+&lt;/smarty-question&gt;</code></pre>
+<table cellpadding="2" cellspacing="2">
+    <tr align="left">
+        <th width="20%">Attribute</th>
+        <th width="20%">Options</th>
+        <th width="20%">Default</th>
+        <th width="40%">Description</th>
+    </tr>
+    <tr>
+        <td>data-attempts</td>
+        <td><em>integer</em></td>
+        <td>1</td>
+        <td>Setting this attribute with an <em>integer</em> value will set the minimum required number of attempts before the hint is given to the user.</td>
+    </tr>
+</table>
+
+<blockquote>
+<p>Do note, since hints are intended to provide the user with guidance that may lead the user to the correct answer, hints are not shown to the user until a minimum number of attempts have been reached. To specify the number of attempts required before the user is able to receive hints, the <code>data-attempts</code> attribute is used on the <code>&lt;smarty-hint&gt;</code> element.</p>
+</blockquote>
+<h6 id="using-json">Using JSON</h6>
+<p>In JSON, a hint can be added by setting the <code>hint</code> property on a new line of the question object. Additionally, the <code>hintattempts</code> property should also be added on an a separate line of the question object to specify how many attempts the user must try before the hint is made available:</p>
+<pre><code class="lang-json">{
+    &quot;question&quot;: &quot;Disneyland calls itself \&quot;The Most Magical Place on Earth.\&quot;&quot;,
+    &quot;points&quot;: 1,
+    &quot;attempts&quot;: &quot;infinite&quot;,
+    &quot;id&quot;: &quot;JSON&quot;,
+    &quot;options&quot;: [true, false],
+    &quot;answer&quot;: false,
+    &quot;feedback&quot;: &quot;California&#39;s Disneyland actually uses the motto, \&quot;The Happiest Place on Earth.\&quot; It&#39;s Walt Disney World&#39;s Magic Kindom in Orland, FL that calls itself \&quot;The Most Magical Place on Earth.\&quot;&quot;,
+    &quot;hint&quot;: &quot;Disneyland is on the west coast, located in California. That&#39;s not to be confused with Disney World, which is located on the east coast in sunny Orlando, Florida. &quot;,
+    &quot;hintattempts&quot;: 1
+}</code></pre>
+<table cellpadding="2" cellspacing="2">
+    <tr align="left">
+        <th width="20%">Attribute</th>
+        <th width="20%">Options</th>
+        <th width="20%">Default</th>
+        <th width="40%">Description</th>
+    </tr>
+    <tr>
+        <td>hintattempts</td>
+        <td><em>integer</em></td>
+        <td>1</td>
+        <td>Setting this attribute with an <em>integer</em> value will set the minimum required number of attempts before the hint is given to the user.</td>
+    </tr>
+</table>
+
+<blockquote>
+<p>Do note, since hints are intended to provide the user with guidance that may lead the user to the correct answer, hints are not shown to the user until a minimum number of attempts have been reached. To specify the number of attempts required before the user is able to receive hints, the <code>hintattempts</code> property is used.</p>
+</blockquote>
+<h6 id="using-xml">Using XML</h6>
+<p>In XML, a hint can be added by creating a <code>&lt;hint&gt;</code> object. Additionally, the <code>attempts</code> property should be set on the <code>&lt;hint&gt;</code> object to specify how many attempts the user must try before the hint is made available:</p>
+<pre><code class="lang-xml">&lt;question points=&quot;1&quot; attempts=&quot;infinite&quot; id=&quot;XML&quot;&gt;
+    &lt;question answer=&quot;false&quot;&gt;Disneyland calls itself &quot;The Most Magical Place on Earth.&quot;&lt;/question&gt;
+    &lt;feedback&gt;California&#39;s Disneyland actually uses the motto, &quot;The Happiest Place on Earth.&quot; It&#39;s Walt Disney World&#39;s Magic Kindom in Orland, FL that calls itself &quot;The Most Magical Place on Earth.&quot;&lt;feedback&gt;
+    &lt;hint attempts=&quot;1&quot;&gt;Disneyland is on the west coast, located in California. That&#39;s not to be confused with Disney World, which is located on the east coast in sunny Orlando, Florida.&lt;/hint&gt;
+&lt;question&gt;</code></pre>
+<table cellpadding="2" cellspacing="2">
+    <tr align="left">
+        <th width="20%">Attribute</th>
+        <th width="20%">Options</th>
+        <th width="20%">Default</th>
+        <th width="40%">Description</th>
+    </tr>
+    <tr>
+        <td>data-attempts</td>
+        <td><em>integer</em></td>
+        <td>1</td>
+        <td>Setting this attribute with an <em>integer</em> value will set the minimum required number of attempts before the hint is given to the user.</td>
+    </tr>
+</table>
+
+<blockquote>
+<p>Do note, since hints are intended to provide the user with guidance that may lead the user to the correct answer, hints are not shown to the user until a minimum number of attempts have been reached. To specify the number of attempts required before the user is able to receive hints, the <code>attempts</code> attribute is used on the <code>&lt;hint&gt;</code> object.</p>
+</blockquote>
+<h3 id="5-add-multimedia">5. Add Multimedia</h3>
+<p>While it&#39;s not recommended that multimedia be added to questions or answers directly, media, such as videos, images, and iframes, can be added to feedback and hints with ease. Of course, adding multimedia is always <strong>optional</strong>. </p>
+<h6 id="using-html">Using HTML</h6>
+<p>It&#39;s recommended that multimedia be limited to question <code>&lt;smarty-feedback&gt;</code> or <code>&lt;smarty-hint&gt;</code> elements only in order to ensure the best possible results. When adding media in HTML, simply add the desired media object&#39;s markup where you wish to place the multimedia feature:</p>
+<pre><code class="lang-html">&lt;smarty-quiz&gt;
+    &lt;smarty-question&gt;
+        ...
+        &lt;smarty-hint&gt;
+            &lt;iframe src=&quot;http://youtube.com/...&quot;&gt;&lt;/iframe&gt;
+        &lt;/smarty-hint&gt;
+    &lt;/smarty-question&gt;
+&lt;/smarty-quiz&gt;</code></pre>
+<h6 id="using-json">Using JSON</h6>
+<p>It&#39;s recommended that multimedia be limited to the question <code>feedback</code> or <code>hint</code> properties only in order to ensure the best possible results. When adding media in JSON, add the desired media object&#39;s markup as a string literal where you wish to place the multimedia feature. Because JSON syntax differs from HTML syntax, it&#39;s important to remember that double quotes placed inside a string literal should always be escaped with a backslash (<code>\</code>) in order to prevent unintentional early termination of the string. Alternatively, if your site is using HTML5, you can leave off double quotes inside your HTML markup altogether o wherever an attribute is limited to only one (1) value:</p>
+<pre><code class="lang-json">[
+    {
+        ...,
+        &quot;hint&quot;: &quot;&lt;iframe src=\&quot;http://youtube.com/...\&quot;&gt;&lt;/iframe&gt;&quot;
+    }
+]
+
+OR
+
+[
+    {
+        ...,
+        &quot;hint&quot;: &quot;&lt;iframe src=http://youtube.com/...&gt;&lt;/iframe&gt;&quot;
+    }
+]</code></pre>
+<h6 id="using-xml">Using XML</h6>
+<p>It&#39;s recommended that multimedia be limited to question <code>&lt;feedback&gt;</code> or <code>&lt;hint&gt;</code> elements only in order to ensure the best possible results. When adding media in XML, any HTML markup must be wrapped inside a <code>&lt;![CDATA[ ]]&gt;</code> tag, which indicates that the text is HTML, not XML:</p>
+<pre><code class="lang-xml">&lt;quiz&gt;
+    &lt;question&gt;
+        ...
+        &lt;hint&gt;
+            &lt;![CDATA[
+                &lt;iframe src=&quot;http://youtube.com/...&quot;&gt;&lt;/iframe&gt;
+            ]]&gt;
+        &lt;/hint&gt;
+    &lt;/question&gt;
+&lt;/quiz&gt;</code></pre>
+<blockquote>
+<p>Adding multimedia elsewhere other than in the recommended places above has not been tested and may cause unpredictable or unintended results.</p>
+</blockquote>
+<h2 id="creating-crosswords-a-id-crosswords-a-">Creating Crosswords <a id="Crosswords"></a></h2>
+<p>Smarty crosswords have been designed with the intent to help online learners acquire new knowledge in a fun way. Like traditional crossword puzzles, Smarty crosswords consist of a blank grid and clue set where online learners can fill in the grid with words or phrases based on the clues given. In order to create a Smarty crossword, follow the steps below:</p>
+<h3 id="1-initialize-the-element">1. Initialize the Element</h3>
+<p>Start by creating a <code>&lt;smarty-crossword&gt;</code> element in your HTML document:</p>
+<pre><code class="lang-html">&lt;smarty-crossword&gt;&lt;/smarty-crossword&gt;</code></pre>
+<h3 id="2-set-your-preferences">2. Set Your Preferences</h3>
+<p>Set your crossword&#39;s attributes to correspond with your preferences:</p>
+<pre><code class="lang-html">&lt;smarty-crossword data-title=&quot;Our Five Senses&quot;
+                  data-check=&quot;puzzle&quot;&gt;&lt;/smarty-crossword&gt;</code></pre>
+<table cellpadding="2" cellspacing="2">
+    <tr align="left">
+        <th width="20%">Attribute</th>
+        <th width="20%">Options</th>
+        <th width="20%">Default</th>
+        <th width="40%">Description</th>
+    </tr>
+    <tr valign="top">
+        <td>data-title</td>
+        <td><em>string</em><br>
+            <em>html</em></td>
+        <td><em>null</em></td>
+        <td>By default, your crossword will not have a title until this attribute is declared with a <em>string</em> value. <em>HTML</em> values are also accepted.</td>
+    </tr>
+    <tr valign="top">
+        <td>data-check</td>
+        <td>puzzle<br>
+            words<br>
+            letters</td>
+        <td>puzzle</td>
+        <td>If set to <em>puzzle</em>, users must complete the entire crossword puzzle by filling in all blanks inside the grid before they will be able to check if their answers are correct. If set to <em>words</em>, each word will be checked automatically immediately after users complete any given word. if set to <em>letters</em>, each letter will be checked automatically immediately after users input any given letter value.</td>
+    </tr>
+    <tr valign="top">
+        <td>data-file</td>
+        <td><em>file</em>.json<br>
+            <em>file</em>.xml</td>
+        <td><em>null</em></td>
+        <td>The <code>data-file</code> attribute can optionally be used to supply question and answer data. The attribute accepts only two types of file formats, including <em>JSON</em> and <em>XML</em>. In order to use a <em>JSON</em> file, the <code>acceptJSON</code> configuration for crosswords in Smarty&#39;s JS file must be set to <em>true</em>. In order to use an <em>XML</em> file, the <code>acceptXML</code> configuration for crosswords in Smarty&#39;s JS file must be set to <em>true</em>. For more information on using <em>JSON</em> and <em>XML</em> data files, see the various methods for adding questions and answers below.</td>
+    </tr>
+</table>
+
+<h3 id="4-add-clues">4. Add Clues</h3>
+<p>Before setting up any clues in your Smarty crossword puzzle, your clues and answers will need to be made &quot;Smarty-ready.&quot; This means, you&#39;ll need to prepare your clues and answers and lay them out in a crossword format before you&#39;ll be able to add them to your Smarty crossword puzzle. If you don&#39;t already have a set of clues and answers that are Smarty-ready, check out the <a href="#CluePrep">Prepping Your Clues</a> section below for tips and tricks on how to prepare clues for a Smarty crossword puzzle. If you already have a set of Smarty-ready clues, skip ahead to the section on <a href="#ClueSetup">Setting Up Your Clues</a>.</p>
+<h4 id="prepping-your-clues-a-id-clueprep-a-">Prepping Your Clues <a id="CluePrep"></a></h4>
+<h5 id="1-start-by-identify-the-clues-you-will-use-and-their-respective-answers-">1. Start by identify the clues you will use and their respective answers:</h5>
+<table cellpadding="2" cellspacing="2">
+    <tr>
+        <th width="80%">Clue</th>
+        <th width="20%">Answer</th>
+    </tr>
+    <tr>
+        <td>above your shoulders</td>
+        <td>head</td>
+    </tr>
+    <tr>
+        <td>below your head</td>
+        <td>shoulder</td>
+    </tr>
+    <tr>
+        <td>the halfway point of your legs</td>
+        <td>knees</td>
+    </tr>
+    <tr>
+        <td>on the end of your feet</td>
+        <td>toes</td>
+    </tr>
+    <tr>
+        <td>helps you see</td>
+        <td>eyes</td>
+    </tr>
+    <tr>
+        <td>helps you hear</td>
+        <td>ears</td>
+    </tr>
+    <tr>
+        <td>helps you talk</td>
+        <td>mouth</td>
+    </tr>
+    <tr>
+        <td>helps you smell</td>
+        <td>nose</td>
+    </tr>
+</table>
+
+<h5 id="2-use-a-spreadsheet-or-paper-to-lay-your-answers-out-in-a-crossword-format-">2. Use a spreadsheet or paper to lay your answers out in a crossword format:</h5>
+<style>
+    .sample.crossword{ 
+        border-collapse: collapse;
+        font-size: 0.8em;
+        width: 50vw;
+        margin-bottom: calc(50vw / 10);
+        text-transform: uppercase;
+    }
+    .sample.crossword td,
+    .sample.crossword th{
+        height: calc(50vw / 10 - 4px);
+        border: 1px solid black;
+    }
+    .sample.crossword .strike{
+        text-decoration: line-through;
+    }
+    .sample.crossword .num{
+        font-weight: bold;
+    } 
+    .sample.crossword .x{
+        background-color: rgba(0,0,255,0.1);
+    }
+    .sample.crossword .y{
+        background-color: rgba(255,0,0,0.1);
+    }
+    .sample.crossword .x.y{
+        background-color: rgba(255,0,255,0.1);
+    }
+    .sample.crossword .blank{
+        background-color: rgba(0,0,0,0.2);
+    }
+    .sample.crossword .hylite{
+        background-color: rgba(0,255,255,0.1);
+    }
+</style>
+
+<table cellpadding="2" cellspacing="2" class="sample crossword">
+    <tr align="center" valign="middle">
+        <td width="10%">&#10003;</td>
+        <td width="40%" class="strike">HEAD</td>
+        <td width="10%">&#10003;</td>
+        <td width="40%" class="strike">EYES</td>
+    </tr>
+    <tr align="center" valign="middle">
+        <td>&#10003;</td>
+        <td class="strike">shoulders</td>
+        <td>&#10003;</td>
+        <td class="strike">ears</td>
+    </tr>
+    <tr align="center" valign="middle">
+        <td>&#10003;</td>
+        <td class="strike">knees</td>
+        <td>&#10003;</td>
+        <td class="strike">mouth</td>
+    </tr>
+    <tr align="center" valign="middle">
+        <td>&#10003;</td>
+        <td class="strike">toes</td>
+        <td>&#10003;</td>
+        <td class="strike">nose</td>
+    </tr>
+</table>
+
+<table cellpadding="2" cellspacing="2" class="sample crossword">
+    <tr align="center" valign="middle">
+        <td width="10%" class="num">0</td>
+        <td width="10%" class="num x">1</td>
+        <td width="10%" class="num x">2</td>
+        <td width="10%" class="num x">3</td>
+        <td width="10%" class="num x">4</td>
+        <td width="10%" class="num x">5</td>
+        <td width="10%" class="num x">6</td>
+        <td width="10%" class="num x">7</td>
+        <td width="10%" class="num x">8</td>
+        <td width="10%" class="num x">9</td>
+    </tr>
+    <tr align="center" valign="middle">
+        <td class="num y">1</td>
+        <td class="blank"></td>
+        <td>n</td>
+        <td>o</td>
+        <td>s</td>
+        <td>e</td>
+        <td class="blank"></td>
+        <td class="blank"></td>
+        <td class="blank"></td>
+        <td>k</td>
+    </tr>
+    <tr align="center" valign="middle">
+        <td class="num y">2</td>
+        <td class="blank"></td>
+        <td class="blank"></td>
+        <td class="blank"></td>
+        <td>h</td>
+        <td class="blank"></td>
+        <td class="blank"></td>
+        <td class="blank"></td>
+        <td class="blank"></td>
+        <td>n</td>
+    </tr>
+    <tr align="center" valign="middle">
+        <td class="num y">3</td>
+        <td class="blank"></td>
+        <td class="blank"></td>
+        <td>m</td>
+        <td>o</td>
+        <td>u</td>
+        <td>t</td>
+        <td>h</td>
+        <td class="blank"></td>
+        <td>e</td>
+    </tr>
+    <tr align="center" valign="middle">
+        <td class="num y">4</td>
+        <td class="blank"></td>
+        <td>e</td>
+        <td class="blank"></td>
+        <td>u</td>
+        <td class="blank"></td>
+        <td>o</td>
+        <td class="blank"></td>
+        <td class="blank"></td>
+        <td>e</td>
+    </tr>
+    <tr align="center" valign="middle">
+        <td class="num y">5</td>
+        <td class="blank"></td>
+        <td>y</td>
+        <td class="blank"></td>
+        <td>l</td>
+        <td class="blank"></td>
+        <td>e</td>
+        <td>a</td>
+        <td>r</td>
+        <td>s</td>
+    </tr>
+    <tr align="center" valign="middle">
+        <td class="num y">6</td>
+        <td>h</td>
+        <td>e</td>
+        <td>a</td>
+        <td>d</td>
+        <td class="blank"></td>
+        <td>s</td>
+        <td class="blank"></td>
+        <td class="blank"></td>
+        <td class="blank"></td>
+    </tr>
+    <tr align="center" valign="middle">
+        <td class="num y">7</td>
+        <td class="blank"></td>
+        <td>s</td>
+        <td class="blank"></td>
+        <td>e</td>
+        <td class="blank"></td>
+        <td class="blank"></td>
+        <td class="blank"></td>
+        <td class="blank"></td>
+        <td class="blank"></td>
+    </tr>
+    <tr align="center" valign="middle">
+        <td class="num y">8</td>
+        <td class="blank"></td>
+        <td class="blank"></td>
+        <td class="blank"></td>
+        <td>r</td>
+        <td class="blank"></td>
+        <td class="blank"></td>
+        <td class="blank"></td>
+        <td class="blank"></td>
+        <td class="blank"></td>
+    </tr>
+    <tr align="center" valign="middle">
+        <td class="num y">9</td>
+        <td>t</td>
+        <td>o</td>
+        <td>e</td>
+        <td>s</td>
+        <td class="blank"></td>
+        <td class="blank"></td>
+        <td class="blank"></td>
+        <td class="blank"></td>
+        <td class="blank"></td>
+    </tr>
+</table>
+
+<table cellpadding="2" cellspacing="2" class="sample crossword">
+    <tr align="center" valign="middle">
+        <th colspan="2">Legend</th>
+    </tr>
+    <tr align="center" valign="middle">
+        <td width="10%" class="num x"></td>
+        <td width="90%">x-axis</td>
+    </tr>
+    <tr align="center" valign="middle">
+        <td width="10%" class="num y"></td>
+        <td width="90%">y-axis</td>
+    </tr>
+</table>
+
+<p>Alternatively, an online crossword puzzle generator can be used to help layout your answers in a crossword format. However, it&#39;s still recommended that afterwards you copy or recreate the layout in a spreadsheet application. This will allow you to accurately number the rows and columns of your crossword grid in the same manner as above, which you can then use to pinpoint word coordinates as detailed in the following step.</p>
+<h5 id="3-determine-the-starting-coordinates-of-each-word-in-your-crossword-grid-">3. Determine the starting coordinates of each word in your crossword grid:</h5>
+<p>To help determine the starting coordinate of each word, number your crossword grid&#39;s columns and rows similar to the example above and below. The numbers for the x-axis (columns) should start on the left side of the grid and finish at the right. Likewise, the numbers for the y-axis (rows) should start at the top of the grid and end at the bottom. Once your grid is numbered, you can now proceed to pinpoint the starting coordinates for each word. The starting coordinates of each word should correlate to the horizontal (x) and vertical (y) position of the word&#39;s first letter, as represented in <code>X,Y</code> format.</p>
+<table cellpadding="2" cellspacing="2" class="sample crossword">
+    <tr align="center" valign="middle">
+        <td width="10%" class="num">0</td>
+        <td width="10%" class="num">1</td>
+        <td width="10%" class="num">2</td>
+        <td width="10%" class="num">3</td>
+        <td width="10%" class="num">4</td>
+        <td width="10%" class="num">5</td>
+        <td width="10%" class="num">6</td>
+        <td width="10%" class="num">7</td>
+        <td width="10%" class="num">8</td>
+        <td width="10%" class="num">9</td>
+    </tr>
+    <tr align="center" valign="middle">
+        <td class="num">1</td>
+        <td class="blank">1,1</td>
+        <td class="hylite">2,1</td>
+        <td>3,1</td>
+        <td class="hylite">4,1</td>
+        <td>5,1</td>
+        <td class="blank">6,1</td>
+        <td class="blank">7,1</td>
+        <td class="blank">8,1</td>
+        <td class="hylite">9,1</td>
+    </tr>
+    <tr align="center" valign="middle">
+        <td class="num">2</td>
+        <td class="blank">1,2</td>
+        <td class="blank">2,2</td>
+        <td class="blank">3,2</td>
+        <td>4,2</td>
+        <td class="blank">5,2</td>
+        <td class="blank">6,2</td>
+        <td class="blank">7,2</td>
+        <td class="blank">8,2</td>
+        <td>9,2</td>
+    </tr>
+    <tr align="center" valign="middle">
+        <td class="num">3</td>
+        <td class="blank">1,3</td>
+        <td class="blank">2,3</td>
+        <td class="hylite">3,3</td>
+        <td>4,3</td>
+        <td>5,3</td>
+        <td class="hylite">6,3</td>
+        <td>7,3</td>
+        <td class="blank">8,3</td>
+        <td>9,3</td>
+    </tr>
+    <tr align="center" valign="middle">
+        <td class="num">4</td>
+        <td class="blank">1,4</td>
+        <td class="hylite">2,4</td>
+        <td class="blank">3,4</td>
+        <td>4,4</td>
+        <td class="blank">5,4</td>
+        <td>6,4</td>
+        <td class="blank">7,4</td>
+        <td class="blank">8,4</td>
+        <td>9,4</td>
+    </tr>
+    <tr align="center" valign="middle">
+        <td class="num">5</td>
+        <td class="blank">1,5</td>
+        <td>2,5</td>
+        <td class="blank">3,5</td>
+        <td>4,5</td>
+        <td class="blank">5,5</td>
+        <td class="hylite">6,5</td>
+        <td>7,5</td>
+        <td>8,5</td>
+        <td>9,5</td>
+    </tr>
+    <tr align="center" valign="middle">
+        <td class="num">6</td>
+        <td class="hylite">1,6</td>
+        <td>2,6</td>
+        <td>3,6</td>
+        <td>4,6</td>
+        <td class="blank">5,6</td>
+        <td>6,6</td>
+        <td class="blank">7,6</td>
+        <td class="blank">8,6</td>
+        <td class="blank">9,6</td>
+    </tr>
+    <tr align="center" valign="middle">
+        <td class="num">7</td>
+        <td class="blank">1,7</td>
+        <td>2,7</td>
+        <td class="blank">3,7</td>
+        <td>4,7</td>
+        <td class="blank">5,7</td>
+        <td class="blank">6,7</td>
+        <td class="blank">7,7</td>
+        <td class="blank">8,7</td>
+        <td class="blank">9,7</td>
+    </tr>
+    <tr align="center" valign="middle">
+        <td class="num">8</td>
+        <td class="blank">1,8</td>
+        <td class="blank">2,8</td>
+        <td class="blank">3,8</td>
+        <td>4,8</td>
+        <td class="blank">5,8</td>
+        <td class="blank">6,8</td>
+        <td class="blank">7,8</td>
+        <td class="blank">8,8</td>
+        <td class="blank">9,8</td>
+    </tr>
+    <tr align="center" valign="middle">
+        <td class="num">9</td>
+        <td class="hylite">1,9</td>
+        <td>2,9</td>
+        <td>3,9</td>
+        <td>4,9</td>
+        <td class="blank">5,9</td>
+        <td class="blank">6,9</td>
+        <td class="blank">7,9</td>
+        <td class="blank">8,9</td>
+        <td class="blank">9,9</td>
+    </tr>
+</table>
+
+<table cellpadding="2" cellspacing="2" class="sample crossword">
+    <tr valign="middle" align="center">
+        <th width="30%">Position</th>
+        <th width="70%">Word</th>
+    </tr>
+    <tr valign="middle" align="center">
+        <td width="30%" class="hylite">1,6</td>
+        <td width="70%">head</td>
+    </tr>
+    <tr valign="middle" align="center">
+        <td width="30%" class="hylite">4,1</td>
+        <td width="70%">shoulders</td>
+    </tr>
+    <tr valign="middle" align="center">
+        <td width="30%" class="hylite">9,1</td>
+        <td width="70%">knees</td>
+    </tr>
+    <tr valign="middle" align="center">
+        <td width="30%" class="hylite">6,3</td>
+        <td width="70%">toes</td>
+    </tr>
+    <tr valign="middle" align="center">
+        <td width="30%" class="hylite">2,4</td>
+        <td width="70%">eyes</td>
+    </tr>
+    <tr valign="middle" align="center">
+        <td width="30%" class="hylite">6,5</td>
+        <td width="70%">ears</td>
+    </tr>
+    <tr valign="middle" align="center">
+        <td width="30%" class="hylite">3,3</td>
+        <td width="70%">mouth</td>
+    </tr>
+    <tr valign="middle" align="center">
+        <td width="30%" class="hylite">2,1</td>
+        <td width="70%">nose</td>
+    </tr>
+</table>
+
+<h5 id="4-last-determine-each-word-s-direction-as-layed-out-in-the-crossword-grid-">4. Last, determine each word&#39;s direction as layed out in the crossword grid:</h5>
+<p>A word&#39;s direction can either be <em>across</em> (horizontal) or <em>down</em> (vertical). Words with all letters in a single row but each letter placed in a separate column are considered to be in the <em>across</em> direction. Likewise, words where all letters fall in a single column but each letter spans a different row is considered to be in the <em>down</em> direction.</p>
+<table cellpadding="2" cellspacing="2" class="sample crossword">
+    <tr align="center" valign="middle">
+        <td width="10%" class="num">0</td>
+        <td width="10%" class="num">1</td>
+        <td width="10%" class="num">2</td>
+        <td width="10%" class="num">3</td>
+        <td width="10%" class="num">4</td>
+        <td width="10%" class="num">5</td>
+        <td width="10%" class="num">6</td>
+        <td width="10%" class="num">7</td>
+        <td width="10%" class="num">8</td>
+        <td width="10%" class="num">9</td>
+    </tr>
+    <tr align="center" valign="middle">
+        <td class="num">1</td>
+        <td class="blank"></td>
+        <td class="x">n</td>
+        <td class="x">o</td>
+        <td class="x y">s</td>
+        <td class="x">e</td>
+        <td class="blank"></td>
+        <td class="blank"></td>
+        <td class="blank"></td>
+        <td class="y">k</td>
+    </tr>
+    <tr align="center" valign="middle">
+        <td class="num">2</td>
+        <td class="blank"></td>
+        <td class="blank"></td>
+        <td class="blank"></td>
+        <td class="y">h</td>
+        <td class="blank"></td>
+        <td class="blank"></td>
+        <td class="blank"></td>
+        <td class="blank"></td>
+        <td class="y">n</td>
+    </tr>
+    <tr align="center" valign="middle">
+        <td class="num">3</td>
+        <td class="blank"></td>
+        <td class="blank"></td>
+        <td class="x">m</td>
+        <td class="y x">o</td>
+        <td class="x">u</td>
+        <td class="y x">t</td>
+        <td class="x">h</td>
+        <td class="blank"></td>
+        <td class="y">e</td>
+    </tr>
+    <tr align="center" valign="middle">
+        <td class="num">4</td>
+        <td class="blank"></td>
+        <td class="y">e</td>
+        <td class="blank"></td>
+        <td class="y">u</td>
+        <td class="blank"></td>
+        <td class="y">o</td>
+        <td class="blank"></td>
+        <td class="blank"></td>
+        <td class="y">e</td>
+    </tr>
+    <tr align="center" valign="middle">
+        <td class="num">5</td>
+        <td class="blank"></td>
+        <td class="y">y</td>
+        <td class="blank"></td>
+        <td class="y">l</td>
+        <td class="blank"></td>
+        <td class="y x">e</td>
+        <td class="x">a</td>
+        <td class="x">r</td>
+        <td class="y x">s</td>
+    </tr>
+    <tr align="center" valign="middle">
+        <td class="num">6</td>
+        <td class="x">h</td>
+        <td class="x y">e</td>
+        <td class="x">a</td>
+        <td class="x y">d</td>
+        <td class="blank"></td>
+        <td class="y">s</td>
+        <td class="blank"></td>
+        <td class="blank"></td>
+        <td class="blank"></td>
+    </tr>
+    <tr align="center" valign="middle">
+        <td class="num">7</td>
+        <td class="blank"></td>
+        <td class="y">s</td>
+        <td class="blank"></td>
+        <td class="y">e</td>
+        <td class="blank"></td>
+        <td class="blank"></td>
+        <td class="blank"></td>
+        <td class="blank"></td>
+        <td class="blank"></td>
+    </tr>
+    <tr align="center" valign="middle">
+        <td class="num">8</td>
+        <td class="blank"></td>
+        <td class="blank"></td>
+        <td class="blank"></td>
+        <td class="y">r</td>
+        <td class="blank"></td>
+        <td class="blank"></td>
+        <td class="blank"></td>
+        <td class="blank"></td>
+        <td class="blank"></td>
+    </tr>
+    <tr align="center" valign="middle">
+        <td class="num">9</td>
+        <td class="x">t</td>
+        <td class="x">o</td>
+        <td class="x">e</td>
+        <td class="y x">s</td>
+        <td class="blank"></td>
+        <td class="blank"></td>
+        <td class="blank"></td>
+        <td class="blank"></td>
+        <td class="blank"></td>
+    </tr>
+</table>
+
+<table cellpadding="2" cellspacing="2" class="sample crossword">
+    <tr valign="middle" align="center">
+        <th width="30%">Direction</th>
+        <th width="70%">Word</th>
+    </tr>
+    <tr valign="middle" align="center">
+        <td width="30%" class="x">across</td>
+        <td width="70%">head</td>
+    </tr>
+    <tr valign="middle" align="center">
+        <td width="30%" class="y">down</td>
+        <td width="70%">shoulders</td>
+    </tr>
+    <tr valign="middle" align="center">
+        <td width="30%" class="y">down</td>
+        <td width="70%">knees</td>
+    </tr>
+    <tr valign="middle" align="center">
+        <td width="30%" class="y">down</td>
+        <td width="70%">toes</td>
+    </tr>
+    <tr valign="middle" align="center">
+        <td width="30%" class="y">down</td>
+        <td width="70%">eyes</td>
+    </tr>
+    <tr valign="middle" align="center">
+        <td width="30%" class="x">across</td>
+        <td width="70%">ears</td>
+    </tr>
+    <tr valign="middle" align="center">
+        <td width="30%" class="x">across</td>
+        <td width="70%">mouth</td>
+    </tr>
+    <tr valign="middle" align="center">
+        <td width="30%" class="x">across</td>
+        <td width="70%">nose</td>
+    </tr>
+</table>
+
+
+<h4 id="setting-up-your-clues-a-id-cluesetup-a-">Setting Up Your Clues <a id="ClueSetup"></a></h4>
+<h5 id="1-start-adding-clues-to-your-crossword-puzzle-">1. Start adding clues to  your crossword puzzle:</h5>
+<h6 id="using-html">Using HTML</h6>
+<p>For each clue you wish to add to your crossword puzzle, create a separate <code>&lt;smarty-clue&gt;</code> element. Each <code>&lt;smarty-clue&gt;</code> element will hold both the clue&#39;s prompt and answer as detailed in subsequent steps. In the example below, a set of eight (8) blank clues are created:</p>
+<pre><code class="lang-html">&lt;smarty-crossword&gt;
+    &lt;smarty-clue&gt;&lt;/smarty-clue&gt;
+    &lt;smarty-clue&gt;&lt;/smarty-clue&gt;
+    &lt;smarty-clue&gt;&lt;/smarty-clue&gt;
+    &lt;smarty-clue&gt;&lt;/smarty-clue&gt;
+    &lt;smarty-clue&gt;&lt;/smarty-clue&gt;
+    &lt;smarty-clue&gt;&lt;/smarty-clue&gt;
+    &lt;smarty-clue&gt;&lt;/smarty-clue&gt;
+    &lt;smarty-clue&gt;&lt;/smarty-clue&gt;
+&lt;/smarty-quiz&gt;</code></pre>
+<h6 id="using-json">Using JSON</h6>
+<p>Create your base JSON data file using an array (<code>[]</code>). For each clue you wish to add to your crossword data file, create a new object (<code>{}</code>) inside the array. The example below inserts eight (8) blank objects in preparation for a total of eight (8) clues:</p>
+<pre><code class="lang-json">    [
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {}
+    ]</code></pre>
+<h6 id="using-xml">Using XML</h6>
+<p>For XML data files, the basic structure should resemble that of our HTML document but using a <code>&lt;crossword&gt;</code> object instead of a <code>&lt;smarty-crossword&gt;</code> element. Clues are then added to the <code>&lt;crossword&gt;</code> element using <code>&lt;clue&gt;</code> elements as shown below:</p>
+<pre><code class="lang-xml">&lt;crossword&gt;
+    &lt;clue&gt;&lt;/clue&gt;
+    &lt;clue&gt;&lt;/clue&gt;
+    &lt;clue&gt;&lt;/clue&gt;
+    &lt;clue&gt;&lt;/clue&gt;
+    &lt;clue&gt;&lt;/clue&gt;
+    &lt;clue&gt;&lt;/clue&gt;
+    &lt;clue&gt;&lt;/clue&gt;
+    &lt;clue&gt;&lt;/clue&gt;
+&lt;/crossword&gt;</code></pre>
+<h5 id="2-next-add-prompts-to-clues-">2. Next, add prompts to clues:</h5>
+<h6 id="using-html">Using HTML</h6>
+<p>In your HTML document, prompts can then be added as text inside each of your <code>&lt;smarty-clue&gt;</code> elements:</p>
+<pre><code class="lang-html">&lt;smarty-crossword&gt;
+    &lt;smarty-clue&gt;
+        above your shoulders
+    &lt;/smarty-clue&gt;
+    &lt;smarty-clue&gt;
+        below your head
+    &lt;/smarty-clue&gt;
+    &lt;smarty-clue&gt;
+        the halfway point of your legs
+    &lt;/smarty-clue&gt;
+    &lt;smarty-clue&gt;
+        on the end of your feet
+    &lt;/smarty-clue&gt;
+    &lt;smarty-clue&gt;
+        helps you see
+    &lt;/smarty-clue&gt;
+    &lt;smarty-clue&gt;
+        helps you hear
+    &lt;/smarty-clue&gt;
+    &lt;smarty-clue&gt;
+        helps you talk
+    &lt;/smarty-clue&gt;
+    &lt;smarty-clue&gt;
+        helps you smell
+    &lt;/smarty-clue&gt;
+&lt;/smarty-quiz&gt;</code></pre>
+<h6 id="using-json">Using JSON</h6>
+<p>In JSON, prompts are added as strings to each clue object using the <code>prompt</code> property:</p>
+<pre><code class="lang-json">[
+    {
+        &quot;prompt&quot;: &quot;above your shoulders&quot;
+    },
+    {
+        &quot;prompt&quot;: &quot;below your head&quot;
+    },
+    {
+        &quot;prompt&quot;: &quot;the halfway point of your legs&quot;
+    },
+    {
+        &quot;prompt&quot;: &quot;on the end of your feet&quot;
+    },
+    {
+        &quot;prompt&quot;: &quot;helps you see&quot;
+    },
+    {
+        &quot;prompt&quot;: &quot;helps you hear&quot;
+    },
+    {
+        &quot;prompt&quot;: &quot;helps you talk&quot;
+    },
+    {
+        &quot;prompt&quot;: &quot;helps you smell&quot;
+    }
+]</code></pre>
+<h6 id="using-xml">Using XML</h6>
+<p>In XML, prompts can be added to each of you <code>&lt;clue&gt;</code> objects using a nested <code>&lt;prompt&gt;</code> element with your prompt text inside:</p>
+<pre><code class="lang-xml">&lt;crossword&gt;
+    &lt;clue&gt;
+        &lt;prompt&gt;above your shoulders&lt;/prompt&gt;
+    &lt;/clue&gt;
+    &lt;clue&gt;
+        &lt;prompt&gt;below your head&lt;/prompt&gt;
+    &lt;/clue&gt;
+    &lt;clue&gt;
+        &lt;prompt&gt;the halfway point of your legs&lt;/prompt&gt;
+    &lt;/clue&gt;
+    &lt;clue&gt;
+        &lt;prompt&gt;on the end of your feet&lt;/prompt&gt;
+    &lt;/clue&gt;
+    &lt;clue&gt;
+        &lt;prompt&gt;helps you see&lt;/prompt&gt;
+    &lt;/clue&gt;
+    &lt;clue&gt;
+        &lt;prompt&gt;helps you hear&lt;/prompt&gt;
+    &lt;/clue&gt;
+    &lt;clue&gt;
+        &lt;prompt&gt;helps you talk&lt;/prompt&gt;
+    &lt;/clue&gt;
+    &lt;clue&gt;
+        &lt;prompt&gt;helps you smell&lt;/prompt&gt;
+    &lt;/clue&gt;
+&lt;/crossword&gt;</code></pre>
+<h5 id="3-then-add-each-clue-s-respective-answer-">3. Then, add each clue&#39;s respective answer:</h5>
+<h6 id="using-html">Using HTML</h6>
+<p>In HTML, each clue&#39;s respective answer can be added using the <code>data-answer</code> attribute:</p>
+<pre><code class="lang-html">&lt;smarty-crossword&gt;
+    &lt;smarty-clue data-answer=&quot;head&quot;&gt;
+        above your shoulders
+    &lt;/smarty-clue&gt;
+    &lt;smarty-clue data-answer&quot;shoulders&quot;&gt;
+        below your head
+    &lt;/smarty-clue&gt;
+    &lt;smarty-clue data-answer=&quot;knees&quot;&gt;
+        the halfway point of your legs
+    &lt;/smarty-clue&gt;
+    &lt;smarty-clue data-answer=&quot;toes&quot;&gt;
+        on the end of your feet
+    &lt;/smarty-clue&gt;
+    &lt;smarty-clue data-answer=&quot;eyes&quot;&gt;
+        helps you see
+    &lt;/smarty-clue&gt;
+    &lt;smarty-clue data-answer=&quot;ears&quot;&gt;
+        helps you hear
+    &lt;/smarty-clue&gt;
+    &lt;smarty-clue data-answer=&quot;mouth&quot;&gt;
+        helps you talk
+    &lt;/smarty-clue&gt;
+    &lt;smarty-clue data-answer=&quot;nose&quot;&gt;
+        helps you smell
+    &lt;/smarty-clue&gt;
+&lt;/smarty-quiz&gt;</code></pre>
+<h6 id="using-json">Using JSON</h6>
+<p>Similar to the <code>prompt</code> property, clue answers in JSON are added to each clue object using the <code>answer</code> property:</p>
+<pre><code class="lang-json">[
+    {
+        &quot;prompt&quot;: &quot;above your shoulders&quot;,
+        &quot;answer&quot;: &quot;head&quot;
+    },
+    {
+        &quot;prompt&quot;: &quot;below your head&quot;,
+        &quot;answer&quot;: &quot;shoulders&quot;
+    },
+    {
+        &quot;prompt&quot;: &quot;the halfway point of your legs&quot;,
+        &quot;answer&quot;: &quot;knees&quot;
+    },
+    {
+        &quot;prompt&quot;: &quot;on the end of your feet&quot;,
+        &quot;answer&quot;: &quot;toes&quot;
+    },
+    {
+        &quot;prompt&quot;: &quot;helps you see&quot;,
+        &quot;answer&quot;: &quot;eyes&quot;
+    },
+    {
+        &quot;prompt&quot;: &quot;helps you hear&quot;,
+        &quot;answer&quot;: &quot;ears&quot;
+    },
+    {
+        &quot;prompt&quot;: &quot;helps you talk&quot;,
+        &quot;answer&quot;: &quot;mouth&quot;
+    },
+    {
+        &quot;prompt&quot;: &quot;helps you smell&quot;,
+        &quot;answer&quot;: &quot;nose&quot;
+    }
+]</code></pre>
+<h6 id="using-xml">Using XML</h6>
+<p>In XML, each clue&#39;s respective answer can be added to the <code>&lt;clue&gt;</code> element using the <code>answer</code> attribute:</p>
+<pre><code class="lang-xml">&lt;crossword&gt;
+    &lt;clue answer=&quot;head&quot;&gt;
+        &lt;prompt&gt;above your shoulders&lt;/prompt&gt;
+    &lt;/clue&gt;
+    &lt;clue answer=&quot;shoulders&quot;&gt;
+        &lt;prompt&gt;below your head&lt;/prompt&gt;
+    &lt;/clue&gt;
+    &lt;clue answer=&quot;knees&quot;&gt;
+        &lt;prompt&gt;the halfway point of your legs&lt;/prompt&gt;
+    &lt;/clue&gt;
+    &lt;clue answer=&quot;toes&quot;&gt;
+        &lt;prompt&gt;on the end of your feet&lt;/prompt&gt;
+    &lt;/clue&gt;
+    &lt;clue answer=&quot;eyes&quot;&gt;
+        &lt;prompt&gt;helps you see&lt;/prompt&gt;
+    &lt;/clue&gt;
+    &lt;clue answer=&quot;ears&quot;&gt;
+        &lt;prompt&gt;helps you hear&lt;/prompt&gt;
+    &lt;/clue&gt;
+    &lt;clue answer=&quot;mouth&quot;&gt;
+        &lt;prompt&gt;helps you talk&lt;/prompt&gt;
+    &lt;/clue&gt;
+    &lt;clue answer=&quot;nose&quot;&gt;
+        &lt;prompt&gt;helps you smell&lt;/prompt&gt;
+    &lt;/clue&gt;
+&lt;/crossword&gt;</code></pre>
+<h5 id="4-set-each-clue-s-position-equal-to-the-word-s-starting-coordinates-">4. Set each clue&#39;s position equal to the word&#39;s starting coordinates:</h5>
+<h6 id="using-html">Using HTML</h6>
+<p>With your Smarty-ready clues, you should now be ready to setup your clues&#39; location within the crossword grid. To assign clues to a starting position, use the <code>data-position</code> attribute on the <code>&lt;smarty-clue&gt;</code> element. The <code>data-position</code> attribute value should use standard coordinate notation (<code>x,y</code>), where the <code>x</code> value is equivalent to the word&#39;s starting horizontal position and the <code>y</code> value is equivalent to the word&#39;s starting vertical position within the crossword grid:</p>
+<pre><code class="lang-html">&lt;smarty-crossword&gt;
+    &lt;smarty-clue data-answer=&quot;head&quot; 
+                 data-position=&quot;1,6&quot;&gt;
+        above your shoulders
+    &lt;/smarty-clue&gt;
+    &lt;smarty-clue data-answer&quot;shoulders&quot; 
+                 data-postion=&quot;4,1&quot;&gt;
+        below your head
+    &lt;/smarty-clue&gt;
+    &lt;smarty-clue data-answer=&quot;knees&quot;
+                 data-postion=&quot;9,1&quot;&gt;
+        the halfway point of your legs
+    &lt;/smarty-clue&gt;
+    &lt;smarty-clue data-answer=&quot;toes&quot;
+                 data-postion=&quot;6,3&quot;&gt;
+        on the end of your feet
+    &lt;/smarty-clue&gt;
+    &lt;smarty-clue data-answer=&quot;eyes&quot;
+                 data-postion=&quot;2,4&quot;&gt;
+        helps you see
+    &lt;/smarty-clue&gt;
+    &lt;smarty-clue data-answer=&quot;ears&quot;
+                 data-postion=&quot;6,5&quot;&gt;
+        helps you hear
+    &lt;/smarty-clue&gt;
+    &lt;smarty-clue data-answer=&quot;mouth&quot;
+                 data-postion=&quot;3,3&quot;&gt;
+        helps you talk
+    &lt;/smarty-clue&gt;
+    &lt;smarty-clue data-answer=&quot;nose&quot;
+                 data-postion=&quot;2,1&quot;&gt;
+        helps you smell
+    &lt;/smarty-clue&gt;
+&lt;/smarty-quiz&gt;</code></pre>
+<blockquote>
+<p>The <code>data-position</code> attribute, in conjunction with the <code>data-direction</code> attribute in the following step, will allow Smarty to properly position your words on the crossword grid. Therefore, the order of your <code>&lt;smarty-clue&gt;</code> elements within your crossword is irrelevant. </p>
+</blockquote>
+<h6 id="using-json">Using JSON</h6>
+<p>With your Smarty-ready clues, you should now be ready to setup your clues&#39; location within the crossword grid. To assign clues to a starting position, set the <code>position</code> property on each clue object in your JSON data file. The <code>data-position</code> attribute value should use a two-value array in the format of <code>[x,y]</code>, where the first value is equivalent to the word&#39;s starting horizontal position (<code>x</code>) and the second value is equivalent to the word&#39;s starting vertical position (<code>y</code>) within the crossword grid:</p>
+<pre><code class="lang-json">[
+    {
+        &quot;prompt&quot;: &quot;above your shoulders&quot;,
+        &quot;answer&quot;: &quot;head&quot;,
+        &quot;position&quot;: [1,6]
+    },
+    {
+        &quot;prompt&quot;: &quot;below your head&quot;,
+        &quot;answer&quot;: &quot;shoulders&quot;,
+        &quot;position&quot;: [4,1]
+    },
+    {
+        &quot;prompt&quot;: &quot;the halfway point of your legs&quot;,
+        &quot;answer&quot;: &quot;knees&quot;,
+        &quot;position&quot;: [9,1]
+    },
+    {
+        &quot;prompt&quot;: &quot;on the end of your feet&quot;,
+        &quot;answer&quot;: &quot;toes&quot;:
+        &quot;position&quot;: [6,3]
+    },
+    {
+        &quot;prompt&quot;: &quot;helps you see&quot;,
+        &quot;answer&quot;: &quot;eyes&quot;,
+        &quot;position&quot;: [2,4]
+    },
+    {
+        &quot;prompt&quot;: &quot;helps you hear&quot;,
+        &quot;answer&quot;: &quot;ears&quot;,
+        &quot;position&quot;: [6,5]
+    },
+    {
+        &quot;prompt&quot;: &quot;helps you talk&quot;,
+        &quot;answer&quot;: &quot;mouth&quot;,
+        &quot;position&quot;: [3,3]
+    },
+    {
+        &quot;prompt&quot;: &quot;helps you smell&quot;,
+        &quot;answer&quot;: &quot;nose&quot;,
+        &quot;posiiton&quot;: [2,1]
+    }
+]</code></pre>
+<blockquote>
+<p>The <code>position</code> property, in conjunction with the <code>direction</code> property in the following step, will allow Smarty to properly position your words on the crossword grid. Therefore, the order of your clue objects within your crossword array is irrelevant. </p>
+</blockquote>
+<h6 id="using-xml">Using XML</h6>
+<p>With your Smarty-ready clues, you should now be ready to setup your clues&#39; location within the crossword grid. To assign clues to a starting position, use the <code>position</code> attribute on the <code>&lt;clue&gt;</code> element. The <code>data-position</code> attribute value should use standard coordinate notation (<code>x,y</code>), where the <code>x</code> value is equivalent to the word&#39;s starting horizontal position and the <code>y</code> value is equivalent to the word&#39;s starting vertical position within the crossword grid:</p>
+<pre><code class="lang-xml">&lt;crossword&gt;
+    &lt;clue answer=&quot;head&quot; position=&quot;1,6&quot;&gt;
+        &lt;prompt&gt;above your shoulders&lt;/prompt&gt;
+    &lt;/clue&gt;
+    &lt;clue answer=&quot;shoulders&quot; position=&quot;4,1&quot;&gt;
+        &lt;prompt&gt;below your head&lt;/prompt&gt;
+    &lt;/clue&gt;
+    &lt;clue answer=&quot;knees&quot; position=&quot;9,1&quot;&gt;
+        &lt;prompt&gt;the halfway point of your legs&lt;/prompt&gt;
+    &lt;/clue&gt;
+    &lt;clue answer=&quot;toes&quot; position=&quot;6,3&quot;&gt;
+        &lt;prompt&gt;on the end of your feet&lt;/prompt&gt;
+    &lt;/clue&gt;
+    &lt;clue answer=&quot;eyes&quot; position=&quot;2,4&quot;&gt;
+        &lt;prompt&gt;helps you see&lt;/prompt&gt;
+    &lt;/clue&gt;
+    &lt;clue answer=&quot;ears&quot; position=&quot;6,5&quot;&gt;
+        &lt;prompt&gt;helps you hear&lt;/prompt&gt;
+    &lt;/clue&gt;
+    &lt;clue answer=&quot;mouth&quot; position=&quot;3,3&quot;&gt;
+        &lt;prompt&gt;helps you talk&lt;/prompt&gt;
+    &lt;/clue&gt;
+    &lt;clue answer=&quot;nose&quot; position=&quot;2,1&quot;&gt;
+        &lt;prompt&gt;helps you smell&lt;/prompt&gt;
+    &lt;/clue&gt;
+&lt;/crossword&gt;</code></pre>
+<blockquote>
+<p>The <code>position</code> attribute, in conjunction with the <code>direction</code> attribute in the following step, will allow Smarty to properly position your words on the crossword grid. Therefore, the order of your <code>&lt;clue&gt;</code> objects within your crossword is irrelevant. </p>
+</blockquote>
+<h5 id="5-set-the-direction-for-each-clue-s-word-within-the-crossword-grid-">5. Set the direction for each clue&#39;s word within the crossword grid:</h5>
+<h6 id="using-html">Using HTML</h6>
+<p>Set each clue&#39;s direction using the <code>data-direction</code> attribute on the <code>&lt;smarty-clue&gt;</code> element. Valid direction values are either <em>down</em> or <em>across</em>:</p>
+<pre><code class="lang-html">&lt;smarty-crossword&gt;
+    &lt;smarty-clue data-answer=&quot;head&quot; 
+                 data-position=&quot;1,6&quot;
+                 data-direction=&quot;across&quot;&gt;
+        above your shoulders
+    &lt;/smarty-clue&gt;
+    &lt;smarty-clue data-answer&quot;shoulders&quot; 
+                 data-postion=&quot;4,1&quot;
+                 data-direction=&quot;down&quot;&gt;
+        below your head
+    &lt;/smarty-clue&gt;
+    &lt;smarty-clue data-answer=&quot;knees&quot;
+                 data-postion=&quot;9,1&quot;
+                 data-direction=&quot;down&quot;&gt;
+        the halfway point of your legs
+    &lt;/smarty-clue&gt;
+    &lt;smarty-clue data-answer=&quot;toes&quot;
+                 data-postion=&quot;6,3&quot;
+                 data-direction=&quot;down&quot;&gt;
+        on the end of your feet
+    &lt;/smarty-clue&gt;
+    &lt;smarty-clue data-answer=&quot;eyes&quot;
+                 data-postion=&quot;2,4&quot;
+                 data-direction=&quot;down&quot;&gt;
+        helps you see
+    &lt;/smarty-clue&gt;
+    &lt;smarty-clue data-answer=&quot;ears&quot;
+                 data-postion=&quot;6,5&quot;
+                 data-direction=&quot;across&quot;&gt;
+        helps you hear
+    &lt;/smarty-clue&gt;
+    &lt;smarty-clue data-answer=&quot;mouth&quot;
+                 data-postion=&quot;3,3&quot;
+                 data-direction=&quot;across&quot;&gt;
+        helps you talk
+    &lt;/smarty-clue&gt;
+    &lt;smarty-clue data-answer=&quot;nose&quot;
+                 data-postion=&quot;2,1&quot;
+                 data-direction=&quot;across&quot;&gt;
+        helps you smell
+    &lt;/smarty-clue&gt;
+&lt;/smarty-quiz&gt;</code></pre>
+<blockquote>
+<p>The <code>data-direction</code> attribute, in conjunction with the <code>data-position</code> attribute above, will allow Smarty to properly position your words on the crossword grid. Therefore, the order of your <code>&lt;smarty-clue&gt;</code> elements within your crossword is irrelevant. </p>
+</blockquote>
+<h6 id="using-json">Using JSON</h6>
+<p>Set each clue&#39;s direction by using the <code>direction</code> property on a new line of the clue object. Valid direction values are either <em>down</em> or <em>across</em>:</p>
+<pre><code class="lang-json">[
+    {
+        &quot;prompt&quot;: &quot;above your shoulders&quot;,
+        &quot;answer&quot;: &quot;head&quot;,
+        &quot;position&quot;: [1,6],
+        &quot;direction&quot;: &quot;across&quot;
+    },
+    {
+        &quot;prompt&quot;: &quot;below your head&quot;,
+        &quot;answer&quot;: &quot;shoulders&quot;,
+        &quot;position&quot;: [4,1],
+        &quot;direction&quot;: &quot;down&quot;
+    },
+    {
+        &quot;prompt&quot;: &quot;the halfway point of your legs&quot;,
+        &quot;answer&quot;: &quot;knees&quot;,
+        &quot;position&quot;: [9,1],
+        &quot;direction&quot;: &quot;down&quot;
+    },
+    {
+        &quot;prompt&quot;: &quot;on the end of your feet&quot;,
+        &quot;answer&quot;: &quot;toes&quot;:
+        &quot;position&quot;: [6,3],
+        &quot;direction&quot;: &quot;down&quot;
+    },
+    {
+        &quot;prompt&quot;: &quot;helps you see&quot;,
+        &quot;answer&quot;: &quot;eyes&quot;,
+        &quot;position&quot;: [2,4],
+        &quot;direction&quot;: &quot;down&quot;
+    },
+    {
+        &quot;prompt&quot;: &quot;helps you hear&quot;,
+        &quot;answer&quot;: &quot;ears&quot;,
+        &quot;position&quot;: [6,5],
+        &quot;direction&quot;: &quot;across&quot;
+    },
+    {
+        &quot;prompt&quot;: &quot;helps you talk&quot;,
+        &quot;answer&quot;: &quot;mouth&quot;,
+        &quot;position&quot;: [3,3],
+        &quot;direction&quot;: &quot;across&quot;
+    },
+    {
+        &quot;prompt&quot;: &quot;helps you smell&quot;,
+        &quot;answer&quot;: &quot;nose&quot;,
+        &quot;posiiton&quot;: [2,1],
+        &quot;direction&quot;: &quot;across&quot;
+    }
+]</code></pre>
+<blockquote>
+<p>The <code>position</code> property, in conjunction with the <code>direction</code> property in the following step, will allow Smarty to properly position your words on the crossword grid. Therefore, the order of your clue objects within your crossword array is irrelevant. </p>
+</blockquote>
+<h6 id="using-xml">Using XML</h6>
+<p>Set each clue&#39;s direction using the <code>direction</code> attribute on the <code>&lt;clue&gt;</code> element. Valid direction values are either <em>down</em> or <em>across</em>:</p>
+<pre><code class="lang-xml">&lt;crossword&gt;
+    &lt;clue answer=&quot;head&quot; position=&quot;1,6&quot; direction=&quot;across&quot;&gt;
+        &lt;prompt&gt;above your shoulders&lt;/prompt&gt;
+    &lt;/clue&gt;
+    &lt;clue answer=&quot;shoulders&quot; position=&quot;4,1&quot; direction=&quot;down&quot;&gt;
+        &lt;prompt&gt;below your head&lt;/prompt&gt;
+    &lt;/clue&gt;
+    &lt;clue answer=&quot;knees&quot; position=&quot;9,1&quot; direction=&quot;down&quot;&gt;
+        &lt;prompt&gt;the halfway point of your legs&lt;/prompt&gt;
+    &lt;/clue&gt;
+    &lt;clue answer=&quot;toes&quot; position=&quot;6,3&quot; direction=&quot;down&quot;&gt;
+        &lt;prompt&gt;on the end of your feet&lt;/prompt&gt;
+    &lt;/clue&gt;
+    &lt;clue answer=&quot;eyes&quot; position=&quot;2,4&quot; direction=&quot;down&quot;&gt;
+        &lt;prompt&gt;helsp you see&lt;/prompt&gt;
+    &lt;/clue&gt;
+    &lt;clue answer=&quot;ears&quot; position=&quot;6,5&quot; direction=&quot;across&quot;&gt;
+        &lt;prompt&gt;helps you hear&lt;/prompt&gt;
+    &lt;/clue&gt;
+    &lt;clue answer=&quot;mouth&quot; position=&quot;3,3&quot; direction=&quot;across&quot;&gt;
+        &lt;prompt&gt;helps you talk&lt;/prompt&gt;
+    &lt;/clue&gt;
+    &lt;clue answer=&quot;nose&quot; position=&quot;2,1&quot; direction=&quot;across&quot;&gt;
+        &lt;prompt&gt;helps you smell&lt;/prompt&gt;
+    &lt;/clue&gt;
+&lt;/crossword&gt;</code></pre>
+<blockquote>
+<p>The <code>position</code> attribute, in conjunction with the <code>direction</code> attribute in the following step, will allow Smarty to properly position your words on the crossword grid. Therefore, the order of your <code>&lt;clue&gt;</code> objects within your crossword is irrelevant. </p>
+</blockquote>
+<h2 id="creating-flashcards-a-id-flashcards-a-">Creating Flashcards <a id="Flashcards"></a></h2>
+<p>Flashcards can be used as an interactive learning tool to help online learners study new topics and improve their memory. Just like a traditional set of flashcards, Smarty flashcards are designed to be two-sided with a prompt on the front and answer on the back, where either side can be accessed by flipping the card. In order to create a set of Smarty flashcards, follow the steps below:</p>
+<h3 id="1-initialize-the-element">1. Initialize the Element</h3>
+<p>Start by creating a <code>&lt;smarty-flashcard&gt;</code> element in your HTML document:</p>
+<pre><code class="lang-html">&lt;smarty-flashcard&gt;&lt;/smarty-flashcard&gt;</code></pre>
+<h3 id="2-set-your-preferences">2. Set Your Preferences</h3>
+<p>Set your quiz&#39;s attributes to correspond with your preferences:</p>
+<table cellpadding="2" cellspacing="2">
+    <tr align="left">
+        <th width="20%">Attribute</th>
+        <th width="20%">Options</th>
+        <th width="20%">Default</th>
+        <th width="40%">Description</th>
+    </tr>
+    <tr valign="top">
+        <td>data-title</td>
+        <td><em>string</em><br>
+            <em>html</em></td>
+        <td><em>null</em></td>
+        <td>By default, your flashcards will not have a title until this attribute is declared with a <em>string</em> value. <em>HTML</em> values are also accepted.</td>
+    </tr>
+        <tr valign="top">
+        <td>data-flipback</td>
+        <td>true<br>
+            false</td>
+        <td>true</td>
+        <td>If set to <em>true</em>, when the user changes cards, the last card viewed will flip back to its initial side regardless of whether the card was on its front or back side. If set to <em>false</em>, when the user changes cards, the last card viewed will not flip back to its initial side, instead remaining on the side the user toggled last.</td>
+    </tr>
+    <tr valign="top">
+        <td>data-side</td>
+        <td>front<br>
+            back</td>
+        <td>front</td>
+        <td>If set to <em>front</em>, users will initially see the front side of all flashcards.  Furthermore, if <em>front</em> is used in conjunction with <code>data-flipback=&quot;true&quot;</code>, then previously viewed cards will be flipped back to their front face after the user changes cards. If set to <em>back</em>, users will initially see the back side of all flashcards. If <em>back</em> is used in conjunction with <code>data-flipback=&quot;true&quot;</code>, then previously viewed cards will be flipped back to their back face after the user changes cards.</td>
+    </tr>
+    <tr valign="top">
+        <td>data-rotate</td>
+        <td>vertical<br>
+            horizontal</td>
+        <td>vertical</td>
+        <td>If set to <em>vertical</em>, when a flip is initiated by the user, cards will rotate along their vertical (y) axis. If set to <em>horizontal</em>, when a flip is initiated by the user, cards will rotate along their horizontal (x) axis.</td>
+    </tr>
+    <tr valign="top">
+        <td>data-file</td>
+        <td><em>file</em>.json<br>
+            <em>file</em>.xml</td>
+        <td><em>null</em></td>
+        <td>The <code>data-file</code> attribute can optionally be used to supply question and answer data. The attribute accepts only two types of file formats, including <em>JSON</em> and <em>XML</em>. In order to use a <em>JSON</em> file, the <code>acceptJSON</code> configuration for flashcards in Smarty&#39;s JS file must be set to <em>true</em>. In order to use an <em>XML</em> file, the <code>acceptXML</code> configuration for flashcards in Smarty&#39;s JS file must be set to <em>true</em>. For more information on using <em>JSON</em> and <em>XML</em> data files, see the various methods for adding questions and answers below.</td>
+    </tr>
+</table>
+
+<h3 id="3-add-cards">3. Add Cards</h3>
+<p>Traditional flashcards consist of both a front and back face. With Smarty cards, the front face of a flashcard will always represent to the card&#39;s prompt, and the back of the flashcard will always equate to the card&#39;s answer. Smarty flashcards have been setup to make the process of create cards easy, as outlined in the steps below:</p>
+<h5 id="1-start-by-creating-cards-">1. Start by creating cards:</h5>
+<h6 id="using-html">Using HTML</h6>
+<p>In HTML, cards can be created using the <code>&lt;smarty-card&gt;</code> element. In the example below, a total of four (4) blank cards are createds:</p>
+<pre><code class="lang-html">&lt;smarty-flashcard&gt;
+    &lt;smarty-card&gt;&lt;/smarty-card&gt;
+    &lt;smarty-card&gt;&lt;/smarty-card&gt;
+    &lt;smarty-card&gt;&lt;/smarty-card&gt;
+    &lt;smarty-card&gt;&lt;/smarty-card&gt;
+&lt;/smarty-flashcard&gt;</code></pre>
+<h6 id="using-json">Using JSON</h6>
+<p>Create your base JSON data file using an array (<code>[]</code>). For each card you wish to add to your flashcard data file, create a new object (<code>{}</code>) inside the array. The example below inserts four (4) blank objects in preparation for a total of four (4) cards:</p>
+<pre><code class="lang-json">    [
+        {},
+        {},
+        {},
+        {}
+    ]</code></pre>
+<h6 id="using-xml">Using XML</h6>
+<p>For XML data files, the basic structure should resemble that of our HTML document but using a <code>&lt;flashcard&gt;</code> object instead of a <code>&lt;smarty-flashcard&gt;</code> element. Cards are then added to the <code>&lt;flashcard&gt;</code> element using <code>&lt;card&gt;</code> elements as shown below:</p>
+<pre><code class="lang-xml">&lt;flashcard&gt;
+    &lt;card&gt;&lt;/card&gt;
+    &lt;card&gt;&lt;/card&gt;
+    &lt;card&gt;&lt;/card&gt;
+    &lt;card&gt;&lt;/card&gt;
+&lt;/flashcard&gt;</code></pre>
+<h5 id="2-next-add-a-prompt-to-each-card-prompt-">2. Next, add a prompt to each card prompt:</h5>
+<h6 id="using-html">Using HTML</h6>
+<p>In your HTML document, prompts can then be added as text inside each of your <code>&lt;smarty-card&gt;</code> elements:</p>
+<pre><code class="lang-html">&lt;smarty-flashcard&gt;
+    &lt;smarty-card&gt;1 + 1&lt;/smarty-card&gt;
+    &lt;smarty-card&gt;2 + 2&lt;/smarty-card&gt;
+    &lt;smarty-card&gt;3 + 3&lt;/smarty-card&gt;
+    &lt;smarty-card&gt;4 + 4&lt;/smarty-card&gt;
+&lt;/smarty-flashcard&gt;</code></pre>
+<h6 id="using-json">Using JSON</h6>
+<p>In JSON, prompts are added as strings to each card object using the <code>prompt</code> property:</p>
+<pre><code class="lang-json">[
+    {
+        &quot;prompt&quot;: &quot;1 + 1&quot;
+    },
+    {
+        &quot;prompt&quot;: &quot;2 + 2&quot;
+    },
+    {
+        &quot;prompt&quot;: &quot;3 + 3&quot;
+    },
+    {
+        &quot;prompt&quot;: &quot;4 + 4&quot;
+    }
+]</code></pre>
+<h6 id="using-xml">Using XML</h6>
+<p>In XML, prompts can be added to each of you <code>&lt;card&gt;</code> objects using a nested <code>&lt;prompt&gt;</code> element with your prompt text inside:</p>
+<pre><code class="lang-xml">&lt;flashcard&gt;
+    &lt;card&gt;
+        &lt;prompt&gt;1 + 1&lt;/prompt&gt;
+    &lt;/card&gt;
+    &lt;card&gt;
+        &lt;prompt&gt;2 + 2&lt;/prompt&gt;
+    &lt;/card&gt;
+    &lt;card&gt;
+        &lt;prompt&gt;3 + 3&lt;/prompt&gt;
+    &lt;/card&gt;
+    &lt;card&gt;
+        &lt;prompt&gt;4 + 4&lt;/prompt&gt;
+    &lt;/card&gt;
+&lt;/flashcard&gt;</code></pre>
+<h5 id="3-then-add-each-clue-s-respective-answer-">3. Then, add each clue&#39;s respective answer:</h5>
+<h6 id="using-html">Using HTML</h6>
+<p>In HTML, each clue&#39;s respective answer can be added using the <code>data-answer</code> attribute:</p>
+<pre><code class="lang-html">&lt;smarty-flashcard&gt;
+    &lt;smarty-card data-answer=&quot;2&quot;&gt;1 + 1&lt;/smarty-card&gt;
+    &lt;smarty-card data-answer=&quot;4&#39;&gt;2 + 2&lt;/smarty-card&gt;
+    &lt;smarty-card data-answer=&quot;6&quot;&gt;3 + 3&lt;/smarty-card&gt;
+    &lt;smarty-card data-answer=&quot;8&quot;&gt;4 + 4&lt;/smarty-card&gt;
+&lt;/smarty-flashcard&gt;</code></pre>
+<h6 id="using-json">Using JSON</h6>
+<p>Similar to the <code>prompt</code> property, clue answers in JSON are added to each clue object using the <code>answer</code> property:</p>
+<pre><code class="lang-json">[
+    {
+        &quot;prompt&quot;: &quot;1 + 1&quot;,
+        &quot;answer&quot;: &quot;2&quot;
+    },
+    {
+        &quot;prompt&quot;: &quot;2 + 2&quot;,
+        &quot;answer&quot;: &quot;4&quot;
+    },
+    {
+        &quot;prompt&quot;: &quot;3 + 3&quot;,
+        &quot;answer&quot;: &quot;6&quot;
+    },
+    {
+        &quot;prompt&quot;: &quot;4 + 4&quot;,
+        &quot;answer&quot;: &quot;8&quot;
+    }
+]</code></pre>
+<h6 id="using-xml">Using XML</h6>
+<p>In XML, each card&#39;s respective answer can be added to the <code>&lt;card&gt;</code> element using the <code>answer</code> attribute:</p>
+<pre><code class="lang-xml">&lt;flashcard&gt;
+    &lt;card answer=&quot;2&quot;&gt;
+        &lt;prompt&gt;1 + 1&lt;/prompt&gt;
+    &lt;/card&gt;
+    &lt;card answer=&quot;4&quot;&gt;
+        &lt;prompt&gt;2 + 2&lt;/prompt&gt;
+    &lt;/card&gt;
+    &lt;card answer=&quot;6&quot;&gt;
+        &lt;prompt&gt;3 + 3&lt;/prompt&gt;
+    &lt;/card&gt;
+    &lt;card answer=&quot;8&quot;&gt;
+        &lt;prompt&gt;4 + 4&lt;/prompt&gt;
+    &lt;/card&gt;
+&lt;/flashcard&gt;</code></pre>
+<h5 id="4-optionally-add-extra-information-about-a-card-s-answer-">4. Optionally, add extra information about a card&#39;s answer:</h5>
+<h6 id="using-html">Using HTML</h6>
+<p>Additional information to give further insight into a card&#39;s answer can be added to <code>&lt;smarty-card&gt;</code> element using a <code>&lt;smarty-info&gt;</code> element: </p>
+<pre><code class="lang-html">&lt;smarty-flashcard&gt;
+    &lt;smarty-card data-answer=&quot;2&quot;&gt;
+        1 + 1
+    &lt;/smarty-card&gt;
+    &lt;smarty-card data-answer=&quot;4&quot;&gt;
+        2 + 2
+    &lt;/smarty-card&gt;
+    &lt;smarty-card data-answer=&quot;6&quot;&gt;
+        3 + 3
+    &lt;/smarty-card&gt;
+    &lt;smarty-card data-answer=&quot;8&quot;&gt;
+        4 + 4
+        &lt;smarty-info&gt;
+            Who do we appreciate?
+        &lt;smarty-info&gt;
+    &lt;/smarty-card&gt;
+&lt;/smarty-flashcard&gt;</code></pre>
+<blockquote>
+<p>The information contained in a card&#39;s <code>&lt;smarty-info&gt;</code> element is only made accessible when the user flips the card to the side with the card&#39;s answer (back). When a card has additional information that the user can read, a clickable notification will appear. When the user clicks the notification, a reading pane will be toggled where the user can then read through the information provided. Clicking the notification a second time will toggle the reading pane yet again, only this time hiding it from the user&#39;s view.</p>
+</blockquote>
+<h6 id="using-json">Using JSON</h6>
+<p>Additional information to give further insight into a card&#39;s answer can be added to cards by setting the <code>info</code> property on a new line of each card object: </p>
+<pre><code class="lang-json">[
+    {
+        &quot;prompt&quot;: &quot;1 + 1&quot;,
+        &quot;answer&quot;: &quot;2&quot;
+    },
+    {
+        &quot;prompt&quot;: &quot;2 + 2&quot;,
+        &quot;answer&quot;: &quot;4&quot;
+    },
+    {
+        &quot;prompt&quot;: &quot;3 + 3&quot;,
+        &quot;answer&quot;: &quot;6&quot;
+    },
+    {
+        &quot;prompt&quot;: &quot;4 + 4&quot;,
+        &quot;answer&quot;: &quot;8&quot;,
+        &quot;info&quot;: &quot;Who do we appreciate?&quot;
+    }
+]</code></pre>
+<blockquote>
+<p>The information contained in a card&#39;s <code>&lt;smarty-info&gt;</code> element is only made accessible when the user flips the card to the side with the card&#39;s answer (back). When a card has additional information that the user can read, a clickable notification will appear. When the user clicks the notification, a reading pane will be toggled where the user can then read through the information provided. Clicking the notification a second time will toggle the reading pane yet again, only this time hiding it from the user&#39;s view.</p>
+</blockquote>
+<h6 id="using-xml">Using XML</h6>
+<p>Additional information to give further insight into a card&#39;s answer can be added to <code>&lt;card&gt;</code> object using an <code>&lt;info&gt;</code> element: </p>
+<pre><code class="lang-xml">&lt;flashcard&gt;
+    &lt;card answer=&quot;2&quot;&gt;
+        &lt;prompt&gt;1 + 1&lt;/prompt&gt;
+    &lt;/card&gt;
+    &lt;card answer=&quot;4&quot;&gt;
+        &lt;prompt&gt;2 + 2&lt;/prompt&gt;
+    &lt;/card&gt;
+    &lt;card answer=&quot;6&quot;&gt;
+        &lt;prompt&gt;3 + 3&lt;/prompt&gt;
+    &lt;/card&gt;
+    &lt;card answer=&quot;8&quot;&gt;
+        &lt;prompt&gt;4 + 4&lt;/prompt&gt;
+        &lt;info&gt;Who do we appreciate?&lt;/info&gt;
+    &lt;/card&gt;
+&lt;/flashcard&gt;</code></pre>
+<blockquote>
+<p>The information contained in a card&#39;s <code>&lt;smarty-info&gt;</code> element is only made accessible when the user flips the card to the side with the card&#39;s answer (back). When a card has additional information that the user can read, a clickable notification will appear. When the user clicks the notification, a reading pane will be toggled where the user can then read through the information provided. Clicking the notification a second time will toggle the reading pane yet again, only this time hiding it from the user&#39;s view.</p>
+</blockquote>
+<h3 id="4-add-multimedia">4. Add Multimedia</h3>
+<p>While it&#39;s not recommended that multimedia be added to cards directly, media, such as videos, images, and iframes, can be added to any card&#39;s info with ease. Of course, adding multimedia is always <strong>optional</strong>. </p>
+<h6 id="using-html">Using HTML</h6>
+<p>It&#39;s recommended that multimedia be limited to card&#39;s <code>&lt;smarty-info&gt;</code> element only in order to ensure the best possible results. When adding media in HTML, simply add the desired media object&#39;s markup where you wish to place the multimedia feature:</p>
+<pre><code class="lang-html">&lt;smarty-flashcard&gt;
+    &lt;smarty-card&gt;
+        ...
+        &lt;smarty-info&gt;
+            &lt;iframe src=&quot;http://youtube.com/...&quot;&gt;&lt;/iframe&gt;
+        &lt;/smarty-info&gt;
+    &lt;/smarty-card&gt;
+&lt;/smarty-flashcard&gt;</code></pre>
+<h6 id="using-json">Using JSON</h6>
+<p>It&#39;s recommended that multimedia be limited to a card&#39;s <code>info</code> property only in order to ensure the best possible results. When adding media in JSON, add the desired media object&#39;s markup as a string literal where you wish to place the multimedia feature. Because JSON syntax differs from HTML syntax, it&#39;s important to remember that double quotes placed inside a string literal should always be escaped with a backslash (<code>\</code>) in order to prevent unintentional early termination of the string. Alternatively, if your site is using HTML5, you can leave off double quotes inside your HTML markup altogether o wherever an attribute is limited to only one (1) value:</p>
+<pre><code class="lang-json">[
+    {
+        ...,
+        &quot;info&quot;: &quot;&lt;iframe src=\&quot;http://youtube.com/...\&quot;&gt;&lt;/iframe&gt;&quot;
+    }
+]
+
+OR
+
+[
+    {
+        ...,
+        &quot;info&quot;: &quot;&lt;iframe src=http://youtube.com/...&gt;&lt;/iframe&gt;&quot;
+    }
+]</code></pre>
+<h6 id="using-xml">Using XML</h6>
+<p>It&#39;s recommended that multimedia be limited to a card&#39;s <code>&lt;info&gt;</code> element only in order to ensure the best possible results. When adding media in XML, any HTML markup must be wrapped inside a <code>&lt;![CDATA[ ]]&gt;</code> tag, which indicates that the text is HTML, not XML:</p>
+<pre><code class="lang-xml">&lt;flashcard&gt;
+    &lt;card&gt;
+        ...
+        &lt;info&gt;
+            &lt;![CDATA[
+                &lt;iframe src=&quot;http://youtube.com/...&quot;&gt;&lt;/iframe&gt;
+            ]]&gt;
+        &lt;/info&gt;
+    &lt;/card&gt;
+&lt;/flashcard&gt;</code></pre>
+<blockquote>
+<p>Adding multimedia elsewhere other than in the recommended places above has not been tested and may cause unpredictable or unintended results.</p>
+</blockquote>

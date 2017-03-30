@@ -1,0 +1,675 @@
+#{selector(prefix)}#{selector(flashcard)}{
+    display: block;
+    width: 100%;
+    text-align: center;
+    box-sizing: border-box;
+    background-color: lighten($dark,70%);
+    overflow: hidden;
+    border: 1px solid $dark;
+    .title{
+        font-weight: bold;
+        padding: 15px 0px;
+        text-transform: uppercase;
+        background: linear-gradient(to bottom, lighten($dark,5%) 70%, $dark);
+        color: color-contrast($dark);
+        font-size: 1.5em;
+        text-align: center;
+        width: 100%;
+        height: 55px;
+        overflow: none;
+        z-index: 4;
+        > span{
+            display: block;
+            position: absolute;
+            width: 100%;
+            top: 50%;
+            transform: translatey(-50%);
+            text-shadow: -3px -3px 5px $dark;
+        }
+    }
+    button{
+        display: block;
+        width: 135px;
+        height: 35px;
+        margin: 5px;
+        cursor: pointer;
+        border: 0 !important;
+        min-width: initial !important;
+        transition: $transitionSpeed ease-in-out;
+    }
+    button.disable{
+        cursor: not-allowed;
+    }
+    #{selector(prefix)}stack,
+    #{selector(prefix)}sidebar,
+    #{selector(prefix)}pane{
+        display: block;
+        box-sizing: border-box;
+        padding: 10px;
+    }
+    #{selector(prefix)}pane,
+    #{selector(prefix)}sidebar{
+        height: calc(100% - 55px);
+        top: 55px;
+        bottom: 0;
+    }
+    #{selector(prefix)}sidebar{
+        position: absolute;
+        left: 0;
+        width: 150px;
+        background: linear-gradient(to bottom, 
+            lighten(color-scheme(4),5%) 70%, color-scheme(4));
+        color: color-contrast(color-scheme(4));
+        z-index: 4;
+        #{selector(prefix)}tracker,
+        #{selector(prefix)}flipper,
+        button{
+            display: block;
+            width: 100%;
+            height: 40px;
+            padding: 10px;
+            margin: 5px 0px;
+            box-sizing: border-box;
+            text-transform: uppercase;
+            text-align: left;
+            font-size: 0.7em !important;
+            transition: $transitionSpeed ease-in-out;
+        }
+        #{selector(prefix)}tracker,
+        #{selector(prefix)}flipper{
+            background-color: mix(color-scheme(4),$light,60%);
+            color: color-contrast(mix(color-scheme(4),$light,60%));
+        }
+        #{selector(prefix)}tracker:hover,
+        #{selector(prefix)}tracker:focus,
+        #{selector(prefix)}flipper:hover,
+        #{selector(prefix)}flipper:focus{
+            background-color: mix(color-scheme(4),$light,40%);
+            color: color-contrast(mix(color-scheme(4),$light,40%));
+        }
+        button{
+            background-color: $dark !important;
+            color: $light !important;
+            box-sizing: border-box;
+        }
+        button:hover,
+        button:focus{
+            background-color: $light !important;
+            color: $dark !important;
+        }
+        #{selector(prefix)}tracker > div,
+        #{selector(prefix)}flipper > div{
+            top: 50%;
+            transform: translatey(-50%);
+            width: 100%; 
+        }
+        #{selector(prefix)}tracker > div{
+            .text{  
+                display: inline-block;
+                vertical-align: baseline;
+            }
+            .tracker{
+                display: inline-block;
+                vertical-align: baseline;
+                font-size: 1.1em;
+                .current,
+                .total{
+                    font-weight: bold;
+                }
+            }
+        }
+        #{selector(prefix)}flipper > div{
+            .text{  
+                display: inline-block;
+                vertical-align: baseline;
+            }
+            .side{
+                display: inline-block;
+                vertical-align: baseline;
+                font-size: 1.1em;
+                font-weight: bold;
+            }
+        }
+    }
+    #{selector(prefix)}pane{
+        position: absolute;
+        width: calc(80% - 150px);
+        transition: $transitionSpeed ease-in-out;
+        background-color: rgba($light,0.95);
+        color: color-contrast(rgba($light,0.95));
+        z-index: 3;
+        box-shadow: 3px 0px 5px rgba($dark,0.25);
+        border-left: 1px solid $dark;
+        text-align: left;
+        padding: 10px;
+        #{selector(prefix)}info{
+            position: absolute;
+            left: 10px;
+            right: 10px;
+            top: 55px;
+            bottom: 10px;
+            width: calc(100% - (10px * 2));
+            height: calc(100% - (55px + 10px));
+            overflow: auto;
+            box-sizing: border-box;
+            padding: 10px;
+            transition: $transitionSpeed ease-in-out;
+        }
+        #{selector(prefix)}info.hide{
+            opacity: 0;
+            display: none;
+        }
+        #{selector(prefix)}info.show{
+            opacity: 1;
+            display: block;
+        }
+        .btn-info{
+            position: absolute;
+            width: 35px;
+            height: 35px;
+            right: -35px;
+            top: 50%;
+            transform: translatey(-50%);
+            padding: 0;
+            margin: 0;
+            background-color: $dark !important;
+            color: $light !important;
+            border-radius: 0px 5px 5px 0px;
+            transition: $transitionSpeed ease-in-out;
+            z-index: 1;
+            > span{
+                width: 35px;
+                height: 35px;
+                line-height: 35px;
+            }
+        }
+        .btn-info::after{
+            content: '';
+            display: block;
+            position: absolute;
+            left: 0;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 0px 5px 5px 0px;
+            background-color: transparent !important;
+            color: transparent !important;
+            box-shadow: 3px 0px 5px rgba($dark,0.25);
+            z-index: 0;
+            transition: $transitionSpeed ease-in-out;
+        }
+        .btn-info.hide{
+            display: none;
+            opacity: 0;
+            box-shadow: none;
+        }
+        .btn-info.hide::after{
+            opacity: 0;
+        }
+        .btn-info.show{
+            display: block;
+            opacity: 1;
+        }
+        .btn-info.show::after{
+            opacity: 1;
+        }
+        .btn-tts,
+        button[class^="btn-tts-"]{
+            vertical-align: top;
+            width: 35px;
+            height: 35px;
+            background-color: transparent !important;
+            color: rgba($dark,0.6) !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            z-index: 1;
+            > span{
+                width: 35px;
+                height: 35px;
+                line-height: 35px;
+            }
+        }
+        .btn-tts:hover,
+        .btn-tts:focus,
+        button[class^="btn-tts-"]:hover,
+        button[class^="btn-tts-"]:focus{
+            background-color: transparent !important;
+            color: $dark !important;
+        }
+    }
+    #{selector(prefix)}pane.hide{
+        left: calc(-80% + 300px);
+        .btn-tts,
+        button[class^="btn-tts-"]{
+            display: none;
+        }
+    }
+    #{selector(prefix)}pane.show{
+        left: 150px;
+        .btn-tts,
+        button[class^="btn-tts-"]{
+            display: inline-block !important;
+        }
+    }
+    #{selector(prefix)}stack{
+        width: calc(100% - 150px);
+        left: 150px;
+        perspective: 500px;
+        position: relative;
+        overflow: hidden;
+    }
+    #{selector(prefix)}progress{
+        display: block;
+        width: 100%;
+        height: 10px;
+        margin: 5px 0px;
+        box-sizing: border-box;
+        background-color: rgba($light,0.6);
+        .bar{
+            display: block;
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            width: 0%;
+            background-color: $light;
+            transition: $transitionSpeed ease-in-out;
+        }
+    }
+    #{selector(prefix)}placeholder{
+        display: block;
+        position: relative;
+        visibility: visible;
+        opacity: 0;
+        margin: 20px auto;
+        padding: 25px;
+        width: 80%;
+        height: 80%;
+        box-sizing: border-box;
+    }
+    #{selector(prefix)}card{
+        display: none;
+        position: absolute;
+        left: 0px;
+        right: 0px;
+        top: 10px;
+        visibility: hidden;
+        opacity: 0;
+        margin: 20px auto;
+        padding: 25px;
+        width: calc(80% - 16px);
+        height: 80%;
+        box-sizing: border-box;
+        background-color: $light;
+        color: color-contrast($light);
+        transition: $transitionSpeed ease-in-out;
+        @include prefix(transform-style, preserve-3d);
+        box-shadow: 5px 5px 8px rgba($dark,0.3);
+    }
+    #{selector(prefix)}front,
+    #{selector(prefix)}back{
+        display: block;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        @include prefix(backface-visibility, hidden); // DOES NOT WORK IN IE
+        @include prefix(transform-style, preserve-3d);
+        text-align: right;
+        > div:first-of-type{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: calc(100% - 50px);
+            transform: translate3d(-50%,-50%,0);
+            text-align: center;
+        }
+        .btn-tts,
+        button[class^="btn-tts-"]{
+            width: 35px;
+            position: relative;
+            display: inline-block;
+            vertical-align: top;
+            top: 10px;
+            margin: 0 !important;
+            padding: 0 !important;
+            background-color: transparent;
+            color: $dark;
+            opacity: 0.4;
+        }
+        button[class^="btn-tts"]:last-of-type{
+            margin-right: 10px !important;
+        }
+        .btn-tts:hover,
+        .btn-tts:focus,
+        button[class^="btn-tts-"]:hover,
+        button[class^="btn-tts-"]:focus{
+            opacity: 1.0;
+            background-color: transparent;
+            color: $dark;
+        }
+        .notif-ctf{
+            position: absolute;
+            right: 10px;
+            bottom: 10px;
+            font-size: 0.7em;
+            text-transform: uppercase;
+            color: $dark;
+            transition: $transitionSpeed ease-in-out;
+            opacity: 0.4;
+            > span{
+                margin-right: 5px;
+            }
+        }
+    }
+    #{selector(prefix)}front:hover,
+    #{selector(prefix)}back:hover,
+    #{selector(prefix)}front:focus,
+    #{selector(prefix)}back:focus{
+        .notif-ctf{
+            opacity: 1;
+        }
+    }
+    #{selector(prefix)}front{
+        background-color: $light;
+        color: color-contrast($light);
+    }
+    #{selector(prefix)}back{
+        background-color: mix(color-scheme(2),$light,5%);
+        color: color-contrast(mix(color-scheme(2),$light,5%));
+    }
+    #{selector(prefix)}card[data-flip="front"]{
+        @include prefix(transform-style, preserve-3d);
+        #{selector(prefix)}front{
+            z-index: 2;
+        }
+        #{selector(prefix)}back{
+            z-index: 1;
+        }
+    }
+    #{selector(prefix)}card[data-flip="back"]{
+        @include prefix(transform-style, preserve-3d);
+        #{selector(prefix)}front{
+            z-index: 1;
+        }
+        #{selector(prefix)}back{
+            z-index: 2;
+        }
+    }
+    #{selector(prefix)}card[data-rotate="vertical"][data-flip="front"]{
+        transform: rotatey(0deg);
+        #{selector(prefix)}front{
+            transform: rotatey(0deg);
+        }
+        #{selector(prefix)}back{
+            transform: rotatey(180deg);
+        }
+    }
+    #{selector(prefix)}card[data-rotate="vertical"][data-flip="back"]{
+        transform: rotatey(180deg);
+        #{selector(prefix)}front{
+            transform: rotatey(0deg);
+        }
+        #{selector(prefix)}back{
+            transform: rotatey(-180deg);
+        }
+    }
+    #{selector(prefix)}card[data-flip="front"],
+    #{selector(prefix)}card[data-rotate="horizontal"][data-flip="front"]{
+        transform: rotatex(0deg);
+        #{selector(prefix)}front{
+            transform: rotatex(0deg);
+        }
+        #{selector(prefix)}back{
+            transform: rotatex(180deg);
+        }
+    }
+    #{selector(prefix)}card[data-flip="back"],
+    #{selector(prefix)}card[data-rotate="horizontal"][data-flip="back"]{
+        transform: rotatex(-180deg);
+        #{selector(prefix)}front{
+            transform: rotatex(0deg);
+        }
+        #{selector(prefix)}back{
+            transform: rotatex(180deg);
+        }
+    }
+    #{selector(prefix)}card.curr{
+        display: block;
+        visibility: visible;
+        opacity: 1;
+    }
+    #{selector(prefix)}card.curr.move.next{
+        opacity: 0;
+        transform: translatex(-100%) rotatey(180deg);
+        @include prefix(transform-style,preserve-3d);
+    }
+    #{selector(prefix)}card.curr.move.prev{
+        opacity: 0;
+        transform: translatex(100%) rotatey(-180deg);
+        @include prefix(transform-style,preserve-3d);
+    }
+    #{selector(prefix)}card.prev,
+    #{selector(prefix)}card.next{
+        z-index: -1;
+        opacity: 0;
+        visibility: visible;
+        display: block;
+    }
+    #{selector(prefix)}card.prev[data-flip="front"],
+    #{selector(prefix)}card.next[data-flip="front"],
+    #{selector(prefix)}card[data-flip="front"]{
+        #{selector(prefix)}front{
+            opacity: 1;
+            transition: opacity $transitionSpeed/2 ease-in-out $transitionSpeed/2;
+        }
+        #{selector(prefix)}back{
+            opacity: 0;
+            transition: opacity $transitionSpeed/2 ease-in-out $transitionSpeed/2;
+        }
+    }
+    #{selector(prefix)}card.prev[data-flip="back"],
+    #{selector(prefix)}card.next[data-flip="back"],
+    #{selector(prefix)}card[data-flip="back"]{
+        #{selector(prefix)}front{
+            opacity: 0;
+            transition: opacity $transitionSpeed/2 ease-in-out $transitionSpeed/2;
+        }
+        #{selector(prefix)}back{
+            opacity: 1;
+            transition: opacity $transitionSpeed/2 ease-in-out $transitionSpeed/2;
+        }
+    }
+    #{selector(prefix)}card.prev.move,
+    #{selector(prefix)}card.next.move{
+        opacity: 1;
+    }
+    #{selector(prefix)}card.prev.move.transition,
+    #{selector(prefix)}card.next.move.transition,
+    #{selector(prefix)}card.curr.move.transition{
+        transition: opacity $transitionSpeed ease-in-out,
+                    transform $transitionSpeed ease-in-out;
+    }
+    button.btn-first,
+    button.btn-prev,
+    button.btn-next,
+    button.btn-last{
+        display: inline-block;
+        vertical-align: top;
+        width: 35px;
+        height: 35px;
+        padding: 0;
+        background-color: lighten($dark,20%);
+        color: color-contrast($dark);
+        text-align: center;
+        span{
+            display: inline-block;
+            line-height: 35px;
+            height: 35px;
+        }
+        span.fa{
+            margin: 0;
+        }
+    }
+    button.btn-prev,
+    button.btn-next{
+        span{
+            width: 35px;
+        }
+    }
+    button.btn-first,
+    button.btn-last{
+        span{
+            width: calc(35px / 2 - 7px);
+        }
+    }
+    button.btn-prev.disable,
+    button.btn-prev.disable:hover,
+    button.btn-prev.disable:focus,
+    button.btn-next.disable,
+    button.btn-next.disable:hover,
+    button.btn-next.disable:focus,
+    button.btn-first.disable,
+    button.btn-first.disable:hover,
+    button.btn-first.disable:focus,
+    button.btn-last.disable,
+    button.btn-last.disable:hover,
+    button.btn-last.disable:focus{
+        background-color: desaturate(lighten($dark,20%),10%);
+        color: color-contrast(lighten($dark,20%));
+        opacity: 0.5;
+    }
+    button.btn-prev:hover, button.btn-prev:focus,
+    button.btn-next:hover, button.btn-next:focus,
+    button.btn-first:hover, button.btn-first:focus,
+    button.btn-last:hover, button.btn-last:focus{
+        background-color: $dark;
+        color: color-contrast($dark);
+    }
+}
+
+@include breakpoint(600px){
+    
+    #{selector(prefix)}#{selector(flashcard)}{
+        #{selector(prefix)}sidebar{
+            position: relative;
+            width: 100%;
+            max-width: none;
+            min-width: none;
+            top: 0 !important;
+            left: 0;
+            right: 0;
+            height: 75px !important;
+            text-align: center;
+            #{selector(prefix)}progress{
+                margin-top: 0;
+            }
+            #{selector(prefix)}tracker,
+            #{selector(prefix)}flipper,
+            button{
+                display: inline-block;
+                vertical-align: top;
+                width: calc((100% - 30px) / 4);
+                text-align: center;
+            }
+            #{selector(prefix)}tracker{
+                margin: 0px 5px 0px 0px;
+            }
+            #{selector(prefix)}flipper,
+            button.btn-flip{
+                margin: 0px 5px;
+            }
+            button.btn-shuffle{
+                margin: 0px 0px 0px 5px;
+            }
+        }
+        #{selector(prefix)}pane{
+            width: 100%;
+            height: calc(80% - 75px - 55px);
+            box-shadow: 0px 3px 5px rgba($dark,0.25);
+            border-left: 0;
+            border-top: 2px solid mix($dark,$light);
+            .btn-info{
+                bottom: -35px;
+                top: auto;
+                left: 50%;
+                transform: translatex(-50%);
+                border-radius: 0px 0px 5px 5px;
+            }
+            .btn-info::after{
+                border-radius: 0px 0px 5px fpx;
+                box-shadow: 0px 3px 5px rgba($dark,0.25);
+            }
+        }
+        #{selector(prefix)}pane.hide,
+        #{selector(prefix)}pane.show{
+            left: 0;
+            right: 0;
+        }
+        #{selector(prefix)}pane.hide{
+            top: calc(-80% + (75px * 2) + (55px * 2));
+        }
+        #{selector(prefix)}pane.show{
+            top: 75px + 55px;
+        }
+        #{selector(prefix)}stack{
+            width: 100%;
+            left: 0;
+        }
+    }
+    
+}
+
+@include breakpoint(450px){
+    
+    #{selector(prefix)}#{selector(flashcard)}{
+        .title{
+            font-size: 1.15em;
+        }
+        #{selector(prefix)}sidebar{
+            #{selector(prefix)}tracker,
+            #{selector(prefix)}flipper,
+            button{
+                padding: 5px;
+                font-size: 0.6em !important;
+            }
+            button{
+                > span{
+                    display: block !important;
+                    margin: 0 auto;
+                }
+            }
+        }
+    }
+    
+}
+
+// WORKAROUND(S) FOR IE
+@include ie(older, newer){
+    
+    #{selector(prefix)}#{selector(flashcard)}{
+        
+        // reverse backface-visibility on cards
+        #{selector(prefix)}front,
+        #{selector(prefix)}back{
+            @include prefix(backface-visibility, visible !important);
+            // hide listen buttons
+            .btn-tts,
+            button[class^="btn-tts-"]{
+                display: none !important;
+            }
+        }
+
+        // hide listen buttons
+        #{selector(prefix)}pane.show{
+            .btn-tts,
+            button[class^="btn-tts-"]{
+                display: none !important;
+            }
+        }
+    
+    }
+    
+}

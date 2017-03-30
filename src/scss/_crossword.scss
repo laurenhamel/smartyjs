@@ -1,0 +1,350 @@
+#{selector(prefix)}#{selector(crossword)}{
+    display: block;
+    padding: 10px;
+    text-align: center;
+    border: 1px solid $dark;
+    overflow: hidden;
+    .title{
+        font-weight: bold;
+        padding: 15px 0px;
+        text-transform: uppercase;
+        color: color-scheme(4);
+        font-size: 1.5em;
+        text-align: center;
+        background: linear-gradient(to bottom, lighten($dark,5%) 70%, $dark);
+                color: $light;
+        color: $light;
+        text-shadow: -3px -3px 5px $dark;
+    }
+    #{selector(prefix)}across,
+    #{selector(prefix)}down{
+        display: block;
+        margin: 20px 0px;
+        text-align: left;
+        .title{
+            color: $dark;
+            text-transform: none;
+            font-size: 1.25em;
+            text-align: left;
+            margin-bottom: 10px;
+            background: transparent !important;
+            text-shadow: none !important;
+        }
+    }
+    #{selector(prefix)}clue{
+        display: block;
+        margin: 5px 0px;
+        line-height: 1.5em;
+        .clue-num{
+            font-weight: bold;
+            display: inline-block;
+            width: 25px;
+            height: 1.5em;
+            vertical-align: top;
+            margin-right: 10px;
+            background-color: $dark;
+            color: $light;
+            > span{
+                display: block;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate3d(-50%,-50%,0);
+            }
+        }
+        .clue-txt{
+            display: inline;
+            vertical-align: top;
+            transition: $transitionSpeed ease-in-out;
+        }
+        .clue-box{
+            display: inline-block;
+            width: 25px;
+            height: 1.5em;
+            vertical-align: top;
+            margin: 0px 5px;
+            border: 1px solid $dark;
+            > span{
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate3d(-50%,-50%,0);
+                width: 60%;
+                height: 60%;
+                background-color: lighten($dark,35%);
+            }
+        }
+        input{
+            display: none;
+        }
+        input[type="checkbox"]:not(:checked) ~ .clue-box > span{
+            display: none;
+        }
+        input[type="checkbox"]:not(:checked) ~ .clue-txt{
+            text-decoration: none;
+            color: $dark;
+        }
+        input[type="checkbox"]:checked ~ .clue-box > span{
+            display: block;
+        }
+        input[type="checkbox"]:checked ~ .clue-txt{
+            text-decoration: line-through;
+            color: lighten($dark,35%);
+            #{selector(prefix)}blank::after{
+                content: '';
+                display: block;
+                position: absolute;
+                width: 100%;
+                height: 1px;
+                background-color: lighten($dark,35%);
+                top: 50%;
+                transform: translatey(-50%);
+            }
+        }
+    }
+    #{selector(prefix)}clue.highlight{
+        .clue-txt{
+            background-color: lighten($highlight,45%);
+        }
+    }
+    #{selector(prefix)}blank{
+        display: inline-block;
+        vertical-align: baseline;
+        text-align: center;
+        min-width: 50px;
+        font-size: 0.75em;
+        color: lighten($dark,45%);
+        .underline{
+            display: block;
+            position: absolute;
+            left: 0;
+            bottom: 1px;
+            width: 100%;
+            height: 1.5px;
+            background-color: $dark;
+        }
+    }
+    #{selector(prefix)}popclue{
+        position: fixed;
+        width: 300px;
+        min-height: 1.5em;
+        line-height: 1.5em;
+        box-sizing: border-box;
+        padding: 10px;
+        z-index: 2;
+        display: none;
+        visibility: hidden;
+        opacity: 0;
+        background-color: rgba($light,0.9);
+        border: 1px solid lighten($dark,50%);
+        box-shadow: 3px 3px 5px rgba($dark,0.2);
+        transition: top $transitionSpeed ease-in-out,
+                    left $transitionSpeed ease-in-out;
+        text-align: left;
+        .pop-ttl{
+            font-weight: bold;
+        }
+        .pop-num{
+            font-weight: bold;
+            display: inline-block;
+            width: 25px;
+            height: 1.5em;
+            vertical-align: top;
+            margin-right: 10px;
+            background-color: $dark;
+            color: $light;
+            > span{
+                display: block;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate3d(-50%,-50%,0);
+            }
+        }
+    }
+    #{selector(prefix)}popclue.transition{
+        transition: opacity $transitionSpeed linear,
+                    visibility 0s linear $transitionSpeed,
+                    display 0s ease-in-out $transitionSpeed;
+    }
+    #{selector(prefix)}popclue.pop{
+        display: block;
+        visibility: visible;
+        opacity: 1;
+    }
+    #{selector(prefix)}popclue.pop.transition{
+        transition: display 0s linear,
+                    visibility 0s linear,
+                    opacity $transitionSpeed ease-in-out;
+    }
+    #{selector(prefix)}modal{
+        display: block;
+        position: absolute;
+        left: 0;
+        right: 0;
+        width: 100%;
+        box-sizing: border-box;
+        text-align: center;
+        box-shadow: 0px 5px 10px rgba($dark,0.5);
+        background-color: $light;
+        z-index: 999;
+        .head,
+        .body,
+        .foot{
+            box-sizing: inherit;
+            
+        }
+        .head,
+        .foot{
+            padding: 20px 10px;
+        }
+        .head{
+            margin-bottom: 10px;
+            font-size: 1.5em;
+            text-transform: uppercase;
+            background: linear-gradient(to bottom, lighten($dark,5%) 70%, $dark);
+            color: $light;
+            text-shadow: -3px -3px 5px $dark;
+        }
+        .body{
+           padding: 10px; 
+        }
+        .foot{
+            background-color: color-scheme(4);
+            margin-top: 10px;
+            clear: both;
+            button{
+                display: inline-block;
+                margin: 5px;
+            }
+            .btn-confirm,
+            .btn-cancel{
+                background-color: $dark;
+                color: $light;
+            }
+            .btn-confirm:hover,
+            .btn-confirm:focus,
+            .btn-cancel:hover,
+            .btn-cancel:focus{
+                background-color: $light;
+                color: $dark;
+            }
+        }
+    }
+    #{selector(prefix)}modal.transition{
+        transition: bottom $transitionSpeed ease-in-out;
+    }
+    table.grid{
+        width: 100%;
+        margin: 10px auto;
+        td{
+            background-color: lighten($dark,70%);
+            max-width: 40px;
+            min-width: 20px;
+            max-height: 40px;
+            min-height: 20px;
+            input[type="text"]{
+                display: block;
+                position: absolute;
+                width: 100% !important;
+                height: 100% !important;
+                left: 0;
+                top: 0;
+                text-align: center;
+                border: 1px solid lighten($dark,50%);
+                text-transform: uppercase;
+            }
+            input[type="text"].highlight{
+                background-color: lighten($highlight,45%);
+                border: 1px solid $dark;
+            }
+            input[type="text"].highlight.curr{
+                background-color: lighten($highlight,25%);
+            }
+            input[type="text"][data-valid="true"]{
+                background-color: lighten($pass,45%);
+            }
+            input[type="text"][data-valid="true"].highlight{
+                background-color: mix(lighten($pass,45%),lighten($highlight,45%),25%);
+            }
+            input[type="text"][data-valid="true"].highlight.curr{
+                background-color: mix(lighten($pass,45%),lighten($highlight,25%),25%);
+            }
+            input[type="text"][data-valid="false"]{
+                background-color: lighten($fail,45%);
+            }
+            input[type="text"][data-valid="false"].highlight{
+                background-color: mix(lighten($fail,45%),lighten($highlight,45%),25%);
+            }
+            input[type="text"][data-valid="false"].highlight.curr{
+                background-color: mix(lighten($fail,45%),lighten($highlight,25%),25%);
+            }
+            .number{
+                display: block;
+                color: lighten($dark,50%);
+                font-size: 0.6em; 
+                padding: 4px;
+                position: absolute;
+                left: 0;
+                top: 0;
+            }
+        }
+    }
+    button{
+        display: inline-block !important;
+        vertical-align: baseline;
+        outline: 0;
+        border: 0 !important;
+        min-width: initial !important;
+        width: 135px;
+        height: 35px;
+        text-align: center;
+        margin: 10px 5px;
+        cursor: pointer;
+        transition: $transitionSpeed ease-in-out;
+    }
+    button:first-of-type{
+        margin-left: 0;
+    }
+    button:last-of-type{
+        margin-right: 0;
+    }
+    .btn-reveal{
+        background-color: lighten($dark,70%);
+        color: color-contrast(lighten($dark,50%));
+    }
+    .btn-reveal:hover,
+    .btn-reveal:focus{
+        background-color: lighten($dark,50%);
+    }
+    .btn-check,
+    .btn-reset{
+        background-color: $dark;
+        color: $light;
+    }
+    .btn-check:hover,
+    .btn-check:focus,
+    .btn-reset:hover,
+    .btn-reset:focus{
+        background-color: color-scheme(4);
+    }
+    .btn-done{
+        background-color: mix(color-scheme(4),$light,75%);
+        color: color-contrast(color-scheme(4));
+    }
+    .btn-done:hover,
+    .btn-done:focus{
+        background-color: color-scheme(4);
+    }
+    .notif-incompatible{
+        font-size: 0.8em;
+        text-transform: uppercase;
+        font-weight: bold;
+        margin: 10px;
+        color: $fail;
+        text-align: center;
+    }
+    .incompatible{
+        display: none !important;
+    }
+}

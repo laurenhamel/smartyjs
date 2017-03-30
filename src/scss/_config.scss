@@ -1,0 +1,214 @@
+/* SELECTORS:
+ * The following selectors should match the
+ * selectors used in SmartyJS configuration.
+ * That is, if you change the selectors in
+ * the smarty.js file, then the below selectors 
+ * will also need to be changed to match. 
+ */
+$selectors: (
+    
+    /* PREFIX:
+     * This should be the same as: 
+     * config.selectorPrefix
+     */
+    prefix: 'smarty-',
+    
+    /* CLASS:
+     * This should be the same as: 
+     * config.className
+     */
+    class: 'smarty',
+    
+    /* CROSSWORD:
+     * This should be the same as: 
+     * config.crosswords.selector
+     */
+    crossword: 'crossword',
+    
+    /* DRAG-AND-DROPS:
+     * This should be the same as: 
+     * config.dragAndDrops.selector
+     */
+    draganddrop: 'dragdrop',
+    
+    /* FILL-IN-THE-BLANKS:
+     * This should be the same as: 
+     * config.fillInTheBlanks.selector
+     */
+    fillintheblank: 'fillblank',
+    
+    /* FLASHCARDS:
+     * This should be the same as: 
+     * config.flashcards.selector
+     */
+    flashcard: 'flashcard',
+    
+    /* MATCHING:
+     * This should be the same as: 
+     * config.matching.selector
+     */
+    matching: 'matching',
+    
+    /* ORDERING:
+     * This should be the same as: 
+     * config.ordering.selector
+     */
+    ordering: 'ordering',
+    
+    /* PICK-A-LETTER:
+     * This should be the same as: 
+     * config.pickALetter.selector
+     */
+    pickaletter: 'pickletter',
+    
+    /* QUIZZES:
+     * This should be the same as: 
+     * config.quizzes.selector
+     */
+    quiz: 'quiz'
+    
+);
+
+/* COLORS:
+ * Use the $schemes map below to define
+ * a number of different color schemes.
+ * Each color scheme should have exactly
+ * five (5) colors and use a unique name
+ * as its identifier. Then, set the $scheme
+ * variable value to the identifier of the
+ * color scheme you wish to use from your
+ * list of $schemes.
+ */
+
+/* (1) Create a list of color schemes here. 
+ *
+ * Each color scheme should have a total of 
+ * five (5) colors. For best results when
+ * picking colors, follow the guideline below:
+ *
+ * +========================================+
+ * | COLOR GUIDE                            |
+ * +--------+-------------------------------+
+ * | No.    | Recommendation                |
+ * +========+===============================+
+ * | 01     | use a light color             |
+ * +--------+-------------------------------+
+ * | 02     | use a dark color              |
+ * +--------+-------------------------------+
+ * | 03     | use white or off-white        |
+ * +--------+-------------------------------+
+ * | 04     | use a rich or vibrant color   |
+ * +--------+-------------------------------+
+ * | 05     | use a contrast color to #04   |
+ * +--------+-------------------------------+
+ *
+ * A default color scheme has been provided.
+ * Simply use it as your color scheme, or use 
+ * it as a reference when following the
+ * guidelines above.
+ */
+$schemes: (
+    'default': (
+        1: #BDD5EA,
+        2: #495867,
+        3: #F7F7F7,
+        4: #2B9EB3,
+        5: #FE5F55
+    ),
+    'ecore': (
+        1: #C4E7E7,
+        2: #333333,
+        3: #F3F3F5,
+        4: #00A9A7,
+        5: #7BA741
+    ),
+    'mooc': (
+        1: #C6B29B,
+        2: #53667E,
+        3: #C3C8C0,
+        4: #7AA2BE,
+        5: #AA7141
+    )
+);
+
+/* (2) Select your preferred color scheme here. */
+$scheme: 'ecore';
+
+
+/* (3) Define colors to be used across all color schemes. */
+
+/* DARK | LIGHT:
+ * These colors are mostly used for text, 
+ * but may also be used for as accents.
+ * On light backgrounds, the dark text color
+ * is used, and vice versa for text on dark
+ * backgrounds.
+ */
+$dark:          #333333; // Use black or a dark grey tint
+$light:         #FFFFFF; // Use white or a light grey shade
+
+/* PASS | INCOMPLETE | PARTIAL | FAIL | WARNING:
+ * Used primarily for quizzes, these colors 
+ * are used for emphasis. For instance, when a 
+ * user answer a question correctly, a response 
+ * will be given using PASS colors to reiterate
+ * that the user got the question correct.
+ */
+$pass:          #399E5A; // Generally green
+$incomplete:    #FFBA08; // Generally yellow or gold
+$partial:       #FFBA08; // Generally yellow or gold
+$fail:          #D00000; // Generally red
+$warning:       #D00000; // Generally red
+
+/* HIGHLIGHT:
+ * Used primarily for crosswords, this color
+ * is applied to a word when a user selects any
+ * of the word's cells in the crossword grid.
+ */
+$highlight:     #FFBA08; // Generally yellow or gold, which is lightened when applied
+
+/* TRANSITION SPEED:
+ * The following transition speed should
+ * match the transitionSpeed configuration
+ * used in the smarty.js file. An "s" suffix 
+ * should be added to this value only and not
+ * to its equivalent value in smarty.js.
+ */
+$transitionSpeed: 0.25s;
+
+/* BREAKPOINTS:
+ * The following breakpoints should match the
+ * breakpoints used in SmartyJS configuration.
+ * That is, if you change the respondAt values in
+ * the smarty.js file, then the below breakpoints 
+ * will also need to be changed to match. These
+ * values should be suffixed with "px" whereas
+ * their smarty.js equivalents should not.
+ */
+$breakpoints: (
+    
+    /* CROSSWORD:
+     * This value is programatically controlled
+     * via smarty.js, and thus, does not need to
+     * be set. This will be the same as: 
+     * config.crosswords.respondAt
+     */
+    /* crossword: */
+    
+    /* FLASHCARD:
+     * While flashcards use a respondAt value in
+     * smarty.js, its respondAt value serves a 
+     * different purpose than the values used in
+     * this section. Thus, this value does not need to
+     * be set as flashcard breakpoints have been
+     * preset and are not made configurable.
+     */
+    /* flashcard: */
+    
+    /* QUIZ:
+     * This should be the same as: 
+     * config.quizzes.respondAt
+     */
+    quiz: 600px
+    
+);

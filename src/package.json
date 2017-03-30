@@ -1,0 +1,35 @@
+{
+  "name": "smartyjs",
+  "version": "1.4.033017",
+  "description": "a pure HTML + JS interactive learning solution",
+  "main": "smartyjs",
+  "scripts": {
+    "file": "touch",
+    "comp": "sass scss/smarty.scss css/smarty.css",
+    "comp:dir": "sass scss css",
+    "watch:dir": "sass -w scss:css",
+    "watch": "sass -w scss/smarty.scss:css/smarty.css",
+    "watch:docs": "sass -w docs/scss/docs.scss:docs/css/docs.css",
+    "min:js": "cd js && uglifyjs smarty.js -m -c -o smarty.min.js --source-map smarty.min.js.map; cd ../",
+    "min:css": "cd css && uglifycss smarty.css > smarty.min.css; cd ../",
+    "min": "npm run min:js && npm run min:css",
+    "build": "npm run comp && npm run min",
+    "mark:dir": "cd docs && markdowns -p; cd ../",
+    "mark:watch": "markdowns -w docs",
+    "mark": "npm run mark:dir && npm run mark:watch",
+    "lint": "cd js && jshint smarty.js; cd ../",
+    "host": "ngrok http 80"
+  },
+  "author": "Lauren Hamel",
+  "license": "MIT",
+  "dependencies": {
+    "jquery": ">=1.12.3",
+    "webcomponents": "^0.7.22",
+    "speechsynthesis": "^0.4.0"
+  },
+  "jshintConfig": {
+    "laxbreak": true,
+    "laxcomma": true,
+    "loopfunc": true
+  }
+}

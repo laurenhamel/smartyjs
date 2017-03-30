@@ -1,0 +1,133 @@
+$ecore-teal:            #00A9A7;
+$ecore-light-teal:      #41BFBB;
+$ecore-dark-teal:       #006460;
+$ecore-green:           #7BA741;
+$ecore-dark-grey:       #333333;
+$ecore-light-grey:      #F3F3F5;
+$ecore-rust:            #DA4427;
+$ecore-medium-orange:   #F5A62D;
+$ecore-purple:          #AF2A51;
+$ecore-light-mint:      #C4E7E7;
+
+body{
+    font-family: sans-serif;
+    font-size: 14px;
+    line-height: 150%;
+    color: $ecore-dark-grey;
+    margin: 0;
+}
+
+a, a:active, a:visited{
+    text-decoration: none;
+    color: $ecore-dark-teal;
+}
+a:hover{
+    color: $ecore-light-teal;
+}
+
+nav{
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    width: 30%;
+    max-width: 250px;
+    ol, ul{
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+        li{
+            padding: 10px 25px;
+            position: relative;
+            margin: 5px 0px;
+            background: $ecore-light-grey;
+            cursor: pointer;
+            transition: 0.25s ease-in-out;
+        }
+        li::before{
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 5px;
+            background-color: $ecore-dark-teal;
+            transition: 0.25s ease-in-out;
+        }
+        li.active{
+            background-color: $ecore-light-mint;
+        }
+        li.active::before{
+            background-color: $ecore-teal;
+        }
+        li:hover::before{
+           background-color: $ecore-light-teal;
+        }
+    }
+}
+    
+h1, h2, h3, h4, h5, h6{
+    line-height: 110%;
+}
+
+h1{
+    text-transform: uppercase;
+    color: $ecore-teal;
+    text-shadow: -2px 2px 0px rgba($ecore-dark-grey,0.2),
+}
+h2{
+    color: $ecore-dark-teal;
+}
+h3{
+    color: $ecore-light-teal;
+    font-size: 1.25em;
+}
+h4{
+    color: lighten($ecore-dark-grey,30%);
+    font-size: 1.15em;
+}
+h5{
+    font-size: 1.05em;
+    font-weight: bold;
+}
+h6{
+    font-size: 1em;
+    color: darken($ecore-light-mint,20%);
+    margin: 5% 0%;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9em;
+    th{
+        background-color: $ecore-light-grey;
+    }
+    td{
+        border-top: 1px solid darken($ecore-light-grey,10%);
+        border-bottom: 1px solid darken($ecore-light-grey,10%);
+    }
+}
+
+pre{
+    background-color: $ecore-light-grey;
+    padding: 5px;
+    white-space: pre-wrap;
+    code{
+        font-size: 0.9em;
+        line-height: 115%;
+    }
+}
+
+blockquote{
+    padding: 5px 10px;
+    margin: 20px 0px;
+    background-color: lighten($ecore-light-mint,10%);
+    border: 1px solid darken($ecore-light-grey,10%);
+}
+
+#document{
+    box-sizing: border-box;
+    width: calc(100% - 30% - 20px - 10px);
+    margin-left: calc(30% + 20px);
+    margin-right: 10px;
+}

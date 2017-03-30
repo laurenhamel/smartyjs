@@ -1,0 +1,351 @@
+// FUNCTION: str-count()
+@function str-count($haystack,$needle){
+    
+    $index: str-index($haystack,$needle);
+    
+    $hLength: str-length($haystack);
+    $nLength: str-length($needle);
+    
+    $result: if($index, 1, 0);
+    
+    @if $index{
+        
+        @for $i from $index + $nLength through $hLength{
+            
+            $substack: str-slice($haystack,$i,$i + $nLength - 1);
+            
+            @if $substack == $needle {
+                
+                $result: $result + 1;
+                
+            }
+            
+        }
+        
+    }
+    
+    @return $result;
+    
+}
+
+// FUNCTION: str-to-list()
+@function str-to-list($string,$separator: ' '){
+    
+    $length: str-length($separator);
+    
+    $count: str-count($string,$separator);
+ 
+    $location: str-index($string,$separator);
+    
+    $list: ();
+    
+    @if($count > 0){
+        
+        @for $i from 0 through $count{
+
+            $substring: str-slice($string,1,$location - $length);
+
+            $list: append($list,$substring);
+
+            $string: str-slice($string,$location + $length);
+
+            $location: str-index($string,$separator); 
+
+            $location: if($location == null,str-length($string) + $length,$location);
+
+        }
+        
+    } @else {
+        
+        $list: append($list,$string);
+        
+    }
+    
+    @return $list;
+    
+}
+
+// FUNCTION: str-is-num()
+@function str-is-num($string){
+    
+    $strings: '0' '1' '2' '3' '4' '5' '6' '7' '8' '9';
+    
+    $bool: false;
+    
+    @for $i from 1 through str-length($string){
+        
+        $char: str-slice($string,$i,$i);
+        
+        $index: index($strings,$char);
+        
+        @if $index{
+            
+            $bool: true;
+            
+        }
+        
+    }
+    
+    @return $bool;
+    
+}
+
+// FUNCTION: str-to-num()
+@function str-to-num($string,$base: 10){
+    
+    $strings: '0' '1' '2' '3' '4' '5' '6' '7' '8' '9';
+    $numbers:  0   1   2   3   4   5   6   7   8   9 ;
+    
+    $result: 0;
+    $negate: false;
+    $decimal: 0;
+    
+    @for $i from 1 through str-length($string){
+        
+        $char: str-slice($string,$i,$i);
+        
+        $index: index($strings,$char);
+        
+        @if $index{
+        
+            $number: nth($numbers,$index);
+            
+            @if $decimal == 0 { $result: $result * $base; }
+            
+            @if $decimal == 1 { $number: $number / ($decimal * $base) }
+            
+            $result: $result + $number;
+            
+        } @else {
+            
+            @if $char == '-' { $negate: true; }
+            
+            @if $char == '.' { $decimal: 1; }
+            
+        }
+        
+    }
+    
+    @return if($negate, $result * -1, $result);
+    
+}
+
+// FUNCTION: map-deep-get()
+@function map-deep-get($map,$gets){
+    
+    $keys: str-to-list($gets); 
+    
+    @each $key in $keys{
+        
+        $key: if(str-is-num($key),str-to-num($key),$key);
+        
+        $map: map-get($map,$key);
+        
+    }
+    
+    @return $map;
+    
+}
+
+// FUNCTION: color-scheme()
+@function color-scheme($key){
+    
+    $lookup: $scheme + ' ' + $key;
+    
+    $map: $schemes;
+    
+    $color: map-deep-get($map,$lookup);
+    
+    @return $color;
+    
+}
+
+// FUNCTION: selector()
+@function selector($key){
+    
+    $lookup: $key;
+    
+    $map: $selectors;
+    
+    $selector: map-deep-get($map,$lookup);
+    
+    @return $selector;
+    
+}
+
+// FUNCTION: breakpoint()
+@function breakpoint($key){
+    
+    $lookup: $key;
+    
+    $map: $breakpoints;
+    
+    $breakpoint: map-deep-get($map,$lookup);
+    
+    @return $breakpoint;
+    
+}
+
+// FUNCTION: color-contrast()
+@function color-contrast($bgcolor){
+    
+    $darkColor: if($dark,$dark,#333333);
+    
+    $lightColor: if($light,$light,#FFFFFF);
+    
+    @if lightness($bgcolor) > 50{
+        
+        @return $darkColor;
+        
+    } @else {
+        
+        @return $lightColor;
+        
+    }
+    
+}
+
+// MIXIN: not()
+@mixin not($selector,$nots){
+
+    @each $not in $nots{
+        $selector: $selector + ':not(' + unquote($not) + ')';
+    }
+    
+    #{$selector}{
+        @content;
+    }
+    
+}
+
+// MIXIN: after()
+@mixin after($selectors...){
+    
+    @each $selector in $selectors{
+        #{$selector}::after{
+            @content;
+        }
+    }
+    
+}
+
+// MIXIN: before()
+@mixin before($selectors...){
+    
+    @each $selector in $selectors{
+        #{$selector}::before{
+            @content;
+        }
+    }
+    
+}
+
+// MIXIN: before-and-after()
+@mixin before-and-after($selectors...){
+    
+    @each $selector in $selectors{
+        #{$selector}::before,
+        #{$selector}::after{
+            @content;
+        }
+    }
+    
+}
+
+// MIXIN: breakpoint()
+@mixin breakpoint($breakpoint){
+    @media only screen and (max-width: $breakpoint){
+        @content;
+    }
+}
+
+// MIXIN: prefix()
+@mixin prefix($property,$value,$prefixes: '-webkit-' '-o-' '-moz-' '-ms-'){
+    
+    #{$property}: $value;
+    
+    @each $prefix in $prefixes{
+        
+        #{$prefix}#{$property}: $value;
+        
+    }
+    
+}
+
+// MIXIN: ie()
+@mixin ie($versions...){
+    
+    $IE_newer: 0;
+    $IE_older: 0;
+    $IE_edge: 0;
+    
+    @each $version in $versions{
+        
+        @if(type-of($version) == number){
+            
+            @if ($version >= 10 && <= 11){
+            
+                $IE_newer: $IE_newer + 1;
+
+            } @else if ($version < 10){
+
+                $IE_older: $IE_older + 1;
+
+            } @else if ($version > 11){
+
+                $IE_edge: $IE_edge + 1;
+
+            }
+            
+        } @else if(type-of($version) == string){
+           
+            @if (to-lower-case($version) == 'newer'){
+
+                $IE_newer: $IE_newer + 1;
+
+            } @else if (to-lower-case($version) == 'older'){
+
+                $IE_older: $IE_older + 1;
+
+            } @else if (to-lower-case($version) == 'edge'){
+
+                $IE_edge: $IE_edge + 1;
+
+            }
+            
+        }
+        
+    }
+    
+    // styles specific to IE =10-11
+    @if ($IE_newer > 0){
+        
+        @media all and (-ms-high-contrast: none), (-ms-high-contrast:active){
+            @content;
+        }
+        
+    }
+    
+    // styles specific to IE >=12 (Edge) 
+    @if ($IE_edge > 0){
+        
+        @supports (-ms-accelerator:true){
+            @content;
+        }
+        
+    }
+    
+    // styles specific to IE <=9
+    @if ($IE_older > 0){
+        
+        @media screen\9{
+            @content;
+        }
+        
+        @media screen\0{
+            @content;
+        }
+        
+    }
+    
+}

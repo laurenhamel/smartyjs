@@ -1,0 +1,1449 @@
+// General Settings
+#{selector(prefix)}#{selector(quiz)}{
+    padding: 10px;
+    display: block;
+    overflow: hidden;
+    width: 100%;
+    border: 1px solid $dark;
+    overflow: hidden;
+    text-align: right;
+    @include not('*','button' 'smarty-report'){
+        text-align: left;
+    }
+    .title{
+        font-weight: bold;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        text-transform: uppercase;
+        color: color-scheme(4);
+        font-size: 1.5em;
+    }
+    #{selector(prefix)}intro{
+        display: block;
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        z-index: 1;
+        background-color: rgba($light,0.9);
+        color: color-contrast(rgba($light,0.9));
+        padding: 10px;
+        text-align: justify;
+        > div{
+            position: relative;
+            width: 100%;
+            max-height: 100%;
+            overflow: auto;
+            .title{
+                display: table;
+                width: 100% !important;
+                min-height: 55px;
+                padding: 15px 0px;
+                position: relative;
+                background: linear-gradient(to bottom, lighten($dark,5%) 70%, $dark);
+                color: $light;
+                > span{
+                    display: table-cell;
+                    position: relative;
+                    text-align: center;
+                    vertical-align: middle;
+                    height: 100%;
+                    width: 100%;
+                    text-shadow: -3px -3px 5px $dark;
+                }
+            }
+            .btn-start{
+                margin: 25px auto;
+                background-color: mix(color-scheme(4),$light,75%);
+                color: color-contrast(color-scheme(4));
+                transition: $transitionSpeed ease-in-out;
+            }
+            .btn-start:hover,
+            .btn-start:focus{
+                background-color: color-scheme(4);
+            }
+            .notif-timed{
+                text-align: center;
+                text-transform: uppercase;
+                margin: 50px 0px 10px;
+                font-size: 0.8em;
+                span{
+                    display: inline-block;
+                    vertical-align: baseline;
+                    font-size: 1.2em;
+                    font-weight: bold;
+                }
+            }
+        }
+    }
+    #{selector(prefix)}question,
+    #{selector(prefix)}answer{
+        display: block;
+        width: calc(100% - 10px);
+    }
+    #{selector(prefix)}question{
+        margin: 10px 5px;
+        #{selector(prefix)}blank{
+            display: inline-block;
+            vertical-align: baseline;
+            text-align: center;
+            min-width: 50px;
+            font-size: 0.75em;
+            color: lighten($dark,45%);
+            .underline{
+                display: block;
+                position: absolute;
+                left: 0;
+                bottom: 1px;
+                width: 100%;
+                height: 1.5px;
+                background-color: $dark;
+            }
+        }
+        .question-num{
+            display: inline-block;
+            vertical-align: middle;
+            box-sizing: border-box;
+            width: 1.5em;
+            height: 1.5em;
+            line-height: 1.75em;
+            > span{
+                position: absolute;
+                top: 50%;
+                width: 100%;
+                transform: translatey(-50%);
+                text-align: center;
+                margin: 0 !important;
+                padding: 0 !important;
+                left: 0;
+                right: 0;
+            }
+        }
+        .question-num{
+            background-color: $dark;
+            color: $light;
+            font-family: monospace;
+        }
+        .question-txt{
+            display: inline;
+            font-weight: bold;
+            padding: 0.25em 0.5em;
+            line-height: 1.75em;
+        }
+        .question-txt:hover,
+        .question-txt:focus{
+            background-color: rgba($dark,0.05);
+        }
+        #{selector(prefix)}answer{
+            padding: 5px 0px;
+            input{
+                margin: 0px 10px 0px 20px;
+            }
+            span{
+                margin-right: 5px;
+            }
+            .answer-num,
+            .answer-radio,
+            .answer-checkbox{
+                display: inline-block;
+                vertical-align: top;
+                box-sizing: border-box;
+                padding: 0.25em 0.5em;
+            }
+            .answer-num{
+                font-family: monospace;
+                margin: 0px 5px;
+                width: 1.5em;
+                height: 1.5em;
+                line-height: 1.75em;
+                > span{
+                    position: absolute;
+                    top: 50%;
+                    width: 100%;
+                    transform: translatey(-50%);
+                    text-align: center;
+                    margin: 0 !important;
+                    padding: 0 !important;
+                    left: 0;
+                    right: 0;
+                }
+            }
+            .answer-txt{
+                display: inline;
+                padding: 0.25em 0.5em;
+                line-height: 1.75em;
+            }
+            input:checked ~ .answer-num{
+                background-color: mix(color-scheme(4),$light,85%);
+                color: color-contrast(color-scheme(4));
+            }
+            input:not(:checked) ~ .answer-num{
+                background-color: mix(color-scheme(2),$light,60%);
+                color: color-contrast(color-scheme(2));
+            }
+            input:not(:checked):hover ~ .answer-num,
+            input:not(:checked):focus ~ .answer-num,
+            input:not(:checked) + .answer-radio:hover ~ .answer-num,
+            input:not(:checked) + .answer-radio:focus ~ .answer-num,
+            input:not(:checked) + .answer-checkbox:hover ~ .answer-num,
+            input:not(:checked) + .answer-checkbox:focus ~ .answer-num{
+                background-color: color-scheme(2);
+            }
+            input:checked:hover ~ .answer-num,
+            input:checked:focus ~ .answer-num,
+            input:checked + .answer-radio:hover ~ .answer-num,
+            input:checked + .answer-radio:focus ~ .answer-num,
+            input:checked + .answer-checkbox:focus ~ .answer-num,
+            input:checked + .answer-checkbox:focus ~ .answer-num{
+                background-color: color-scheme(4);
+            }
+            .answer-txt:hover, input:hover ~ .answer-txt,
+            .answer-txt:focus, input:focus ~ .answer-txt{
+                background-color: rgba(color-scheme(2),0.1);
+            }
+            .answer-radio:focus,
+            .answer-radio:focus ~ .answer-txt,
+            .answer-checkbox:focus,
+            .answer-checkbox:focus ~ .answer-txt{
+                background-color: rgba(color-scheme(2),0.1);
+            }
+            .answer-radio,
+            .answer-checkbox{
+                margin-left: 40px;
+                margin-right: 5px;
+                padding: 0;
+                border: 1px solid $dark;
+            }
+            .answer-radio{
+                border-radius: 50%;
+            }
+            .answer-radio::after,
+            .answer-checkbox::after{
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate3d(-50%,-50%,0);
+            }
+            .answer-radio::after{
+                content: '';
+                width: 50%;
+                height: 50%;
+                background-color: mix(color-scheme(4),$light,60%);
+            }
+            .answer-checkbox::after{
+                content: $fa-var-check;
+                font-family: 'FontAwesome';
+                position: absolute;
+                color: mix(color-scheme(4),$light,60%);
+            }
+            .answer-radio::after{
+                border-radius: 50%;
+            }
+            .btn-true,
+            .btn-false{
+                display: block;
+                margin: 0px 5px 0px 40px;
+                width: 135px;
+                height: 35px;
+                cursor: pointer;
+                border: 0;
+                transition: $transitionSpeed ease-in-out;
+                span{
+                    display: block;
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate3d(-50%,-50%,0);
+                }
+            }
+            input:checked ~ .btn-true,
+            input:checked ~ .btn-false{
+                background-color: mix(color-scheme(4),$light,85%);
+                color: color-contrast(color-scheme(4));
+            }
+            input:checked ~ .btn-true:hover,
+            input:checked ~ .btn-false:hover,
+            input:checked ~ .btn-true:focus,
+            input:checked ~ .btn-false:focus{
+                background-color: color-scheme(4);
+            }
+            input:not(:checked) ~ .btn-true,
+            input:not(:checked) ~ .btn-false{
+                background-color: mix(color-scheme(2),$light,60%);
+                color: color-contrast(color-scheme(2));
+            }
+            input:not(:checked) ~ .btn-true:hover,
+            input:not(:checked) ~ .btn-false:hover,
+            input:not(:checked) ~ .btn-true:focus,
+            input:not(:checked) ~ .btn-false:focus{
+                background-color: color-scheme(2);
+            }
+            input[type="radio"],
+            input[type="checkbox"]{
+                display: none;
+                visibility: hidden;
+            }
+            input[type="radio"]:hover ~ .answer-radio,
+            input[type="radio"]:focus ~ .answer-radio,
+            input[type="checkbox"]:hover ~ .answer-checkbox,
+            input[type="checkbox"]:focus ~ .answer-checkbox{
+                background-color: rgba(color-scheme(2),0.1);
+            }
+            input[type="radio"]:checked ~ .answer-radio::after,
+            input[type="checkbox"]:checked ~ .answer-checkbox::after{
+                display: block;
+            }
+            input[type="radio"]:not(:checked) ~ .answer-radio::after,
+            input[type="checkbox"]:not(:checked) ~ .answer-checkbox::after{
+                display: none;
+            }
+            input[type="text"]{
+                display: block;
+                margin: 5px 10px 5px 40px;
+                width: 300px;
+                height: 30px;
+                border: 1px solid $dark;
+                box-sizing: border-box;
+                padding: 5px;
+                font-size: 13px;
+                transition: $transitionSpeed ease-in-out;
+            }
+            input[type="text"]:hover,
+            input[type="text"]:focus{
+                background-color: rgba(color-scheme(2),0.1);
+            }
+        }
+    }
+    #{selector(prefix)}attempts{
+        display: block;
+        width: 150px;
+        height: 35px;
+        margin: 15px 5px 5px;
+        background-color: mix(color-scheme(1),$light);;
+        color: lighten(color-contrast(mix(color-scheme(1),$light)),25%);
+        font-size: 0.8em;
+        .text{
+            text-transform: uppercase;
+            font-size: 0.8em;
+            margin-right: 10px;
+        }
+        .total,
+        .max{
+            font-weight: bold;
+        }
+        button.info{
+            display: inline-block;
+            vertical-align: middle;
+            width: 1em;
+            min-width: initial !important;
+            height: 1em;
+            color: lighten(color-contrast(mix(color-scheme(1),$light)),25%);
+            cursor: help;
+            margin: 0;
+            padding: 0;
+            font-size: 1.3em;
+            border-radius: 50%;
+            background-color: transparent;
+            margin-left: 5px;
+            > span.fa{
+                display: block;
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                left: 0;
+                top: 0;
+                margin: 0 !important;
+            }
+            > span.fa::before{
+                display: block;
+                text-align: center;
+                font-size: 1em;
+            }
+        }
+        .stats{
+            position: absolute;
+            left: 150px;
+            bottom: 0;
+            box-sizing: border-box;
+            padding: 5px;
+            width: 150px;
+            max-height: 180px;
+            background-color: lighten($dark,75%);
+            color: color-contrast(lighten($dark,75%));
+            overflow: hidden;
+            border-left: 1px solid lighten(color-scheme(2),20%);
+            box-shadow: 2px 2px 2px rgba(lighten($dark,20%),0.5);
+            div{
+                margin: 5px;
+                text-transform: uppercase;
+                font-size: 0.8em;
+                span{
+                    float: right;
+                    font-size: 1.2em;
+                }
+            }
+        }
+        .stats.transition{
+            transition: max-width $transitionSpeed ease-in-out;
+            div{
+                transition: opacity $transitionSpeed ease-in-out;
+            }
+        }
+        .stats.hide{
+            max-width: 0;
+            div{
+                opacity: 0;
+            }
+        }
+        .stats.show{
+            max-width: 150px;
+            div{
+                opacity: 1;
+            }
+        }
+    }
+    #{selector(prefix)}score{
+        display: block;
+        height: 35px;
+        margin: 5px;
+        font-size: 0.8em;
+        background-color: lighten($dark,75%);
+        color: lighten(color-contrast(lighten($dark,75%)),25%);
+        .text{
+            text-transform: uppercase;
+            font-size: 0.8em;
+            margin-right: 10px;
+        }
+        .total,
+        .max{
+            font-weight: bold;
+        }
+    }
+    #{selector(prefix)}tracker{
+        display: block;
+        height: 35px;
+        margin: 5px;
+        width: 150px;
+        font-size: 0.8em;
+        position: absolute;
+        top: 0;
+        right: 10px;
+        line-height: 1.15em;
+        background-color: lighten($dark,75%);
+        color: lighten(color-contrast(lighten($dark,75%)),25%);
+        .text{
+            text-transform: uppercase;
+            font-size: 0.8em;
+        }
+        .current,
+        .total{
+            font-weight: bold;
+        }
+        button.info{
+            display: inline-block;
+            vertical-align: middle;
+            width: 1em;
+            min-width: initial !important;
+            height: 1em;
+            color: lighten(color-contrast(mix(color-scheme(1),$light)),25%);
+            cursor: help;
+            margin: 0;
+            padding: 0;
+            font-size: 1.3em;
+            border-radius: 50%;
+            background-color: transparent;
+            margin-left: 5px;
+            > span.fa{
+                display: block;
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                left: 0;
+                top: 0;
+                margin: 0 !important;
+            }
+            > span.fa::before{
+                display: block;
+                text-align: center;
+                font-size: 1em;
+            }
+        }
+        .stats{
+            position: absolute;
+            right: 0;
+            top: 35px;
+            box-sizing: border-box;
+            padding: 5px;
+            min-width: 150px;
+            background-color: lighten($dark,75%);
+            color: color-contrast(lighten($dark,75%));
+            overflow: hidden;
+            border-top: 1px solid lighten(color-scheme(2),20%);
+            box-shadow: 2px 2px 2px rgba(lighten($dark,20%),0.5);
+            div{
+                margin: 5px;
+                text-transform: uppercase;
+                font-size: 0.8em;
+                span{
+                    float: right;
+                    font-size: 1.2em;
+                }
+            }
+        }
+        .stats.transition{
+            transition: max-height $transitionSpeed ease-in-out;
+            div{
+                transition: opacity $transitionSpeed ease-in-out;
+            }
+        }
+        .stats.hide{
+            max-height: 0;
+            div{
+                opacity: 0;
+            }
+        }
+        .stats.show{
+            max-height: 100px;
+            div{
+                opacity: 1;
+            }
+        }
+        > span{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate3d(-50%,-50%,0);
+            text-align: center;
+            width: 100%;
+        }
+    }
+    #{selector(prefix)}attempts,
+    #{selector(prefix)}score{
+        > span{
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translatey(-50%);
+        }
+    }
+    button{
+        display: block;
+        width: 135px;
+        height: 35px;
+        margin: 5px;
+        cursor: pointer;
+        border: 0 !important;
+        min-width: initial !important;
+        transition: $transitionSpeed ease-in-out;
+    }
+    button.disable{
+        cursor: not-allowed;
+    }
+    button.btn-check{
+        width: 135px;
+        height: 35px;
+        background-color: $dark;
+        color: $light;
+        float: left;
+        text-transform: uppercase;
+        > span{
+            display: inline-block;
+            vertical-align: baseline;
+            margin-right: 5px;
+        }
+    }
+    button.btn-check.disable, 
+    button.btn-check.disable:hover,
+    button.btn-check.disable:focus{
+        background-color: desaturate($dark,15%);
+        color: color-contrast(desaturate($dark,15%));
+        opacity: 0.5;
+    }
+    button.btn-check:hover, button.btn-check:focus{
+        background-color: color-scheme(4);
+        color: color-contrast(color-scheme(4));
+    }
+    button.btn-done{
+        background-color: mix(color-scheme(4),$light,75%);
+        color: color-contrast(color-scheme(4));
+    }
+    button.btn-done:hover,
+    button.btn-done:focus{
+        background-color: color-scheme(4);
+    }
+    button.btn-done.disable, 
+    button.btn-done.disable:hover,
+    button.btn-done.disable:focus{
+        background-color: desaturate(mix(color-scheme(4),$light,75%),15%);
+        color: color-contrast(desaturate(mix(color-scheme(4),$light,75%),15%));
+        opacity: 0.5;
+    }
+    #{selector(prefix)}feedback{
+        display: block;
+        width: calc(100% - 10px);
+        margin: 10px 0px;
+        .pass{
+            color: $pass;
+        }
+        .incomplete{
+            color: $incomplete;
+        }
+        .partial{
+            color: $partial;
+        }
+        .fail{
+            color: $fail;
+        }
+        .check-response{
+            line-height: 150%;
+        }
+        .pts-response{
+            display: block;
+            margin-top: 10px;
+            font-size: 0.7em;
+            color: lighten($dark,35%);
+            text-transform: uppercase;
+            .pts-earned,
+            .pts-possible,
+            .pts-attempts{
+                font-weight: bold; 
+            }
+        }
+        .message{
+            display: block;
+            margin-top: 10px;
+            padding: 10px;
+            background-color: lighten($dark,75%);
+            color: $dark;
+            line-height: 150%;
+        }
+        .message.hide{
+            display: none;
+        }
+        .message.show{
+            display: block;
+        }
+    }
+    #{selector(prefix)}hint{
+        display: block;
+        width: calc(100% - 10px);
+        margin: 10px 0px;
+        .hint{
+            display: block;
+            margin-top: 10px;
+            padding: 10px 25px;
+            background-color: mix($incomplete,$light,25%);
+            color: color-contrast(mix($incomplete,$light,25%));
+            line-height: 150%;
+            .hint-txt{
+                display: block;
+                margin-bottom: 5px;
+                text-transform: uppercase;
+                font-weight: bold;
+                font-size: 0.9em;
+                text-indent: -12.5px;
+            }
+        }
+        .hint:hover{
+            background-color: mix($incomplete,$light,50%);
+            color: color-contrast(mix($incomplete,$light,50%));
+        }
+        .hint.hide{
+            display: none;
+            opacity: 0;
+        }
+        .hint.show{
+            display: block;
+            opacity: 1;
+        }
+    }
+    #{selector(prefix)}report{
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        text-align: center;
+        background-color: rgba($light,0.9);
+        color: color-contrast(rgba($light,0.9));
+        z-index: 1;
+        padding: 10px;
+        div.report{
+            width: 100%;
+            text-align: center;
+            *{
+                text-align: inherit;
+            }
+            .header{
+                color: color-scheme(4);
+            }
+            .h1,.h2,.h3,.h4,.h5,.h6{
+                text-transform: uppercase;
+            }
+            .score{
+                font-weight: bold;
+                font-size: 3em;
+                font-family: monospace;
+            }
+            .attempts,
+            .timer{
+                font-size: 0.8em;
+                text-transform: uppercase;
+                margin: 10px 5px;
+                span{
+                    font-weight: bold;
+                }
+            }
+            button.btn-view{
+                margin: 25px auto;
+                background-color: mix(color-scheme(4),$light,75%);
+                color: color-contrast(color-scheme(4));
+            }
+            button.btn-view:hover,
+            button.btn-view:focus{
+                background-color: color-scheme(4);
+            }
+        }
+        > div{
+            position: relative;
+            width: 100%;
+            max-height: 100%; 
+            padding: 10px;
+            box-sizing: border-box;
+            overflow: auto;
+        }
+    }
+    #{selector(prefix)}timer{
+        display: block;
+        height: 45px;
+        margin: 5px;
+        width: 150px;
+        font-size: 0.8em;
+        position: absolute;
+        top: 35px + 5px;
+        right: 10px;
+        line-height: 1.15em;
+        background-color: lighten($dark,75%);
+        color: lighten(color-contrast(lighten($dark,75%)),25%);
+        > div{
+            position: absolute;
+            width: 100%;
+            top: 50%;
+            transform: translatey(-50%);
+            .text,
+            .time{
+                text-align: center;
+            }
+            .text{
+                text-transform: uppercase;
+                font-size: 0.8em;
+            }
+            .time{
+                font-weight: bold;
+            }
+            .time.warn{
+                transition: color $transitionSpeed ease-in-out;
+                color: $warning;
+            }
+        }
+    }
+    #{selector(prefix)}timer.transition{
+        transition: top $transitionSpeed ease-in-out;
+    }
+}
+    
+// Sliding Mode
+#{selector(prefix)}#{selector(quiz)}:not([data-mode="streamline"]),
+#{selector(prefix)}#{selector(quiz)}[data-mode="sliding"]{
+    clear: both;
+    .title{
+        width: calc(100% - 150px - 10px);
+        margin-bottom: 45px;
+    }
+    #{selector(prefix)}question{
+        z-index: -2;
+        display: none;
+        visibility: hidden;
+        position: relative;
+        opacity: 0;
+        left: 0;
+        top: 0;
+    }
+    #{selector(prefix)}question.curr,
+    #{selector(prefix)}question.move{
+        z-index: 0;
+        display: block;
+        visibility: visible;
+    }
+    #{selector(prefix)}question.curr,
+    #{selector(prefix)}question.move.transition{
+        opacity: 1;
+    }
+    #{selector(prefix)}question.prev,
+    #{selector(prefix)}question.next{
+        position: absolute;
+        //top: calculated and set using js
+        left: 10px;
+        width: calc(100% - 30px);
+    }
+    #{selector(prefix)}question.prev.transition{
+        left: calc(100% + 10px);
+        opacity: 0;
+    }
+    #{selector(prefix)}question.next.transition{
+        left: calc(-100% - 10px);
+        opacity: 0;
+    }
+    #{selector(prefix)}question,
+    #{selector(prefix)}question.curr,
+    #{selector(prefix)}question.curr.next,
+    #{selector(prefix)}question.curr.prev{
+        transition: display 0s linear,
+                    z-index 0s linear,
+                    visibility 0s linear;
+    }
+    #{selector(prefix)}question.move.transition{
+        transition: opacity $transitionSpeed ease-in-out $transitionSpeed;
+    }
+    #{selector(prefix)}question.curr.next.transition,
+    #{selector(prefix)}question.curr.prev.transition{
+        transition: left $transitionSpeed ease-in-out,
+                    opacity $transitionSpeed ease-in-out ($transitionSpeed / 2);
+    }
+    button.btn-prev,
+    button.btn-next,
+    button.btn-done{
+        display: inline-block;
+        vertical-align: top;
+    }
+    button.btn-prev,
+    button.btn-next{
+        width: 35px;
+        span{
+            display: block;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate3d(-50%,-50%,0);
+            text-align: center;
+            width: 35px;
+            height: 35px;
+            line-height: 35px;
+            color: $light;
+        }
+    }
+    button.btn-done{
+        width: 65px;
+    }
+    button.btn-prev,
+    button.btn-next{
+        background-color: lighten($dark,20%);
+    }
+    button.btn-prev.disable,
+    button.btn-prev.disable:hover,
+    button.btn-prev.disable:focus,
+    button.btn-next.disable,
+    button.btn-next.disable:hover,
+    button.btn-next.disable:focus{
+        background-color: desaturate($dark,15%);
+        color: color-contrast(desaturate($dark,15%));
+        opacity: 0.5;
+    }
+    button.btn-prev:hover, button.btn-prev:focus,
+    button.btn-next:hover, button.btn-next:focus{
+        background-color: $dark;
+        color: color-contrast($dark);
+    }
+}
+
+// Streamline Mode
+#{selector(prefix)}#{selector(quiz)}[data-mode="streamline"]{
+    .title{
+        width: calc(100% - 150px - 10px);
+    }
+    #{selector(prefix)}question{
+        clear: both;
+        overflow: auto;
+        width: calc(100% - 150px - 10px);
+    }
+    button.btn-check{
+        margin-left: 10px;
+    }
+    button.btn-done{
+        float: left;
+    }
+    button.btn-insta{
+        background-color: mix(color-scheme(2),$light,75%);
+        color: color-contrast(color-scheme(2));
+        width: 100px;
+        float: left;
+        > span{
+            display: inline-block;
+            vertical-align: baseline;
+            margin-right: 10px;
+        }
+    }
+    button.btn-insta.disable,
+    button.btn-insta.disable:hover,
+    button.btn-insta.disable:focus,
+    button.btn-next.disable{
+        background-color: desaturate(mix(color-scheme(2),$light,75%),15%);
+        color: color-contrast(mix(color-scheme(2),$light,75%));
+        opacity: 0.5;
+    }
+    button.btn-insta:hover, button.btn-insta:focus{
+        background-color: color-scheme(2);
+        color: color-contrast(color-scheme(2));
+    }
+    #{selector(prefix)}attempts{
+        float: left;
+        margin-top: 5px;
+    }
+    #{selector(prefix)}score{
+        width: 150px;
+        position: absolute;
+        top: 45px;
+        right: 5px;
+        background-color: lighten($dark,75%);
+        color: lighten(color-contrast(lighten($dark,75%)),25%);
+        .text{
+            margin-right: 0;
+        }
+        > span {
+            left: 50%;
+            transform: translate3d(-50%,-50%,0);
+            text-align: center;
+            width: 100%;   
+        }
+    }
+    #{selector(prefix)}score.transition{
+        transition: top 0.25s ease-in-out;
+    }
+    #{selector(prefix)}tracker{
+        top: 5px;
+        right: 5px;
+    }
+    #{selector(prefix)}timer{
+        top: (35px + 5px) * 2 + 5px;
+        right: 5px;
+    }
+}
+
+// Feedback Report
+div.feedback{
+    background-color: rgba(lighten($dark,75%),0.75);
+    iframe{
+        border: none;
+    }
+    div.results{
+        padding: 10px;
+        box-sizing: border-box;
+    }
+    div.header,
+    div.score-title,
+    div.attempts-title,
+    div.score,
+    div.attempts,
+    div.timer{
+        margin: 10px 0px;
+        text-align: center;
+    }
+    div.header{
+        color: color-scheme(4);
+        font-size: 2em;
+        text-transform: uppercase;
+        font-weight: bold;
+        margin-bottom: 25px;
+    }
+    div.score-title{
+        font-weight: bold;
+        font-size: 1.3em;
+        text-transform: uppercase;
+    }
+    div.score{
+        font-weight: bold;
+        font-size: 3em;
+        font-family: monospace;
+    }
+    div.attempts-title{
+        font-weight: bold;
+        font-size: 1em;
+    }
+    div.attempts,
+    div.timer{
+        font-size: 0.8em;
+        text-transform: uppercase;
+        > span{
+            font-weight: bold;
+        }
+    }
+    div.question{
+        padding: 10px;
+        box-sizing: border-box;
+        .q, 
+        .a{
+            margin: 5px 0px;
+        }
+        .a{
+            margin-left: 35px;
+        }
+        .question-num,
+        .answer-num{
+            display: inline-block;
+            margin: 5px 0px;
+        }
+        .question-txt,
+        .answer-txt{
+            display: inline;
+            padding: 0.25em 0.5em;
+            line-height: 1.5em;
+        }
+        .question-num,
+        .question-txt{
+            font-weight: bold;
+        }
+        .question-num,
+        .answer-num{
+            margin-right: 10px;
+            padding: 0.25em 0.5em;
+        }
+        .question-num{
+            background-color: $dark;
+            color: $light;
+        }
+        .answer-num{
+            background-color: $dark;
+            color: $light;
+        }
+        .answer-user{
+            margin: 5px 0px;
+            padding: 5px;
+            border: 1px solid $dark;
+            width: 300px;
+        }
+        .answer-case,
+        .answer-corr,
+        .answer-alts{
+            margin: 10px 0px;
+            line-height: 150%;
+            div:first-of-type{
+                font-weight: bold;
+            }
+        }
+        .answer-btn{
+            display: inline-block;
+            background-color: lighten($dark,60%);
+            color: color-contrast(lighten($dark,60%));
+            width: 135px;
+            height: 35px;
+            > span{
+                display: block;
+                position: absolute;
+                width: 100%;
+                top: 50%;
+                transform: translatey(-50%);
+                text-align: center;
+            }
+        }
+        .check-response,
+        .pts-response,
+        .message,
+        .hint{
+            display: block;
+        }
+        .message{
+            margin: 20px 0px 5px;
+            line-height: 150%;
+            padding: 5px;
+            box-sizing: border-box;
+            border: 1px dotted lighten($dark,30%);
+            background-color: rgba(white,0.75);
+            color: color-contrast(rgba(white,0.75));
+        }
+        .hint{
+            margin: 5px 0px 20px;
+            line-height: 150%;
+            padding: 5px 20px;
+            box-sizing: border-box;
+            border: 1px dotted lighten($dark,30%);
+            background-color: rgba($incomplete,0.5);
+            color: color-contrast(rgba($incomplete,0.5));
+            .hint-txt{
+                display: block;
+                margin: 5px 0px;
+                font-weight: bold;
+                text-transform: uppercase;
+                font-size: 0.9em;
+                margin-left: -10px;
+            }
+            .frame-fluid{
+                position: relative;
+                width: 100%;
+                height: 0;
+            }
+            iframe{
+                width: 100% !important;
+                height: 100% !important;
+                position: absolute;
+            }
+        }
+        .check-response,
+        .pts-response{
+            margin: 20px 0px;
+        }
+        .check-response{
+            line-height: 150%;
+        }
+        .pts-response{
+            font-size: 0.8em;
+            color: lighten($dark,30%);
+        }
+        .pass{
+            color: $pass;
+        }
+        .pass-bg{
+            background-color: $pass;
+            color: color-contrast($pass);
+        }
+        .partial{
+            color: $partial;
+        }
+        .partial-bg{
+            background-color: $partial;
+            color: color-contrast($partial);
+        }
+        .fail{
+            color: $fail;
+        }
+        .fail-bg{
+            background-color: $fail;
+            color: color-contrast($fail);
+        }
+        .incomplete{
+            color: $incomplete;
+        }
+        .incomplete-bg{
+            background-color: $incomplete;
+            color: color-contrast($incomplete);
+        }
+        .select{
+            color: color-scheme(4);
+        }
+        .select-bg{
+            background-color: color-scheme(4);
+        }
+        .dark{
+            color: $dark;
+        }
+        .dark-bg{
+            background-color: $dark;
+        }
+        .light{
+            color: $light;
+        }
+        .light-bg{
+            background-color: $light;
+        }
+    }
+    div.question:nth-child(odd){
+        background-color: rgba($light,0.1);
+    }
+    div.question:nth-child(even){
+        background-color: rgba(color-scheme(2),0.1);
+    }
+    span.blank{
+        display: inline-block;
+        vertical-align: baseline;
+        text-align: center;
+        min-width: 50px;
+        font-size: 0.75em;
+        color: lighten($dark,45%);
+        .underline{
+            display: block;
+            position: absolute;
+            left: 0;
+            bottom: 1px;
+            width: 100%;
+            height: 1.5px;
+            background-color: $dark;
+        }
+    }
+}
+div.feedback.hide{
+    display: none;
+}
+div.feedback.show{
+    display: block;
+}
+
+// Breakpoints
+@include breakpoint(breakpoint(quiz)){
+    
+    // General Settings
+    #{selector(prefix)}#{selector(quiz)}{
+           
+        .title{
+            width: 100% !important;
+            text-align: center;
+            margin: 15px 0px;
+        }
+        #{selector(prefix)}feedback,
+        #{selector(prefix)}hint{
+            width: 100%;
+            margin-right: 0px;
+            margin-left: 0px;
+        }
+        
+    }
+    
+    // Sliding Mode
+    #{selector(prefix)}#{selector(quiz)}:not([data-mode="streamline"]),
+    #{selector(prefix)}#{selector(quiz)}[data-mode="sliding"]{
+        padding-top: 65px;
+
+        #{selector(prefix)}question{
+            
+            #{selector(prefix)}answer{
+                width: 100%;
+                
+                .answer-radio,
+                .answer-checkbox{
+                    margin-left: 0;
+                }
+                
+                input[type="text"]{
+                    margin-left: 0;
+                    width: 100%;
+                }
+                
+                .btn-true,
+                .btn-false{
+                    margin: 0;
+                    width: 100%;
+                }
+                
+            }
+            
+        }
+        #{selector(prefix)}tracker,
+        #{selector(prefix)}timer{
+            position: absolute;
+            height: 45px;
+            width: calc(100% / 2 - 15px);
+            margin: 0;
+            top: 10px !important;
+        }
+        #{selector(prefix)}tracker{
+            left: 10px !important;
+            
+            .stats{
+                top: 45px;
+                width: 100%;
+                left: 0;
+                right: 0;
+            }
+            
+        }
+        #{selector(prefix)}timer{
+            right: 10px !important;
+        }
+        #{selector(prefix)}attempts{
+            margin-left: 0;
+            margin-right: 0;
+            width: 100%;
+            height: 45px;
+            text-align: center !important;
+            
+            > span{
+                display: inline-block;
+                position: relative;
+                top: auto;
+                left: auto;
+                transform: none;
+                line-height: 45px;
+                
+            }
+            
+            .stats{
+                width: 100%;
+                left: 0;
+                max-height: none;
+                border-left: 0;
+                border-bottom: 1px solid mix(color-scheme(2),$light,75%);
+                bottom: 45px;
+                box-shadow: 2px -2px 2px rgba($dark,0.5);
+            }
+            
+            .stats.transition{
+                transition: max-height $transitionSpeed ease-in-out;
+            }
+            
+            .stats.show, .stats.hide{
+                max-width: none;
+            }
+            
+            .stats.hide{
+                max-height: 0px;
+            }
+            
+            .stats.show{
+                max-height: 180px;
+            }
+            
+        }
+        
+    }
+    
+    // Streamline Mode
+    #{selector(prefix)}#{selector(quiz)}[data-mode="streamline"]{
+        padding-top: 100px;
+        
+        #{selector(prefix)}question{
+            width: 100%;
+            margin-left: 0;
+            margin-right: 0;
+            padding: 5px;
+            
+            #{selector(prefix)}answer{
+                width: 100%;
+                
+                .answer-radio,
+                .answer-checkbox,
+                input[type="text"],
+                .btn-true,
+                .btn-false{
+                    margin-left: 0;
+                }
+                
+                input[type="text"]{
+                    width: 100%;
+                    margin-left: 0;
+                    margin-right: 0;
+                }
+                
+                .btn-true,
+                .btn-false{
+                    width: 100%;
+                    margin: 0;
+                }
+                
+            }
+            
+            #{selector(prefix)}attempts,
+            .btn-insta{
+                width: calc(100% / 2 - 5px);
+            }
+            
+            .btn-insta{
+                margin-left: 0;
+            }
+            
+            #{selector(prefix)}attempts{
+                margin-right: 0;
+                
+                > span{
+                    top: 50%;
+                    transform: translatey(-50%);
+                    width: 100%;
+                    text-align: center;
+                    
+                }
+                
+                .stats{
+                    width: 100%;
+                    left: 0;
+                    max-height: none;
+                    border-left: 0;
+                    border-bottom: 1px solid mix(color-scheme(2),$light,75%);
+                    bottom: 35px;
+                    box-shadow: 2px -2px 2px rgba($dark,0.5);
+                }
+            
+                .stats.transition{
+                    transition: max-height $transitionSpeed ease-in-out;
+                }
+
+                .stats.show, .stats.hide{
+                    max-width: none;
+                }
+
+                .stats.hide{
+                    max-height: 0px;
+                }
+
+                .stats.show{
+                    max-height: 180px;
+                }
+                
+            }
+            
+        }
+        #{selector(prefix)}score,
+        #{selector(prefix)}timer{
+            position: absolute;
+            height: 45px;
+            width: calc(100% / 2 - 15px);
+            margin: 0;
+            top: 10px !important;
+        }
+        #{selector(prefix)}score{
+            left: 10px !important;
+            
+        }
+        #{selector(prefix)}timer{
+            right: 10px !important;
+        }
+        #{selector(prefix)}tracker{
+            position: absolute;
+            margin: 0;
+            left: 10px;
+            right: 10px;
+            top: 10px + 45px + 10px;
+            height: 25px;
+            width: calc(100% - 20px);
+            
+            .stats{
+                top: 25px;
+                left: 0;
+                right: 0;
+                width: 100%;
+            }
+            
+        }
+        .btn-check,
+        .btn-done{
+            width: calc(100% / 2 - 5px);
+            margin-top: 20px !important;
+        }
+        .btn-check{
+            margin-left: 0 !important;
+        }
+        .btn-done{
+            margin-right: 0 !important;
+        }
+        
+    }
+    
+    // Feedback Report
+    div.feedback{
+        
+        div.question{
+            
+            .a{
+                margin-left: 0;
+                margin-right: 0;
+                width: 100%;
+            }
+            
+            .answer-user,
+            .answer-btn{
+                width: 100%;
+            }
+            
+        }
+        
+    }
+    
+}

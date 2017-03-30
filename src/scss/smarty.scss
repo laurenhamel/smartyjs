@@ -1,0 +1,24 @@
+// smarty.js - a pure HTML + JS interactive learning solution
+
+// import fonts
+@import 'fontawesome/fontawesome';
+
+// !DEVELOPMENT ONLY!
+@import 'dev';
+
+// import mixins & functions
+@import 'mixins';
+
+// import configurations
+@import 'config';
+
+// import resets
+@import 'reset';
+
+// import components
+@import 'quiz';
+@import 'crossword';
+@import 'flashcard';
+
+// import accessibility features
+@import 'tabfocus';
