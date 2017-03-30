@@ -1,0 +1,294 @@
+<!doctype html>
+<html>
+    <head>
+    
+        <meta charset="UTF-8">
+        
+        <title>SmartyJS Test</title>
+        
+        <link rel="stylesheet" href="../css/smarty.min.css">
+        
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        
+        <script src="../js/smarty.min.js"></script>
+        
+        <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+        
+    </head>
+    <body>
+        
+        <!-- math quiz -->
+        <smarty-quiz data-title="Simple Math Test"
+                     data-back="true" 
+                     data-mode="sliding"
+                     data-timed="0:30"
+                     data-shuffle="true">
+            <!-- introduction -->
+            <smarty-intro>
+                <p>Test your knowledge of simple math skills.</p>
+            </smarty-intro>
+            <!-- multiple choice w/ MathJax -->
+            <smarty-question data-points="25" data-attempts="infinite" data-id="Q1">
+                Solve for \( x \): \( 1 + 2^2 = x \).
+                <smarty-answer>2</smarty-answer>
+                <smarty-answer>3</smarty-answer>
+                <smarty-answer>4</smarty-answer>
+                <smarty-answer data-answer="true">5</smarty-answer>
+                <smarty-feedback>
+                    \[ 1 + 2^2 = x \]
+                    \[ 1 + (2 * 2) = x \]
+                    \[ 1 + 4 = x \]
+                    \[ 5 = x \]
+                </smarty-feedback>
+                <smarty-hint data-show="true">
+                    Remember the <em>order of operations</em>.
+                </smarty-hint>
+            </smarty-question>
+            <!-- multiple choice MathJax + table -->
+            <smarty-question data-points="25" data-attempts="infinite" data-id="Q1">
+                Solve for \( c \).
+                
+                <table border="1" cellpadding="5" cellspacing="0">
+                    <tr>
+                        <th>#.</th>
+                        <th>a</th>
+                        <th>b</th>
+                        <th>\( a^2 + b^2 = c^2 \)</th>
+                    </tr>
+                    <tr>
+                        <td>1.</td>
+                        <td>\( a = 6 \)</td>
+                        <td>\( b = 8 \)</td>
+                        <td>\( c = ? \)</td>
+                    </tr>
+                    <tr>
+                        <td>2.</td>
+                        <td>\( a = 3 \)</td>
+                        <td>\( b = 4 \)</td>
+                        <td>\( c = ? \)</td>
+                    </tr>
+                </table>
+                
+                <smarty-answer>1. \( c = 12 \) / 2. \( c = 2 \)</smarty-answer>
+                <smarty-answer>1. \( c = 10 \) / 2. \( c = 4 \)</smarty-answer>
+                <smarty-answer data-answer="true">1. \( c = 10 \) / 2. \( c = 5 \)</smarty-answer>
+                <smarty-answer>1. \( c = 8 \) / 2. \( c = 3 \)</smarty-answer>
+                <smarty-feedback>
+                    <p>Solving for 1:
+                        \[ 6^2 + 8^2 = c^2 \]
+                        \[ (6 * 6) + (8 * 8) = c^2 \]
+                        \[ 36 + 64 = c^2 \]
+                        \[ 100 = c^2 \]
+                        \[ \sqrt{100} = \sqrt{c^2} \]
+                        \[ 10 = c \]
+                    </p>
+                    <p>Solving for 2:
+                        \[ 3^2 + 4^2 = c^2 \]
+                        \[ (3 * 3) + (4 * 4) = c^2 \]
+                        \[ 9 + 16 = c^2 \]
+                        \[ 25 = c^2 \]
+                        \[ \sqrt{25} = \sqrt{c^2} \]
+                        \[ 5 = c \]
+                    </p>
+                </smarty-feedback>
+                <smarty-hint data-show="true">
+                    Remember the <em>pythagorean theorem</em>.
+                </smarty-hint>
+            </smarty-question>
+        </smarty-quiz>
+    
+        <!-- quiz -->
+        <smarty-quiz data-title="How well do you know your holidays?"
+                     data-back="true" 
+                     data-mode="streamline"
+                     data-timed="0:30"
+                     data-shuffle="true">
+            <!-- introduction -->
+            <smarty-intro>
+                <p>This quiz is designed to see how well you know your holidays. At the end of this quiz, you should be able to accomplish the following objectives.</p>
+                <p><strong>Objectives</strong></p>
+                <ul>
+                    <li>Identify your holidays</li>
+                    <li>Know when each holiday is</li>
+                    <li>Translate foreign holidays into English</li>
+                </ul>
+            </smarty-intro>
+            <!-- multiple choice w/ 1 answer -->
+            <smarty-question data-points="25" data-attempts="infinite" data-id="Q1">
+                When is Christmas?
+                <smarty-answer data-answer="true">December 25</smarty-answer>
+                <smarty-answer>November 23</smarty-answer>
+                <smarty-answer>January 1</smarty-answer>
+                <smarty-answer>March 17</smarty-answer>
+                <smarty-feedback>
+                    Christmas is a wonderful time of year!
+                </smarty-feedback>
+                <smarty-hint data-attempts="1">
+                    <iframe width="480" height="360" src="https://www.youtube.com/embed/Ryqzck2f184" frameborder="0" allowfullscreen></iframe>
+                </smarty-hint>
+            </smarty-question>
+            <!-- multiple choice w/ 1 answer -->
+            <smarty-question data-points="25" data-attempts="1" data-id="Q2">
+                When is New Year's Day?
+                <smarty-answer>December 31</smarty-answer>
+                <smarty-answer>November 23</smarty-answer>
+                <smarty-answer data-answer="true">January 1</smarty-answer>
+                <smarty-answer>March 17</smarty-answer>
+                <smarty-feedback>
+                    New Year's Day actually falls on <strong>January 1</strong>, but traditionally, the holiday is celebrated the day before on December 31, or New Year's Eve.
+                </smarty-feedback>
+            </smarty-question>
+            <!-- multiple answer w/ >1 answer -->
+            <smarty-question data-points="25" data-attempts="infinite" data-id="Q3">
+                Which holidays fall in the month of November?
+                <smarty-answer data-answer="true">Thanksgiving</smarty-answer>
+                <smarty-answer>Halloween</smarty-answer>
+                <smarty-answer>Independence Day</smarty-answer>
+                <smarty-answer data-answer="true">Veterans Day</smarty-answer>
+                <smarty-feedback>
+                    Halloween is in October, and Independence day is in July.
+                </smarty-feedback>
+            </smarty-question>
+            <!-- short answer -->
+            <smarty-question data-points="25" data-attempts="infinite" data-id="Q4">
+                What holiday's name translates to "Fat Tuesday" in English?
+                <smarty-answer data-answer="Mardi Gras" 
+                               data-case-sensitive="true">
+                </smarty-answer>
+                <smarty-feedback>
+                    Mardi Gras originated in France. In French, <em>mardi</em> means "Tuesday," and <em>gras</em> means "fat."
+                </smarty-feedback>
+            </smarty-question>
+            <!-- true/false -->
+            <smarty-question data-points="25" data-attempts="infinite" data-answer="true" data-id="Q5">
+                Easter holiday falls in the month of April.
+                <smarty-feedback>
+                    Easter is a religious holiday falling in the month of April.
+                </smarty-feedback>
+            </smarty-question>
+        </smarty-quiz>
+        
+        <!-- crossword -->
+        <smarty-crossword data-title="Georgia Government Crossword"
+                          data-check="puzzle">
+            
+            <!--smarty-clue data-direction="down" 
+                         data-position="4,3" 
+                         data-answer="Democrat Party">
+                The party that ruled state politics from Reconstruction until 2002
+            </smarty-clue-->
+            <smarty-clue data-direction="across" 
+                         data-position="9,3" 
+                         data-answer="juvenile court">
+                A court that has exclusive jurisdiction over cases involving minors
+            </smarty-clue>
+            <smarty-clue data-direction="down" 
+                         data-position="15,3" 
+                         data-answer="Lieutenant">
+                The leader who is second-in-charge and is the President of the Senate
+            </smarty-clue>
+            <smarty-clue data-direction="down" 
+                         data-position="21,3" 
+                         data-answer="tenth">
+                The state of Georgia is currently using its 
+                <smarty-blank>n<sup>th</sup></smarty-blank> Constitution
+            </smarty-clue>
+            <smarty-clue data-direction="down" 
+                         data-position="2,4" 
+                         data-answer="impeachment">
+                Charges originating in the House then sent to the Senate for trial
+            </smarty-clue>
+            <smarty-clue data-direction="down" 
+                         data-position="11,5" 
+                         data-answer="supreme court">
+                The highest court within the state court system
+            </smarty-clue>
+            
+            
+            <smarty-clue data-direction="across" 
+                         data-position="1,1" 
+                         data-answer="plural executive">
+                Having many independently elected individuals in the Executive branch
+            </smarty-clue>
+            <smarty-clue data-direction="down" 
+                         data-position="7,1" 
+                         data-answer="education">
+                A service where the state spends most of its revenue
+            </smarty-clue>
+            <smarty-clue data-direction="down" 
+                         data-position="17,1"
+                         data-answer="bicameral">
+                Having two bodies in the Georgia General Assembly
+            </smarty-clue>
+            <smarty-clue data-direction="down" 
+                         data-position="19,2" 
+                         data-answer="Gubernatorial">
+                A type of veto requiring two-thirds (2/3) vote in both legislative houses
+            </smarty-clue>
+            
+            
+            <smarty-clue data-direction="across"
+                         data-position="2,6"
+                         data-answer="probate court">
+                A court that has general jurisdiction over wills and estates
+            </smarty-clue>
+            <smarty-clue data-direction="down" 
+                         data-position="6,10" 
+                         data-answer="election">
+                The method by which most state judges are selected
+            </smarty-clue>
+            <smarty-clue data-direction="across" 
+                         data-position="1,12" 
+                         data-answer="senate">
+                The body with exclusive power to approve nominations of state officers
+            </smarty-clue>
+            <smarty-clue data-direction="down"
+                         data-position="14,13"
+                         data-answer="house">
+                The body where all appropriation bills are originated
+            </smarty-clue>
+            <smarty-clue data-direction="across" 
+                         data-position="13,14" 
+                         data-answer="home rule">
+                Allows local governments to amend their own charters
+            </smarty-clue>
+            <smarty-clue data-direction="across" 
+                         data-position="1,17" 
+                         data-answer="governor">
+                The leader who holds the authority to implement a line-item veto
+            </smarty-clue>
+        </smarty-crossword>
+        
+        <!-- flashcards -->
+        <smarty-flashcard data-title="Georgia Government Flaschards"
+                          data-flipback="true"
+                          data-side="front">
+            <smarty-card data-answer="Governor">
+                This State Leader has the authority to implement a line-item veto
+                <smarty-info>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent sed facilisis tortor. Etiam bibendum suscipit odio, in dictum sapien tempor sed. Ut vestibulum suscipit accumsan. Ut quis erat tempor, dapibus augue a, lobortis nunc. Nullam luctus, turpis eget viverra ultricies, risus mauris pretium leo, ac gravida dolor sem quis quam. Fusce ornare felis lectus, nec tincidunt sem interdum vitae. Donec sollicitudin faucibus sagittis.</p>
+                    
+                                    <iframe width="480" height="360" src="https://www.youtube.com/embed/Ryqzck2f184" frameborder="0" allowfullscreen></iframe>
+
+                    <p>Sed commodo neque quam, non congue erat vestibulum non. Nunc arcu nisi, posuere ut dignissim quis, ultrices vel massa. Curabitur quis nisl vel felis pretium sodales. Ut maximus eleifend quam, at sodales nulla porttitor non. Curabitur tempus interdum elementum. Quisque sed mi aliquam, accumsan lorem congue, volutpat augue. Nam id dapibus lorem. Etiam ornare elit nec urna vulputate condimentum. Morbi at maximus elit. Suspendisse quis quam commodo urna vestibulum laoreet. Quisque nec enim leo. Nulla egestas tincidunt arcu, at mollis libero malesuada sed. Sed lacinia quam id lectus accumsan, nec elementum magna facilisis. Fusce in metus ut ligula ullamcorper scelerisque a eu justo. Nam nec lorem ac velit placerat blandit.</p>
+
+                    <p>Cras velit lacus, dapibus sit amet ornare ac, blandit et tellus. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Pellentesque a interdum enim. Donec eu diam in ligula vestibulum ultrices. Nullam at enim at nisl euismod facilisis. Suspendisse viverra magna libero, at scelerisque felis mollis ac. Suspendisse potenti. Proin eget odio vitae tortor faucibus sodales. Nam eget pulvinar tortor. Sed sed cursus odio, at accumsan est. Quisque non nisl posuere, sollicitudin augue ultrices, egestas tellus. Cras convallis eget est id fermentum. Ut eu neque vestibulum, ornare libero eget, viverra risus. Cras id quam finibus, convallis leo ut, dignissim ante. Morbi eget ante ornare, faucibus augue eu, bibendum metus.</p>
+
+                    <p>Pellentesque et porta ipsum. Nulla in tempor nisl. Donec facilisis lacus lacus. Nullam justo velit, bibendum viverra orci in, rutrum sagittis lacus. Vestibulum volutpat arcu ac feugiat gravida. Nam quis leo non enim consectetur mattis nec vel est. Ut tempus risus eget arcu tincidunt euismod. Pellentesque orci tellus, placerat non mollis nec, finibus vel velit. Praesent eros nibh, feugiat a nibh non, eleifend volutpat urna. Phasellus sed orci lorem. Fusce molestie, lacus non imperdiet venenatis, enim urna vestibulum nunc, vitae lobortis quam lectus sit amet quam. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+
+                    <p>Integer tempor luctus nisl, quis scelerisque felis aliquam ac. Nulla tincidunt nibh non risus condimentum, ultrices tincidunt tortor tempus. Nulla sit amet scelerisque augue, a dignissim sem. Donec quis pretium erat, eget pretium justo. Interdum et malesuada fames ac ante ipsum primis in faucibus. Vestibulum ut metus nulla. Maecenas rutrum blandit dolor ac rutrum. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Morbi lorem nulla, sagittis quis venenatis at, suscipit eget quam. Etiam egestas lacus vitae pulvinar maximus.</p> 
+                </smarty-info>
+            </smarty-card>
+            <smarty-card data-answer="Home Rule">
+                The ability provided by the state that allows local government to amend their own charters as long as the changes are consistent with the State Constitution
+            </smarty-card>
+            <smarty-card data-answer="Impeachment">
+                The State of Georgia allows for the House to bring about <smarty-blank></smarty-blank> Charges and then the process moves to the Senate for a formal trial
+            </smarty-card>
+        </smarty-flashcard>
+        
+        
+        <div class="spacer" style="width: 100%; height: 800px;"></div>
+
+    </body>
+</html>
