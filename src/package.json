@@ -1,6 +1,6 @@
 {
   "name": "smartyjs",
-  "version": "1.4.033017",
+  "version": "1.4.0",
   "description": "a pure HTML + JS interactive learning solution",
   "main": "smartyjs",
   "scripts": {
