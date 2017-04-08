@@ -2341,7 +2341,7 @@ smarty-quiz {
     padding-top: 5px;
     padding-bottom: 5px;
     text-transform: uppercase;
-    color: #00A9A7;
+    color: #2B9EB3;
     font-size: 1.5em; }
   smarty-quiz smarty-intro {
     display: block;
@@ -2378,12 +2378,12 @@ smarty-quiz {
           text-shadow: -3px -3px 5px #333333; }
       smarty-quiz smarty-intro > div .btn-start {
         margin: 25px auto;
-        background-color: #40bfbd;
+        background-color: #60b6c6;
         color: #FFFFFF;
         transition: 0.25s ease-in-out; }
       smarty-quiz smarty-intro > div .btn-start:hover,
       smarty-quiz smarty-intro > div .btn-start:focus {
-        background-color: #00A9A7; }
+        background-color: #2B9EB3; }
       smarty-quiz smarty-intro > div .notif-timed {
         text-align: center;
         text-transform: uppercase;
@@ -2478,10 +2478,10 @@ smarty-quiz {
         padding: 0.25em 0.5em;
         line-height: 1.75em; }
       smarty-quiz smarty-question smarty-answer input:checked ~ .answer-num {
-        background-color: #26b6b4;
+        background-color: #4badbe;
         color: #FFFFFF; }
       smarty-quiz smarty-question smarty-answer input:not(:checked) ~ .answer-num {
-        background-color: #858585;
+        background-color: #929ba4;
         color: #FFFFFF; }
       smarty-quiz smarty-question smarty-answer input:not(:checked):hover ~ .answer-num,
       smarty-quiz smarty-question smarty-answer input:not(:checked):focus ~ .answer-num,
@@ -2489,22 +2489,22 @@ smarty-quiz {
       smarty-quiz smarty-question smarty-answer input:not(:checked) + .answer-radio:focus ~ .answer-num,
       smarty-quiz smarty-question smarty-answer input:not(:checked) + .answer-checkbox:hover ~ .answer-num,
       smarty-quiz smarty-question smarty-answer input:not(:checked) + .answer-checkbox:focus ~ .answer-num {
-        background-color: #333333; }
+        background-color: #495867; }
       smarty-quiz smarty-question smarty-answer input:checked:hover ~ .answer-num,
       smarty-quiz smarty-question smarty-answer input:checked:focus ~ .answer-num,
       smarty-quiz smarty-question smarty-answer input:checked + .answer-radio:hover ~ .answer-num,
       smarty-quiz smarty-question smarty-answer input:checked + .answer-radio:focus ~ .answer-num,
       smarty-quiz smarty-question smarty-answer input:checked + .answer-checkbox:focus ~ .answer-num,
       smarty-quiz smarty-question smarty-answer input:checked + .answer-checkbox:focus ~ .answer-num {
-        background-color: #00A9A7; }
+        background-color: #2B9EB3; }
       smarty-quiz smarty-question smarty-answer .answer-txt:hover, smarty-quiz smarty-question smarty-answer input:hover ~ .answer-txt,
       smarty-quiz smarty-question smarty-answer .answer-txt:focus, smarty-quiz smarty-question smarty-answer input:focus ~ .answer-txt {
-        background-color: rgba(51, 51, 51, 0.1); }
+        background-color: rgba(73, 88, 103, 0.1); }
       smarty-quiz smarty-question smarty-answer .answer-radio:focus,
       smarty-quiz smarty-question smarty-answer .answer-radio:focus ~ .answer-txt,
       smarty-quiz smarty-question smarty-answer .answer-checkbox:focus,
       smarty-quiz smarty-question smarty-answer .answer-checkbox:focus ~ .answer-txt {
-        background-color: rgba(51, 51, 51, 0.1); }
+        background-color: rgba(73, 88, 103, 0.1); }
       smarty-quiz smarty-question smarty-answer .answer-radio,
       smarty-quiz smarty-question smarty-answer .answer-checkbox {
         margin-left: 40px;
@@ -2523,12 +2523,12 @@ smarty-quiz {
         content: '';
         width: 50%;
         height: 50%;
-        background-color: #66cbca; }
+        background-color: #80c5d1; }
       smarty-quiz smarty-question smarty-answer .answer-checkbox::after {
         content: "";
         font-family: 'FontAwesome';
         position: absolute;
-        color: #66cbca; }
+        color: #80c5d1; }
       smarty-quiz smarty-question smarty-answer .answer-radio::after {
         border-radius: 50%; }
       smarty-quiz smarty-question smarty-answer .btn-true,
@@ -2549,22 +2549,22 @@ smarty-quiz {
           transform: translate3d(-50%, -50%, 0); }
       smarty-quiz smarty-question smarty-answer input:checked ~ .btn-true,
       smarty-quiz smarty-question smarty-answer input:checked ~ .btn-false {
-        background-color: #26b6b4;
+        background-color: #4badbe;
         color: #FFFFFF; }
       smarty-quiz smarty-question smarty-answer input:checked ~ .btn-true:hover,
       smarty-quiz smarty-question smarty-answer input:checked ~ .btn-false:hover,
       smarty-quiz smarty-question smarty-answer input:checked ~ .btn-true:focus,
       smarty-quiz smarty-question smarty-answer input:checked ~ .btn-false:focus {
-        background-color: #00A9A7; }
+        background-color: #2B9EB3; }
       smarty-quiz smarty-question smarty-answer input:not(:checked) ~ .btn-true,
       smarty-quiz smarty-question smarty-answer input:not(:checked) ~ .btn-false {
-        background-color: #858585;
+        background-color: #929ba4;
         color: #FFFFFF; }
       smarty-quiz smarty-question smarty-answer input:not(:checked) ~ .btn-true:hover,
       smarty-quiz smarty-question smarty-answer input:not(:checked) ~ .btn-false:hover,
       smarty-quiz smarty-question smarty-answer input:not(:checked) ~ .btn-true:focus,
       smarty-quiz smarty-question smarty-answer input:not(:checked) ~ .btn-false:focus {
-        background-color: #333333; }
+        background-color: #495867; }
       smarty-quiz smarty-question smarty-answer input[type="radio"],
       smarty-quiz smarty-question smarty-answer input[type="checkbox"] {
         display: none;
@@ -2573,7 +2573,7 @@ smarty-quiz {
       smarty-quiz smarty-question smarty-answer input[type="radio"]:focus ~ .answer-radio,
       smarty-quiz smarty-question smarty-answer input[type="checkbox"]:hover ~ .answer-checkbox,
       smarty-quiz smarty-question smarty-answer input[type="checkbox"]:focus ~ .answer-checkbox {
-        background-color: rgba(51, 51, 51, 0.1); }
+        background-color: rgba(73, 88, 103, 0.1); }
       smarty-quiz smarty-question smarty-answer input[type="radio"]:checked ~ .answer-radio::after,
       smarty-quiz smarty-question smarty-answer input[type="checkbox"]:checked ~ .answer-checkbox::after {
         display: block; }
@@ -2592,13 +2592,13 @@ smarty-quiz {
         transition: 0.25s ease-in-out; }
       smarty-quiz smarty-question smarty-answer input[type="text"]:hover,
       smarty-quiz smarty-question smarty-answer input[type="text"]:focus {
-        background-color: rgba(51, 51, 51, 0.1); }
+        background-color: rgba(73, 88, 103, 0.1); }
   smarty-quiz smarty-attempts {
     display: block;
     width: 150px;
     height: 35px;
     margin: 15px 5px 5px;
-    background-color: #e2f3f3;
+    background-color: #deeaf5;
     color: #737373;
     font-size: 0.8em; }
     smarty-quiz smarty-attempts .text {
@@ -2645,7 +2645,7 @@ smarty-quiz {
       background-color: #f2f2f2;
       color: #333333;
       overflow: hidden;
-      border-left: 1px solid #666666;
+      border-left: 1px solid #778b9f;
       box-shadow: 2px 2px 2px rgba(102, 102, 102, 0.5); }
       smarty-quiz smarty-attempts .stats div {
         margin: 5px;
@@ -2734,7 +2734,7 @@ smarty-quiz {
       background-color: #f2f2f2;
       color: #333333;
       overflow: hidden;
-      border-top: 1px solid #666666;
+      border-top: 1px solid #778b9f;
       box-shadow: 2px 2px 2px rgba(102, 102, 102, 0.5); }
       smarty-quiz smarty-tracker .stats div {
         margin: 5px;
@@ -2797,19 +2797,19 @@ smarty-quiz {
     color: #FFFFFF;
     opacity: 0.5; }
   smarty-quiz button.btn-check:hover, smarty-quiz button.btn-check:focus {
-    background-color: #00A9A7;
+    background-color: #2B9EB3;
     color: #FFFFFF; }
   smarty-quiz button.btn-done {
-    background-color: #40bfbd;
+    background-color: #60b6c6;
     color: #FFFFFF; }
   smarty-quiz button.btn-done:hover,
   smarty-quiz button.btn-done:focus {
-    background-color: #00A9A7; }
+    background-color: #2B9EB3; }
   smarty-quiz button.btn-done.disable,
   smarty-quiz button.btn-done.disable:hover,
   smarty-quiz button.btn-done.disable:focus {
-    background-color: #53acaa;
-    color: #FFFFFF;
+    background-color: #70abb6;
+    color: #333333;
     opacity: 0.5; }
   smarty-quiz smarty-feedback {
     display: block;
@@ -2891,7 +2891,7 @@ smarty-quiz {
       smarty-quiz smarty-report div.report * {
         text-align: inherit; }
       smarty-quiz smarty-report div.report .header {
-        color: #00A9A7; }
+        color: #2B9EB3; }
       smarty-quiz smarty-report div.report .h1, smarty-quiz smarty-report div.report .h2, smarty-quiz smarty-report div.report .h3, smarty-quiz smarty-report div.report .h4, smarty-quiz smarty-report div.report .h5, smarty-quiz smarty-report div.report .h6 {
         text-transform: uppercase; }
       smarty-quiz smarty-report div.report .score {
@@ -2908,11 +2908,11 @@ smarty-quiz {
           font-weight: bold; }
       smarty-quiz smarty-report div.report button.btn-view {
         margin: 25px auto;
-        background-color: #40bfbd;
+        background-color: #60b6c6;
         color: #FFFFFF; }
       smarty-quiz smarty-report div.report button.btn-view:hover,
       smarty-quiz smarty-report div.report button.btn-view:focus {
-        background-color: #00A9A7; }
+        background-color: #2B9EB3; }
     smarty-quiz smarty-report > div {
       position: relative;
       width: 100%;
@@ -3081,7 +3081,7 @@ smarty-quiz[data-mode="streamline"] button.btn-check {
 smarty-quiz[data-mode="streamline"] button.btn-done {
   float: left; }
 smarty-quiz[data-mode="streamline"] button.btn-insta {
-  background-color: #666666;
+  background-color: #77828d;
   color: #FFFFFF;
   width: 100px;
   float: left; }
@@ -3093,11 +3093,11 @@ smarty-quiz[data-mode="streamline"] button.btn-insta.disable,
 smarty-quiz[data-mode="streamline"] button.btn-insta.disable:hover,
 smarty-quiz[data-mode="streamline"] button.btn-insta.disable:focus,
 smarty-quiz[data-mode="streamline"] button.btn-next.disable {
-  background-color: #666666;
-  color: #FFFFFF;
+  background-color: #828282;
+  color: #333333;
   opacity: 0.5; }
 smarty-quiz[data-mode="streamline"] button.btn-insta:hover, smarty-quiz[data-mode="streamline"] button.btn-insta:focus {
-  background-color: #333333;
+  background-color: #495867;
   color: #FFFFFF; }
 smarty-quiz[data-mode="streamline"] smarty-attempts {
   float: left;
@@ -3141,7 +3141,7 @@ div.feedback {
     margin: 10px 0px;
     text-align: center; }
   div.feedback div.header {
-    color: #00A9A7;
+    color: #2B9EB3;
     font-size: 2em;
     text-transform: uppercase;
     font-weight: bold;
@@ -3286,9 +3286,9 @@ div.feedback {
       background-color: #FFBA08;
       color: #333333; }
     div.feedback div.question .select {
-      color: #00A9A7; }
+      color: #2B9EB3; }
     div.feedback div.question .select-bg {
-      background-color: #00A9A7; }
+      background-color: #2B9EB3; }
     div.feedback div.question .dark {
       color: #333333; }
     div.feedback div.question .dark-bg {
@@ -3300,7 +3300,7 @@ div.feedback {
   div.feedback div.question:nth-child(odd) {
     background-color: rgba(255, 255, 255, 0.1); }
   div.feedback div.question:nth-child(even) {
-    background-color: rgba(51, 51, 51, 0.1); }
+    background-color: rgba(73, 88, 103, 0.1); }
   div.feedback span.blank {
     display: inline-block;
     vertical-align: baseline;
@@ -3397,7 +3397,7 @@ div.feedback.show {
         left: 0;
         max-height: none;
         border-left: 0;
-        border-bottom: 1px solid #666666;
+        border-bottom: 1px solid #77828d;
         bottom: 45px;
         box-shadow: 2px -2px 2px rgba(51, 51, 51, 0.5); }
       smarty-quiz:not([data-mode="streamline"]) smarty-attempts .stats.transition,
@@ -3454,7 +3454,7 @@ div.feedback.show {
           left: 0;
           max-height: none;
           border-left: 0;
-          border-bottom: 1px solid #666666;
+          border-bottom: 1px solid #77828d;
           bottom: 35px;
           box-shadow: 2px -2px 2px rgba(51, 51, 51, 0.5); }
         smarty-quiz[data-mode="streamline"] smarty-question smarty-attempts .stats.transition {
@@ -3515,7 +3515,7 @@ smarty-crossword {
     font-weight: bold;
     padding: 15px 0px;
     text-transform: uppercase;
-    color: #00A9A7;
+    color: #2B9EB3;
     font-size: 1.5em;
     text-align: center;
     background: linear-gradient(to bottom, #404040 70%, #333333);
@@ -3681,7 +3681,7 @@ smarty-crossword {
     smarty-crossword smarty-modal .body {
       padding: 10px; }
     smarty-crossword smarty-modal .foot {
-      background-color: #00A9A7;
+      background-color: #2B9EB3;
       margin-top: 10px;
       clear: both; }
       smarty-crossword smarty-modal .foot button {
@@ -3773,13 +3773,13 @@ smarty-crossword {
   smarty-crossword .btn-check:focus,
   smarty-crossword .btn-reset:hover,
   smarty-crossword .btn-reset:focus {
-    background-color: #00A9A7; }
+    background-color: #2B9EB3; }
   smarty-crossword .btn-done {
-    background-color: #40bfbd;
+    background-color: #60b6c6;
     color: #FFFFFF; }
   smarty-crossword .btn-done:hover,
   smarty-crossword .btn-done:focus {
-    background-color: #00A9A7; }
+    background-color: #2B9EB3; }
   smarty-crossword .notif-incompatible {
     font-size: 0.8em;
     text-transform: uppercase;
@@ -3843,7 +3843,7 @@ smarty-flashcard {
     position: absolute;
     left: 0;
     width: 150px;
-    background: linear-gradient(to bottom, #00c3c0 70%, #00A9A7);
+    background: linear-gradient(to bottom, #30b0c8 70%, #2B9EB3);
     color: #FFFFFF;
     z-index: 4; }
     smarty-flashcard smarty-sidebar smarty-tracker,
@@ -3861,13 +3861,13 @@ smarty-flashcard {
       transition: 0.25s ease-in-out; }
     smarty-flashcard smarty-sidebar smarty-tracker,
     smarty-flashcard smarty-sidebar smarty-flipper {
-      background-color: #66cbca;
+      background-color: #80c5d1;
       color: #333333; }
     smarty-flashcard smarty-sidebar smarty-tracker:hover,
     smarty-flashcard smarty-sidebar smarty-tracker:focus,
     smarty-flashcard smarty-sidebar smarty-flipper:hover,
     smarty-flashcard smarty-sidebar smarty-flipper:focus {
-      background-color: #99dddc;
+      background-color: #aad8e1;
       color: #333333; }
     smarty-flashcard smarty-sidebar button {
       background-color: #333333 !important;
@@ -4135,7 +4135,7 @@ smarty-flashcard {
     background-color: #FFFFFF;
     color: #333333; }
   smarty-flashcard smarty-back {
-    background-color: whitesmoke;
+    background-color: #f6f7f7;
     color: #333333; }
   smarty-flashcard smarty-card[data-flip="front"] {
     transform-style: preserve-3d;
@@ -4409,9 +4409,9 @@ smarty-flashcard {
 
 *.tabfocus,
 *.tabfocus:focus {
-  box-shadow: 0 0 0 2px #7BA741; }
+  box-shadow: 0 0 0 2px #FE5F55; }
 
 div.feedback *:focus {
-  box-shadow: inset 0 0 0 2px #7BA741; }
+  box-shadow: inset 0 0 0 2px #FE5F55; }
 
 /*# sourceMappingURL=smarty.css.map */

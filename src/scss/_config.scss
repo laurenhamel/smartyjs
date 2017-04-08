@@ -114,25 +114,11 @@ $schemes: (
         3: #F7F7F7,
         4: #2B9EB3,
         5: #FE5F55
-    ),
-    'ecore': (
-        1: #C4E7E7,
-        2: #333333,
-        3: #F3F3F5,
-        4: #00A9A7,
-        5: #7BA741
-    ),
-    'mooc': (
-        1: #C6B29B,
-        2: #53667E,
-        3: #C3C8C0,
-        4: #7AA2BE,
-        5: #AA7141
     )
 );
 
 /* (2) Select your preferred color scheme here. */
-$scheme: 'ecore';
+$scheme: 'default';
 
 
 /* (3) Define colors to be used across all color schemes. */
