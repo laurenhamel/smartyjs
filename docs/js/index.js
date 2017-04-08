@@ -17,13 +17,7 @@ $(function(){
         init: function(){
             
             // Load includes
-            this.windowLoad( $.docs.includes );
-            
-        },
-        
-        windowLoad: function(callback){
-            
-            $(window).on('load',callback);
+            this.includes();
             
         },
         
