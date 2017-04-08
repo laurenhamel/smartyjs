@@ -1,0 +1,6 @@
+// Mixins
+
+// google-font()
+@mixin google-font($name){
+    @import url('https://fonts.googleapis.com/css?family=#{$name}');
+}

@@ -1,0 +1,123 @@
+// Main
+
+body {
+    
+    font-family: $text-font;
+    line-height: 175%;
+    color: color('dark-grey');
+    overflow-x: hidden;
+    
+}
+
+main {
+    
+    section {
+        
+        padding: $layout-padding;
+        
+        h2 {
+            text-align: center;
+            color: color('dark-teal');
+            text-shadow: $text-shadow-light;
+        }
+        
+    }
+    
+}
+
+.buttons {
+    
+    margin: $layout-padding auto;
+    font-size: 0;
+    text-align: center;
+    
+    button,
+    a.button,
+    label.button,
+    input[type="button"],
+    input[type="submit"],
+    input[type="reset"] {
+
+        // Button
+        $button-width: 150px;
+        $button-height: 50px;
+        $button-size: 0.9rem;
+        $button-border: 1px solid color('dark-grey');
+        $button-color: transparent;
+        $button-text-color: color('dark-grey');
+        $button-radius: 5px;
+        $button-spacing: 10px;
+
+        display: inline-block;
+        box-sizing: border-box;
+        font-size: $button-size;
+        margin: 0 ($button-spacing / 2);
+        color: $button-text-color;
+        background-color: $button-color;
+        width: $button-width;
+        height: $button-height;
+        border: $button-border;
+        border-radius: $button-radius;
+        cursor: pointer;
+        text-align: center;
+        line-height: $button-height;
+        transition: all $transition-duration $transition-ease;
+
+    }
+
+    button:hover,
+    a.button:hover,
+    label.button:hover,
+    input[type="button"]:hover,
+    input[type="submit"]:hover,
+    input[type="reset"]:hover {
+
+        // Button
+        $button-text-hover: color('white');
+        $button-color-hover: color('teal');
+        $button-border-hover: 1px solid color('teal');
+
+        color: $button-text-hover;
+        background-color: $button-color-hover;
+        border: $button-border-hover;
+
+    }
+
+    button:first-child:last-child,
+    a.button:first-child:last-child,
+    label.button:first-child:last-child,
+    input[type="button"]:first-child:last-child,
+    input[type="submit"]:first-child:last-child,
+    input[type="reset"]:first-child:last-child {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    button:first-child,
+    a.button:first-child,
+    label.button:first-child,
+    input[type="button"]:first-child,
+    input[type="submit"]:first-child,
+    input[type="reset"]:first-child {
+        margin-left: 0;
+    }
+
+    button:last-child,
+    a.button:last-child,
+    label.button:last-child,
+    input[type="button"]:last-child,
+    input[type="submit"]:last-child,
+    input[type="reset"]:last-child {
+        margin-right: 0;
+    }
+    
+}
+
+pre {
+    
+    // Pre
+    $pre-size: 0.9em;
+    
+    font-size: $pre-size;
+    
+}

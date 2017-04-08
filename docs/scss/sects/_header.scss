@@ -1,0 +1,99 @@
+// Header
+header {
+    
+    padding: $layout-padding;
+    width: 100%;
+    box-sizing: border-box;
+    background-color: color('teal');
+    height: 50vh;
+    
+    // Title
+    $title-size: 5em;
+    $title-color: color('white');
+    
+    // Caption
+    $caption-size: 0.9em;
+    $caption-color: color('light-mint');
+    $caption-case: uppercase;
+    
+    // Navigation Buttons
+    $button-height: 25px;
+    $button-width: auto;
+    $button-spacing: 10px;
+    
+    // Navigation Links
+    $link-text-color: color('mint');
+    $link-text-hover: color('light-mint');
+    $link-text-size: 0.8em;
+    $link-text-case: uppercase;
+    
+    // Title
+    #title {
+        position: absolute;
+        font-size: $title-size;
+        font-weight: 900;
+        color: $title-color;
+        text-shadow: $text-shadow-heavy;
+        text-align: center;
+        top: calc(40% + #{$button-height});
+        transform: translatey(-50%);
+        margin: 0 auto;
+        width: 100%;
+        
+        a {
+            color: inherit;
+            cursor: pointer;
+        }
+        
+    }
+    
+    // Caption
+    #caption {
+        position: absolute;
+        text-align: center;
+        top: calc(60% + #{$button-height});
+        transform: translatey(-50%);
+        margin: 0 auto;
+        width: 100%;
+        color: $caption-color;
+        text-transform: $caption-case;
+        font-size: $caption-size;
+    }
+    
+    // Navigation
+    nav {
+        
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            text-align: right;
+            
+            // Buttons
+            li {
+                display: inline-block;
+                text-align: center;
+                margin: 0 ($button-spacing / 2);
+                height: $button-height;
+                width: $button-width;
+                line-height: $button-height;
+                
+                // Links
+                a {
+                    color: $link-text-color;
+                    text-transform: $link-text-case;
+                    font-size: $link-text-size;
+                }
+                a:hover {
+                    color: $link-text-hover;
+                }
+                
+            }
+            li:first-child { margin-left: 0; }
+            li:last-child { margin-right: 0; }
+            
+        }
+        
+    }
+    
+}

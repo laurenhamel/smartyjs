@@ -1,0 +1,19 @@
+// Imports
+@import 'comps/functions';
+@import 'comps/mixins';
+@import 'comps/colors';
+@import 'comps/fonts';
+@import 'comps/vars';
+@import 'comps/highlight';
+
+// Reset
+@import 'comps/reset';
+
+// Sections
+@import 'sects/header';
+@import 'sects/main';
+@import 'sects/intro';
+@import 'sects/setup';
+@import 'sects/demo';
+@import 'sects/docs';
+@import 'sects/footer';

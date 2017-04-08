@@ -1,0 +1,81 @@
+// Code Highlighting
+$highlighting: (
+    'background': color('light-grey'),
+    'base': color('dark-grey'),
+    'border': color('dark-grey'),
+    'comment': lighten(color('dark-grey'),50%),
+    'tag': color('teal'),
+    'number': color('medium-orange'),
+    'attribute': color('gold'),
+    'string': color('dark-teal'),
+    'section': color('rust'),
+    'keyword': color('purple')
+);
+
+.hljs-comment,
+.hljs-quote {
+  color: color('comment',$highlighting);
+}
+
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+  color: color('tag',$highlighting);
+}
+
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+  color: color('number',$highlighting);
+}
+
+.hljs-attribute {
+  color: color('attribute',$highlighting);
+}
+
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+  color: color('string',$highlighting);
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+  color: color('section',$highlighting);
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+  color: color('keyword',$highlighting);
+}
+
+.hljs {
+  display: block;
+  overflow-x: auto;
+  background: color('background',$highlighting);
+  color: color('base',$highlighting);
+  border-radius: 5px;
+  border: 1px solid color('border',$highlighting);
+  padding: 0.5em;
+}
+
+.hljs-emphasis {
+  font-style: italic;
+}
+
+.hljs-strong {
+  font-weight: bold;
+}

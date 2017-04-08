@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <title>SmartyJS</title>
+    
+    <link rel="stylesheet" href="css/smarty.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    
+</head>
+<body>
+    
+    <!--#include virtual="includes/header.html"-->
+    
+    <main>
+        
+        <section id="demo">
+        
+            <h2>Quiz</h2>
+            
+            <smarty-quiz data-title="How well do you know your holidays?"
+                     data-back="true" 
+                     data-mode="sliding"
+                     data-timed="0:30"
+                     data-shuffle="true">
+            <!-- introduction -->
+            <smarty-intro>
+                <p>At the end of this quiz, you should be able to accomplish the following objectives.</p>
+                <p><strong>Objectives</strong></p>
+                <ul>
+                    <li>Identify your holidays</li>
+                    <li>Know when each holiday is</li>
+                    <li>Translate foreign holidays into English</li>
+                </ul>
+            </smarty-intro>
+            <!-- multiple choice w/ 1 answer -->
+            <smarty-question data-points="25" data-attempts="infinite" data-id="Q1">
+                When is Christmas?
+                <smarty-answer data-answer="true">December 25</smarty-answer>
+                <smarty-answer>November 23</smarty-answer>
+                <smarty-answer>January 1</smarty-answer>
+                <smarty-answer>March 17</smarty-answer>
+                <smarty-feedback>
+                    Christmas is a wonderful time of year!
+                </smarty-feedback>
+            </smarty-question>
+            <!-- multiple choice w/ 1 answer -->
+            <smarty-question data-points="25" data-attempts="1" data-id="Q2">
+                When is New Year's Day?
+                <smarty-answer>December 31</smarty-answer>
+                <smarty-answer>November 23</smarty-answer>
+                <smarty-answer data-answer="true">January 1</smarty-answer>
+                <smarty-answer>March 17</smarty-answer>
+                <smarty-feedback>
+                    New Year's Day actually falls on <strong>January 1</strong>, but traditionally, the holiday is celebrated the day before on December 31, or New Year's Eve.
+                </smarty-feedback>
+            </smarty-question>
+            <!-- multiple answer w/ >1 answer -->
+            <smarty-question data-points="25" data-attempts="infinite" data-id="Q3">
+                Which holidays fall in the month of November?
+                <smarty-answer data-answer="true">Thanksgiving</smarty-answer>
+                <smarty-answer>Halloween</smarty-answer>
+                <smarty-answer>Independence Day</smarty-answer>
+                <smarty-answer data-answer="true">Veterans Day</smarty-answer>
+                <smarty-feedback>
+                    Halloween is in October, and Independence day is in July.
+                </smarty-feedback>
+            </smarty-question>
+            <!-- short answer -->
+            <smarty-question data-points="25" data-attempts="infinite" data-id="Q4">
+                What holiday's name translates to "Fat Tuesday" in English?
+                <smarty-answer data-answer="Mardi Gras" 
+                               data-case-sensitive="true">
+                </smarty-answer>
+                <smarty-feedback>
+                    Mardi Gras originated in France. In French, <em>mardi</em> means "Tuesday," and <em>gras</em> means "fat."
+                </smarty-feedback>
+            </smarty-question>
+            <!-- true/false -->
+            <smarty-question data-points="25" data-attempts="infinite" data-answer="true" data-id="Q5">
+                Easter holiday falls in the month of April.
+                <smarty-feedback>
+                    Easter is a religious holiday falling in the month of April.
+                </smarty-feedback>
+            </smarty-question>
+        </smarty-quiz>
+            
+            <h2>Crossword</h2>
+            
+            <smarty-crossword data-title="Name the Body Part"
+                          data-check="puzzle">
+            
+            <smarty-clue data-answer="head" 
+                        data-position="1,6"
+                        data-direction="across">
+                above your shoulders
+            </smarty-clue>
+            <smarty-clue data-answer="shoulders" 
+                         data-position="4,1"
+                         data-direction="down">
+                below your head
+            </smarty-clue>
+            <smarty-clue data-answer="knees"
+                         data-position="9,1"
+                         data-direction="down">
+                the halfway point of your legs
+            </smarty-clue>
+            <smarty-clue data-answer="toes"
+                         data-position="6,3"
+                         data-direction="down">
+                on the end of your feet
+            </smarty-clue>
+            <smarty-clue data-answer="eyes"
+                         data-position="2,4"
+                         data-direction="down">
+                helps you see
+            </smarty-clue>
+            <smarty-clue data-answer="ears"
+                         data-position="6,5"
+                         data-direction="across">
+                helps you hear
+            </smarty-clue>
+            <smarty-clue data-answer="mouth"
+                         data-position="3,3"
+                         data-direction="across">
+                helps you talk
+            </smarty-clue>
+            <smarty-clue data-answer="nose"
+                         data-position="2,1"
+                         data-direction="across">
+                helps you smell
+            </smarty-clue>
+        </smarty-crossword>
+            
+            <h2>Flashcards</h2>
+            
+            <smarty-flashcard data-title="Simple Addition Problems">
+                <smarty-card data-answer="2">
+                    1 + 1
+                </smarty-card>
+                <smarty-card data-answer="4">
+                    2 + 2
+                </smarty-card>
+                <smarty-card data-answer="6">
+                    3 + 3
+                </smarty-card>
+                <smarty-card data-answer="8">
+                    4 + 4
+                    <smarty-info>
+                        Who do we appreciate?
+                    </smarty-info>
+                </smarty-card>
+            </smarty-flashcard>
+            
+        </section>
+    
+    </main>
+    
+    <!--#include virtual="includes/footer.html"-->
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.10.0/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script src="js/index.js"></script>
+    <script src="js/smarty.min.js"></script>
+    
+</body>
+</html>

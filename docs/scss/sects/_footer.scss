@@ -1,0 +1,61 @@
+// Footer
+
+footer {
+    
+    // Footer
+    $footer-size: 0.8em;
+    $footer-case: uppercase;
+    
+    // Inline
+    $inline-spacing: 25px;
+    $inline-divider-size: 1px;
+    $inline-divider-color: darken(color('light-grey'),50%);
+    
+    padding: $layout-padding;
+    background-color: color('dark-grey');
+    color: color('white');
+    text-align: center;
+    text-transform: $footer-case;
+    
+    a {
+        color: color('teal');
+    }
+    
+    span {
+        margin: 0 ($inline-spacing / 2);
+    }
+    span::after {
+        content: '';
+        display: block;
+        height: 100%;
+        position: absolute;
+        top: 50%;
+        transform: translatey(-50%);
+        left: calc(100% + (#{$inline-spacing} / 2) - (#{$inline-divider-size} / 2));
+        border-right: $inline-divider-size solid $inline-divider-color;
+    }
+    span:first-child {
+        margin-left: 0;
+    }
+    span:last-child {
+        margin-right: 0;
+    }
+    span:last-child::after {
+        border-right: none;
+    }
+    
+    // License
+    #license {
+        
+        font-size: $footer-size;
+        
+    }
+    
+    // Author
+    #author {
+        
+        font-size: 0.8em;
+        
+    }
+    
+}

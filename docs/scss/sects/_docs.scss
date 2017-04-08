@@ -1,0 +1,136 @@
+// Getting Started, Advanced
+#getting_started,
+#advanced {
+    
+    a {
+        color: color('teal');
+    }
+    
+    h1 {
+        text-align: center;
+        font-weight: 800;
+        font-size: 2em;
+        color: color('teal');
+        text-shadow: $text-shadow-light;
+    }
+    
+    h3 {
+        font-size: 1.25em;
+    }
+    
+    h4 {
+        font-size: 1.15em;
+        font-weight: bold;
+        color: darken(color('teal'),10%);
+    }
+    
+    h5 {
+        font-size: 1em;
+    }
+    
+    h6 {
+        font-size: 0.9em;
+        font-style: italic;
+    }
+    
+    // Table
+    $table-border: 1px solid color('dark-grey');
+    $table-radius: 5px;
+    $table-border-rows: true;
+    $table-border-cols: false;
+    $table-banded-rows: true;
+    $table-banded-even: color('white');
+    $table-banded-odd: lighten(color('light-mint'),10%);
+    
+    // Table Cells
+    $cell-padding: 10px;
+    
+    // Table Headers
+    $header-color: color('mint');
+    $header-weight: 900;
+    $header-text: color('dark-teal');
+    
+    table:not(.sample) {
+        border: $table-border;
+        border-radius: $table-radius;
+        border-spacing: 0;
+        
+        td, th {
+            padding: $cell-padding
+        }
+        
+        th {
+            background-color: $header-color;
+            font-weight: $header-weight;
+            color: $header-text;
+        }
+        
+        @if($table-banded-rows == true){
+            tr:nth-child(even) { background-color: $table-banded-even; }
+            tr:nth-child(odd) { background-color: $table-banded-odd; }
+        }
+        
+        @if($table-border-rows == true){
+            // Last + Middle Rows
+            tbody tr:not(:first-child) td,
+            tbody tr:not(:first-child) th {
+                border-top: $table-border;
+            }
+        }
+        
+        @if($table-border-cols == true){
+            // First + Middle Columns
+            tbody tr td:not(:last-child),
+            tbody tr th:not(:last-child) {
+                border-right: $table-border;
+            }
+        }
+        
+        // First Row, First Cell
+        tbody tr:first-child td:first-child,
+        tbody tr:first-child th:first-child {
+            border-top-left-radius: $table-radius;
+        }
+        
+        // First Row, Last Cell
+        tbody tr:first-child td:last-child,
+        tbody tr:first-child th:last-child {
+            border-top-right-radius: $table-radius;
+        }
+        
+        // Last Row, First Cell
+        tbody tr:last-child td:first-child,
+        tbody tr:last-child th:first-child {
+            border-bottom-left-radius: $table-radius;
+        }
+        
+        // Last Row, Last Cell
+        tbody tr:last-child td:last-child,
+        tbody tr:last-child th:last-child {
+            border-bottom-right-radius: $table-radius;
+        }
+        
+        // Radius Classes
+        td.radius-top-left, 
+        th.radius-top-left { 
+            border-top-left-radius: $table-radius; 
+        }
+        
+        td.radius-top-right, 
+        th.radius-top-right { 
+            border-top-right-radius: $table-radius; 
+        }
+        
+        td.radius-bottom-left, 
+        th.radius-bottom-left { 
+            border-bottom-left-radius: $table-radius; 
+        }
+        
+        td.radius-bottom-right, 
+        th.radius-bottom-right { 
+            border-bottom-right-radius: $table-radius; 
+        }
+        
+    }
+    
+}

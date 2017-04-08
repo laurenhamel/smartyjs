@@ -1,0 +1,22 @@
+{
+  "name": "smartyjs",
+  "version": "1.0.0",
+  "description": "the official documentation for SmartyJS",
+  "main": "index.js",
+  "scripts": {
+      "file": "touch",
+      "host": "ngrok http 80",
+      "watch": "sass -w scss/style.scss:css/style.css",
+      "comp": "sass scss/style.scss css/style.css",
+      "min:js": "cd js && uglifyjs index.js -m -c -o index.min.js --source-map index.min.js.map; cd ../",
+      "min:css": "cd css && uglifycss style.css > style.min.css; cd ../",
+      "min": "npm run min:js && npm run min:css",
+      "lint": "cd js && jshint index.js; cd ../",
+      "build": "npm run comp && npm run min:css && npm run min:js",
+      "mark:dir": "cd docs && markdowns -p; cd ../",
+      "mark:watch": "markdowns -w docs",
+      "mark": "npm run mark:dir && npm run mark:watch"
+  },
+  "author": "Lauren Hamel",
+  "license": "MIT"
+}

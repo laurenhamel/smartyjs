@@ -1,0 +1,16 @@
+// Functions
+
+// map-deep-get()
+@function map-deep-get($map,$keys){
+    
+    @each $key in $keys{
+        $map: map-get($map,$key);
+    }
+    
+    @return $map;
+}
+
+// color()
+@function color($name,$map: $colors){
+    @return map-deep-get($map,$name);
+}
