@@ -3768,7 +3768,7 @@ Additional information to give further insight into a card's answer can be added
         4 + 4
         <smarty-info>
             Who do we appreciate?
-        <smarty-info>
+        </smarty-info>
     </smarty-card>
 </smarty-flashcard>
 ```
