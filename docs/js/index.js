@@ -6,61 +6,80 @@ $(function(){
             return value !== undefined && value !== null && value != '';
         };
         
+        $.isTrue = function(bool){
+            return bool === true || bool == 'true';
+        }
+        
     }(jQuery));
     
-    $.smartyjs.docs = {
+    $.docs = {
         
         init: function(){
             
             // Load includes
-            this.includes();
+            this.windowLoad( $.docs.includes );
             
         },
         
-        include: function(options){
+        windowLoad: function(callback){
+            
+            $(window).on('load',callback);
+            
+        },
+        
+        includes: function(options){
             
             // Settings
             var settings = $.extend({
                 attribute: 'data-include',
-                replace: false
+                replace: 'data-replace'
             },options);
             
             // Find all includes
-            var $includes = $(settings.attribute);
-            
+            var $includes = $('[' + settings.attribute + ']');
+        
             // Loop
             $includes.each(function(i){
                 
+                // Capture the element
+                var $target = $(this);
+                
                 // Capture the file to include
-                var url = $(this).attr(settings.attribute);
-                
+                var url = $target.attr(settings.attribute);
+    
+                // Capture the replace settings
+                var replace = $.isTrue(
+                    ($.isset($target.attr(settings.replace)) ?
+                        $target.attr(settings.replace) : false)
+                );
+   
                 // Load the file data
-                var data = $.get(url,function(data){
-                    return data;
+                $.get(url,function(data){
+                    
+                    // Insert in place
+                    if(replace){
+
+                        // Read file and load it
+                        $target.replaceWith(data);
+
+                    }
+
+                    // Insert as a child
+                    else {
+
+                        $target.html(data);
+
+                    }
+                    
                 });
-                
-                // Go next if invalid files
-                if(!$.isset(data)) return true;
-                
-                // Insert in place
-                if(settings.replace){
-                    
-                    // Read file and load it
-                    $(this).replaceWith(data);
-                    
-                }
-                
-                // Insert as a child
-                else {
-                    
-                    $(this).append(data);
-                    
-                }
                 
             });
             
         }
     
     };
+    
+    // Initialize
+    $.docs.init();
     
 });
