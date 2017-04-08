@@ -3695,7 +3695,7 @@ In HTML, each clue's respective answer can be added using the `data-answer` attr
 ```html
 <smarty-flashcard>
     <smarty-card data-answer="2">1 + 1</smarty-card>
-    <smarty-card data-answer="4'>2 + 2</smarty-card>
+    <smarty-card data-answer="4">2 + 2</smarty-card>
     <smarty-card data-answer="6">3 + 3</smarty-card>
     <smarty-card data-answer="8">4 + 4</smarty-card>
 </smarty-flashcard>
