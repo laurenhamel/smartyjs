@@ -3254,7 +3254,7 @@ With your Smarty-ready clues, you should now be ready to setup your clues' locat
                  data-position="1,6">
         above your shoulders
     </smarty-clue>
-    <smarty-clue data-answer"shoulders" 
+    <smarty-clue data-answer="shoulders" 
                  data-postion="4,1">
         below your head
     </smarty-clue>
@@ -3387,7 +3387,7 @@ Set each clue's direction using the `data-direction` attribute on the `<smarty-c
                  data-direction="across">
         above your shoulders
     </smarty-clue>
-    <smarty-clue data-answer"shoulders" 
+    <smarty-clue data-answer="shoulders" 
                  data-postion="4,1"
                  data-direction="down">
         below your head
