@@ -3255,31 +3255,31 @@ With your Smarty-ready clues, you should now be ready to setup your clues' locat
         above your shoulders
     </smarty-clue>
     <smarty-clue data-answer="shoulders" 
-                 data-postion="4,1">
+                 data-position="4,1">
         below your head
     </smarty-clue>
     <smarty-clue data-answer="knees"
-                 data-postion="9,1">
+                 data-position="9,1">
         the halfway point of your legs
     </smarty-clue>
     <smarty-clue data-answer="toes"
-                 data-postion="6,3">
+                 data-position="6,3">
         on the end of your feet
     </smarty-clue>
     <smarty-clue data-answer="eyes"
-                 data-postion="2,4">
+                 data-position="2,4">
         helps you see
     </smarty-clue>
     <smarty-clue data-answer="ears"
-                 data-postion="6,5">
+                 data-position="6,5">
         helps you hear
     </smarty-clue>
     <smarty-clue data-answer="mouth"
-                 data-postion="3,3">
+                 data-position="3,3">
         helps you talk
     </smarty-clue>
     <smarty-clue data-answer="nose"
-                 data-postion="2,1">
+                 data-position="2,1">
         helps you smell
     </smarty-clue>
 </smarty-quiz>
@@ -3388,37 +3388,37 @@ Set each clue's direction using the `data-direction` attribute on the `<smarty-c
         above your shoulders
     </smarty-clue>
     <smarty-clue data-answer="shoulders" 
-                 data-postion="4,1"
+                 data-position="4,1"
                  data-direction="down">
         below your head
     </smarty-clue>
     <smarty-clue data-answer="knees"
-                 data-postion="9,1"
+                 data-position="9,1"
                  data-direction="down">
         the halfway point of your legs
     </smarty-clue>
     <smarty-clue data-answer="toes"
-                 data-postion="6,3"
+                 data-position="6,3"
                  data-direction="down">
         on the end of your feet
     </smarty-clue>
     <smarty-clue data-answer="eyes"
-                 data-postion="2,4"
+                 data-position="2,4"
                  data-direction="down">
         helps you see
     </smarty-clue>
     <smarty-clue data-answer="ears"
-                 data-postion="6,5"
+                 data-position="6,5"
                  data-direction="across">
         helps you hear
     </smarty-clue>
     <smarty-clue data-answer="mouth"
-                 data-postion="3,3"
+                 data-position="3,3"
                  data-direction="across">
         helps you talk
     </smarty-clue>
     <smarty-clue data-answer="nose"
-                 data-postion="2,1"
+                 data-position="2,1"
                  data-direction="across">
         helps you smell
     </smarty-clue>
