@@ -6610,12 +6610,12 @@ window.CustomElements.addModule(function(scope) {
         // create a collection of accessibility features
         $.smarty.accessibility = {
             tabbables:  // general
-                        'button, a, ' +
+                        ':smarty() button, :smarty() a, ' +
                         // quiz
-                        ' label.answer-radio, label.answer-checkbox, ' +
+                        ' :smarty() label.answer-radio, :smarty() label.answer-checkbox, ' +
                         // crossword
-                        'input[type="text"][data-no-tab="false"], ' +
-                        'span.clue-box, ' +
+                        ':smarty() input[type="text"][data-no-tab="false"], ' +
+                        ':smarty() span.clue-box, ' +
                         // flashcard
                         ':smarty(card).curr, :smarty(info)',
             untabbables: // flashcard
@@ -6623,11 +6623,11 @@ window.CustomElements.addModule(function(scope) {
                          ':smarty(card):attr(data-flip,front).curr :smarty(back) button, ' +
                          ':smarty(card):attr(data-flip,back).curr :smarty(front) button ',
             clickables: // general
-                        'button, a, ' +
+                        ':smarty() button, :smarty() a, ' +
                         // quiz
-                        'label.answer-radio, label.answer-checkbox, ' +
+                        ':smarty() label.answer-radio, :smarty() label.answer-checkbox, ' +
                         // crossword
-                        'span.clue-box, ' +
+                        ':smarty() span.clue-box, ' +
                         // flashcard
                         ':smarty(card) ',
             setup: function(){ 
