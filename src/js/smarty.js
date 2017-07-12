@@ -10082,7 +10082,7 @@ window.CustomElements.addModule(function(scope) {
             $document = $($quiz[0].ownerDocument),
             $stylesheets = $document.find('link[rel="stylesheet"]'),
             $styleblocks = $document.find('style'),
-            $scriptsheets = $document.find('script');
+            $scriptsheets = $document.find('script[src]');
 
         var $window = $.windowOpen({
             html: $feedback.clone(true).smartClass('hide show'),
@@ -10092,7 +10092,7 @@ window.CustomElements.addModule(function(scope) {
                 var hrefs = [];
                 
                 $stylesheets.each(function(){                       
-                    hrefs.push($(this).prop('href'));
+                    hrefs.push(this.href);
                 });
                 
                 return hrefs;
@@ -10114,7 +10114,7 @@ window.CustomElements.addModule(function(scope) {
                 var srcs = [];
                 
                 $scriptsheets.each(function(){
-                    srcs.push($(this).attr('src'));
+                    srcs.push(this.src);
                 });
                 
                 return srcs;
@@ -13078,7 +13078,7 @@ window.CustomElements.addModule(function(scope) {
         if(settings.styleblocks !== false){
             
             settings.styleblocks.forEach(function(style,index){
-                
+               
                 // load stylesheets
                 settings.elements.style = settings.elements.style.add(
                     $(style)
@@ -13093,7 +13093,7 @@ window.CustomElements.addModule(function(scope) {
             
             settings.scriptsheets.forEach(function(script,index){
                 
-                // load scriptshets
+                // load scriptsheets
                 settings.elements.script = settings.elements.script.add(
                     $('<script>',{
                         src: script.trim()
@@ -13130,12 +13130,14 @@ window.CustomElements.addModule(function(scope) {
                 w.document.body.innerHTML + settings.html.outerHTML();
         }
         if(settings.stylesheets !== false || settings.styleblocks !== false){
-            w.document.head.innerHTML = 
-                w.document.head.innerHTML + settings.elements.style.outerHTML();
+           settings.elements.style.each(function(){
+               w.document.head.innerHTML = w.document.head.innerHTML + this.outerHTML
+           });
         }
         if(settings.scriptsheets !== false || settings.scriptblocks !== false){
-            w.document.body.innerHTML = 
-                w.document.body.innerHTML + settings.elements.script.outerHTML();
+            settings.elements.script.each(function(){
+               w.document.body.innerHTML = w.document.body.innerHTML + this.outerHTML
+           });
         }
         if(settings.callback !== false){
             settings.callback( $(w.document) );
