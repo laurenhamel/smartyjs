@@ -10080,10 +10080,9 @@ window.CustomElements.addModule(function(scope) {
             $contents = $report.find('#' + $quiz.attr('id') + '-report'),
             $feedback = $contents.find('.feedback'),
             $document = $($quiz[0].ownerDocument),
-            $stylesheets = $document.find('head link[rel="stylesheet"]'),
-            $styleblocks = $document.find('head style'),
-            $scriptsheets = $document.find('head script[src*="jquery"],' +
-                                           'head script[src*="mathjax"]');
+            $stylesheets = $document.find('link[rel="stylesheet"]'),
+            $styleblocks = $document.find('style'),
+            $scriptsheets = $document.find('script');
 
         var $window = $.windowOpen({
             html: $feedback.clone(true).smartClass('hide show'),
