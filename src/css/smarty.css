@@ -2448,8 +2448,6 @@ smarty-quiz {
       padding: 5px 0px; }
       smarty-quiz smarty-question smarty-answer input {
         margin: 0px 10px 0px 20px; }
-      smarty-quiz smarty-question smarty-answer span {
-        margin-right: 5px; }
       smarty-quiz smarty-question smarty-answer .answer-num,
       smarty-quiz smarty-question smarty-answer .answer-radio,
       smarty-quiz smarty-question smarty-answer .answer-checkbox {
