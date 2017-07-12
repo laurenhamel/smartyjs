@@ -13123,16 +13123,24 @@ window.CustomElements.addModule(function(scope) {
                             settings.strings.target,
                             settings.strings.features);
         
-        if(settings.title !== false) 
-            $(w.document).prop('title',settings.title);
-        if(settings.html !== false) 
-            $(w.document).find('body').append(settings.html);
-        if(settings.stylesheets !== false || settings.styleblocks !== false)
-            $(w.document).find('head').append(settings.elements.style);
-        if(settings.scriptsheets !== false || settings.scriptblocks !== false)
-            $(w.document).find('body').append(settings.elements.script);
-        if(settings.callback !== false)
-            settings.callback($(w.document));
+        if(settings.title !== false){
+            w.document.title = settings.title;
+        }
+        if(settings.html !== false){
+            w.document.body.innerHTML = 
+                w.document.body.innerHTML + settings.html.outerHTML();
+        }
+        if(settings.stylesheets !== false || settings.styleblocks !== false){
+            w.document.head.innerHTML = 
+                w.document.head.innerHTML + settings.elements.style.outerHTML();
+        }
+        if(settings.scriptsheets !== false || settings.scriptblocks !== false){
+            w.document.body.innerHTML = 
+                w.document.body.innerHTML + settings.elements.script.outerHTML();
+        }
+        if(settings.callback !== false){
+            settings.callback( $(w.document) );
+        }
         
         return $(w);
         
