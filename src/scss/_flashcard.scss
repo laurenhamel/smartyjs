@@ -18,6 +18,8 @@
         height: 55px;
         overflow: none;
         z-index: 4;
+        position: relative;
+        box-sizing: border-box;
         > span{
             display: block;
             position: absolute;
@@ -79,6 +81,10 @@
         #{selector(prefix)}flipper{
             background-color: mix(color-scheme(4),$light,60%);
             color: color-contrast(mix(color-scheme(4),$light,60%));
+            box-sizing: border-box;
+            * {
+                position: relative;
+            }
         }
         #{selector(prefix)}tracker:hover,
         #{selector(prefix)}tracker:focus,
@@ -260,6 +266,7 @@
     }
     #{selector(prefix)}progress{
         display: block;
+        position: relative;
         width: 100%;
         height: 10px;
         margin: 5px 0px;

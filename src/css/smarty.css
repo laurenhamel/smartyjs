@@ -3521,7 +3521,8 @@ smarty-crossword {
   smarty-crossword smarty-clue {
     display: block;
     margin: 5px 0px;
-    line-height: 1.5em; }
+    line-height: 1.5em;
+    position: relative; }
     smarty-crossword smarty-clue .clue-num {
       font-weight: bold;
       display: inline-block;
@@ -3530,7 +3531,8 @@ smarty-crossword {
       vertical-align: top;
       margin-right: 10px;
       background-color: #333333;
-      color: #FFFFFF; }
+      color: #FFFFFF;
+      position: relative; }
       smarty-crossword smarty-clue .clue-num > span {
         display: block;
         position: absolute;
@@ -3547,7 +3549,8 @@ smarty-crossword {
       height: 1.5em;
       vertical-align: top;
       margin: 0px 5px;
-      border: 1px solid #333333; }
+      border: 1px solid #333333;
+      position: relative; }
       smarty-crossword smarty-clue .clue-box > span {
         position: absolute;
         top: 50%;
@@ -3585,7 +3588,8 @@ smarty-crossword {
     text-align: center;
     min-width: 50px;
     font-size: 0.75em;
-    color: #a6a6a6; }
+    color: #a6a6a6;
+    position: relative; }
     smarty-crossword smarty-blank .underline {
       display: block;
       position: absolute;
@@ -3620,7 +3624,8 @@ smarty-crossword {
       vertical-align: top;
       margin-right: 10px;
       background-color: #333333;
-      color: #FFFFFF; }
+      color: #FFFFFF;
+      position: relative; }
       smarty-crossword smarty-popclue .pop-num > span {
         display: block;
         position: absolute;
@@ -3683,13 +3688,15 @@ smarty-crossword {
     transition: bottom 0.25s ease-in-out; }
   smarty-crossword table.grid {
     width: 100%;
-    margin: 10px auto; }
+    margin: 10px auto;
+    position: relative; }
     smarty-crossword table.grid td {
       background-color: #e6e6e6;
       max-width: 40px;
       min-width: 20px;
       max-height: 40px;
-      min-height: 20px; }
+      min-height: 20px;
+      position: relative; }
       smarty-crossword table.grid td input[type="text"] {
         display: block;
         position: absolute;
@@ -3699,7 +3706,8 @@ smarty-crossword {
         top: 0;
         text-align: center;
         border: 1px solid #b3b3b3;
-        text-transform: uppercase; }
+        text-transform: uppercase;
+        box-sizing: border-box; }
       smarty-crossword table.grid td input[type="text"].highlight {
         background-color: #fffaee;
         border: 1px solid #333333; }
@@ -3791,7 +3799,9 @@ smarty-flashcard {
     width: 100%;
     height: 55px;
     overflow: none;
-    z-index: 4; }
+    z-index: 4;
+    position: relative;
+    box-sizing: border-box; }
     smarty-flashcard .title > span {
       display: block;
       position: absolute;
@@ -3844,7 +3854,11 @@ smarty-flashcard {
     smarty-flashcard smarty-sidebar smarty-tracker,
     smarty-flashcard smarty-sidebar smarty-flipper {
       background-color: #80c5d1;
-      color: #333333; }
+      color: #333333;
+      box-sizing: border-box; }
+      smarty-flashcard smarty-sidebar smarty-tracker *,
+      smarty-flashcard smarty-sidebar smarty-flipper * {
+        position: relative; }
     smarty-flashcard smarty-sidebar smarty-tracker:hover,
     smarty-flashcard smarty-sidebar smarty-tracker:focus,
     smarty-flashcard smarty-sidebar smarty-flipper:hover,
@@ -3993,6 +4007,7 @@ smarty-flashcard {
     overflow: hidden; }
   smarty-flashcard smarty-progress {
     display: block;
+    position: relative;
     width: 100%;
     height: 10px;
     margin: 5px 0px;
