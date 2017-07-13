@@ -2185,15 +2185,6 @@
   overflow: visible;
   clip: auto; }
 
-body, html {
-  margin: 0;
-  padding: 0; }
-
-body {
-  margin: 0 auto;
-  font-size: 16px;
-  font-family: sans-serif; }
-
 /* SELECTORS:
  * The following selectors should match the
  * selectors used in SmartyJS configuration.
@@ -2275,56 +2266,54 @@ body {
  * values should be suffixed with "px" whereas
  * their smarty.js equivalents should not.
  */
-body {
-  color: #333333;
-  font-size: 16px;
-  font-family: sans-serif; }
-
-* {
+.smarty {
   position: relative;
   box-sizing: border-box;
   -webkit-appearance: none; }
-
-.smarty button,
-.smarty input,
-.smarty select {
-  -webkit-appearance: none; }
-.smarty button {
-  font-size: 0.7em;
-  text-transform: uppercase;
-  box-sizing: border-box; }
-  .smarty button > span.fa {
-    display: inline-block;
-    vertical-align: baseline;
-    margin-right: 5px; }
-.smarty h1, .smarty .h1,
-.smarty h2, .smarty .h2,
-.smarty h3, .smarty .h3,
-.smarty h4, .smarty .h4,
-.smarty h5, .smarty .h5,
-.smarty h6, .smarty .h6 {
-  display: block;
-  font-weight: bold; }
-.smarty h1, .smarty .h1 {
-  font-size: 2em;
-  margin: 0.67em 0; }
-.smarty h2, .smarty .h2 {
-  font-size: 1.5em;
-  margin: 0.83em 0; }
-.smarty h3, .smarty .h3 {
-  font-size: 1.17em;
-  margin: 1em 0; }
-.smarty h4, .smarty .h4 {
-  font-size: 1em;
-  margin: 1.33em 0; }
-.smarty h5, .smarty .h5 {
-  font-size: 0.83em;
-  margin: 1.67em 0; }
-.smarty h6, .smarty .h5 {
-  font-size: 0.67em;
-  margin: 2.33em 0; }
-.smarty iframe {
-  border: none; }
+  .smarty * {
+    position: relative;
+    box-sizing: border-box;
+    -webkit-appearance: none; }
+  .smarty button,
+  .smarty input,
+  .smarty select {
+    -webkit-appearance: none; }
+  .smarty button {
+    font-size: 0.7em;
+    text-transform: uppercase;
+    box-sizing: border-box; }
+    .smarty button > span.fa {
+      display: inline-block;
+      vertical-align: baseline;
+      margin-right: 5px; }
+  .smarty h1, .smarty .h1,
+  .smarty h2, .smarty .h2,
+  .smarty h3, .smarty .h3,
+  .smarty h4, .smarty .h4,
+  .smarty h5, .smarty .h5,
+  .smarty h6, .smarty .h6 {
+    display: block;
+    font-weight: bold; }
+  .smarty h1, .smarty .h1 {
+    font-size: 2em;
+    margin: 0.67em 0; }
+  .smarty h2, .smarty .h2 {
+    font-size: 1.5em;
+    margin: 0.83em 0; }
+  .smarty h3, .smarty .h3 {
+    font-size: 1.17em;
+    margin: 1em 0; }
+  .smarty h4, .smarty .h4 {
+    font-size: 1em;
+    margin: 1.33em 0; }
+  .smarty h5, .smarty .h5 {
+    font-size: 0.83em;
+    margin: 1.67em 0; }
+  .smarty h6, .smarty .h5 {
+    font-size: 0.67em;
+    margin: 2.33em 0; }
+  .smarty iframe {
+    border: none; }
 
 smarty-quiz {
   padding: 10px;
@@ -4402,14 +4391,12 @@ smarty-flashcard {
   smarty-flashcard smarty-pane.show .btn-tts,
   smarty-flashcard smarty-pane.show button[class^="btn-tts-"] {
     display: none !important; } }
-*, .tabfocus {
+.smarty *, .smarty .tabfocus {
   outline: 0; }
-
-*.tabfocus,
-*.tabfocus:focus {
+.smarty *.tabfocus,
+.smarty *.tabfocus:focus {
   box-shadow: 0 0 0 2px #FE5F55; }
-
-div.feedback *:focus {
+.smarty div.feedback *:focus {
   box-shadow: inset 0 0 0 2px #FE5F55; }
 
 /*# sourceMappingURL=smarty.css.map */
