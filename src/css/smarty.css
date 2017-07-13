@@ -2390,7 +2390,8 @@ smarty-quiz {
       text-align: center;
       min-width: 50px;
       font-size: 0.75em;
-      color: #a6a6a6; }
+      color: #a6a6a6;
+      position: relative; }
       smarty-quiz smarty-question smarty-blank .underline {
         display: block;
         position: absolute;
@@ -2405,7 +2406,8 @@ smarty-quiz {
       box-sizing: border-box;
       width: 1.5em;
       height: 1.5em;
-      line-height: 1.75em; }
+      line-height: 1.75em;
+      position: relative; }
       smarty-quiz smarty-question .question-num > span {
         position: absolute;
         top: 50%;
@@ -2444,7 +2446,8 @@ smarty-quiz {
         margin: 0px 5px;
         width: 1.5em;
         height: 1.5em;
-        line-height: 1.75em; }
+        line-height: 1.75em;
+        position: relative; }
         smarty-quiz smarty-question smarty-answer .answer-num > span {
           position: absolute;
           top: 50%;
@@ -2492,7 +2495,8 @@ smarty-quiz {
         margin-left: 40px;
         margin-right: 5px;
         padding: 0;
-        border: 1px solid #333333; }
+        border: 1px solid #333333;
+        position: relative; }
       smarty-quiz smarty-question smarty-answer .answer-radio {
         border-radius: 50%; }
       smarty-quiz smarty-question smarty-answer .answer-radio::after,
@@ -2521,7 +2525,8 @@ smarty-quiz {
         height: 35px;
         cursor: pointer;
         border: 0;
-        transition: 0.25s ease-in-out; }
+        transition: 0.25s ease-in-out;
+        position: relative; }
         smarty-quiz smarty-question smarty-answer .btn-true span,
         smarty-quiz smarty-question smarty-answer .btn-false span {
           display: block;
@@ -2582,7 +2587,8 @@ smarty-quiz {
     margin: 15px 5px 5px;
     background-color: #deeaf5;
     color: #737373;
-    font-size: 0.8em; }
+    font-size: 0.8em;
+    position: relative; }
     smarty-quiz smarty-attempts .text {
       text-transform: uppercase;
       font-size: 0.8em;
@@ -2603,7 +2609,8 @@ smarty-quiz {
       font-size: 1.3em;
       border-radius: 50%;
       background-color: transparent;
-      margin-left: 5px; }
+      margin-left: 5px;
+      position: relative; }
       smarty-quiz smarty-attempts button.info > span.fa {
         display: block;
         position: absolute;
@@ -2693,7 +2700,8 @@ smarty-quiz {
       font-size: 1.3em;
       border-radius: 50%;
       background-color: transparent;
-      margin-left: 5px; }
+      margin-left: 5px;
+      position: relative; }
       smarty-quiz smarty-tracker button.info > span.fa {
         display: block;
         position: absolute;
@@ -2744,12 +2752,15 @@ smarty-quiz {
       transform: translate3d(-50%, -50%, 0);
       text-align: center;
       width: 100%; }
-  smarty-quiz smarty-attempts > span,
-  smarty-quiz smarty-score > span {
-    position: absolute;
-    left: 10px;
-    top: 50%;
-    transform: translatey(-50%); }
+  smarty-quiz smarty-attempts,
+  smarty-quiz smarty-score {
+    position: relative; }
+    smarty-quiz smarty-attempts > span,
+    smarty-quiz smarty-score > span {
+      position: absolute;
+      left: 10px;
+      top: 50%;
+      transform: translatey(-50%); }
   smarty-quiz button {
     display: block;
     width: 135px;
@@ -3005,7 +3016,8 @@ smarty-quiz[data-mode="sliding"] {
   smarty-quiz:not([data-mode="streamline"]) button.btn-next,
   smarty-quiz[data-mode="sliding"] button.btn-prev,
   smarty-quiz[data-mode="sliding"] button.btn-next {
-    width: 35px; }
+    width: 35px;
+    position: relative; }
     smarty-quiz:not([data-mode="streamline"]) button.btn-prev span,
     smarty-quiz:not([data-mode="streamline"]) button.btn-next span,
     smarty-quiz[data-mode="sliding"] button.btn-prev span,
@@ -3195,7 +3207,8 @@ div.feedback {
       background-color: #cccccc;
       color: #333333;
       width: 135px;
-      height: 35px; }
+      height: 35px;
+      position: relative; }
       div.feedback div.question .answer-btn > span {
         display: block;
         position: absolute;
@@ -3289,7 +3302,8 @@ div.feedback {
     text-align: center;
     min-width: 50px;
     font-size: 0.75em;
-    color: #a6a6a6; }
+    color: #a6a6a6;
+    position: relative; }
     div.feedback span.blank .underline {
       display: block;
       position: absolute;

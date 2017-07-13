@@ -91,6 +91,7 @@
             min-width: 50px;
             font-size: 0.75em;
             color: lighten($dark,45%);
+            position: relative;
             .underline{
                 display: block;
                 position: absolute;
@@ -108,6 +109,7 @@
             width: 1.5em;
             height: 1.5em;
             line-height: 1.75em;
+            position: relative;
             > span{
                 position: absolute;
                 top: 50%;
@@ -154,6 +156,7 @@
                 width: 1.5em;
                 height: 1.5em;
                 line-height: 1.75em;
+                position: relative;
                 > span{
                     position: absolute;
                     top: 50%;
@@ -211,6 +214,7 @@
                 margin-right: 5px;
                 padding: 0;
                 border: 1px solid $dark;
+                position: relative;
             }
             .answer-radio{
                 border-radius: 50%;
@@ -246,6 +250,7 @@
                 cursor: pointer;
                 border: 0;
                 transition: $transitionSpeed ease-in-out;
+                position: relative;
                 span{
                     display: block;
                     position: absolute;
@@ -320,6 +325,7 @@
         background-color: mix(color-scheme(1),$light);;
         color: lighten(color-contrast(mix(color-scheme(1),$light)),25%);
         font-size: 0.8em;
+        position: relative;
         .text{
             text-transform: uppercase;
             font-size: 0.8em;
@@ -343,6 +349,7 @@
             border-radius: 50%;
             background-color: transparent;
             margin-left: 5px;
+            position: relative;
             > span.fa{
                 display: block;
                 position: absolute;
@@ -451,6 +458,7 @@
             border-radius: 50%;
             background-color: transparent;
             margin-left: 5px;
+            position: relative;
             > span.fa{
                 display: block;
                 position: absolute;
@@ -517,6 +525,7 @@
     }
     #{selector(prefix)}attempts,
     #{selector(prefix)}score{
+        position: relative;
         > span{
             position: absolute;
             left: 10px;
@@ -818,6 +827,7 @@
     button.btn-prev,
     button.btn-next{
         width: 35px;
+        position: relative;
         span{
             display: block;
             position: absolute;
@@ -1035,6 +1045,7 @@ div.feedback{
             color: color-contrast(lighten($dark,60%));
             width: 135px;
             height: 35px;
+            position: relative;
             > span{
                 display: block;
                 position: absolute;
@@ -1157,6 +1168,7 @@ div.feedback{
         min-width: 50px;
         font-size: 0.75em;
         color: lighten($dark,45%);
+        position: relative;
         .underline{
             display: block;
             position: absolute;
